@@ -72,7 +72,7 @@ public class BusListAdapter implements ListAdapter {
         TextView busDestination = (TextView) rowView.findViewById(R.id.busDestination);
         TextView busArrival = (TextView) rowView.findViewById(R.id.busArrival);
 
-        busNumber.setText(String.valueOf(item.number));
+        busNumber.setText("№" + String.valueOf(item.number));
         busDestination.setText(item.destination);
         busArrival.setText(String.valueOf(item.arrival) + "წთ");
 
