@@ -9,20 +9,24 @@ package com.tbilisi.bus;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.text.Editable;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Button;
 
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Size;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /* Import ZBar Class files */
 import net.sourceforge.zbar.ImageScanner;
@@ -34,12 +38,14 @@ import net.sourceforge.zbar.Config;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CameraActivity extends Activity
-{
+public class CameraActivity extends Activity {
     private Camera mCamera;
     private CameraPreview mPreview;
     private int focuseI = 0;
     private Handler autoFocusHandler;
+    private EditText manualInput;
+    private Resources res;
+    private LinearLayout bottomBar;
 
     ImageScanner scanner;
 
@@ -50,15 +56,14 @@ public class CameraActivity extends Activity
         System.loadLibrary("iconv");
     }
 
-    private TextView tvInfo;
-    private Button bRead;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_camera);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        res = getResources();
 
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
@@ -71,23 +76,28 @@ public class CameraActivity extends Activity
         FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
-        tvInfo = (TextView)findViewById(R.id.tvInfo);
+        bottomBar = (LinearLayout) findViewById(R.id.bottomBar);
 
-        bRead = (Button)findViewById(R.id.bRead);
+        manualInput = (EditText) findViewById(R.id.manualInput);
 
-        bRead.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-//                if (barcodeScanned) {
-//                    continueScanning();
-//                }
-                focuseI = 10;
-                doAutoFocus.run();
+        //manualInput.setImeActionLabel(res.getString(android.R.string.search_go), 100);
+        manualInput.setImeOptions(EditorInfo.IME_ACTION_GO);
+
+        manualInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                Editable editable = manualInput.getText();
+                if (editable == null || editable.length() < 1) {
+                    return false;
+                }
+                String manualId = editable.toString();
+                showSchedule(manualId);
+                return true;
             }
         });
     }
     private void continueScanning(){
         barcodeScanned = false;
-        tvInfo.setText("Scanning...");
         mCamera.setPreviewCallback(previewCb);
         mCamera.startPreview();
         previewing = true;
@@ -98,11 +108,14 @@ public class CameraActivity extends Activity
     public void onPause() {
         super.onPause();
         mCamera.stopPreview();
+        mCamera.release();
     }
-//    public void onRestart() {
-//        super.onRestart();
-//        mCamera.startPreview();
-//    }
+
+    public void onResume() {
+        super.onResume();
+        mCamera = getCameraInstance();
+        mCamera.startPreview();
+    }
 
     public void onDestroy() {
         super.onDestroy();
@@ -116,11 +129,11 @@ public class CameraActivity extends Activity
         try {
             c = Camera.open();
         } catch (Exception e){
-            //TODO show exeption or log
+            e.printStackTrace();
         }
 
         if (c == null ){
-            //TODO alert user if camera not available
+            Toast.makeText(CameraActivity.this, "კამერა მიუწვდომელია!", Toast.LENGTH_LONG).show();
             finish();
         }
         return c;
@@ -157,15 +170,12 @@ public class CameraActivity extends Activity
                 mCamera.setPreviewCallback(null);
                 mCamera.stopPreview();
 
-
                 SymbolSet syms = scanner.getResults();
                 Pattern p = Pattern.compile("SMSTO:([0-9]+):([0-9]+)");
                 for (Symbol sym : syms) {
                     String qrData = sym.getData();
                     Matcher m = p.matcher(qrData);
                     if (m.find()) {
-//                        Toast.makeText(CameraActivity.this,m.group(1)+" "+m.group(2),Toast.LENGTH_LONG).show();
-//                        scanText.setText("barcode result " + sym.getData());
                         showSchedule(m.group(2));
                         barcodeScanned = true;
                     }
@@ -178,6 +188,7 @@ public class CameraActivity extends Activity
     };
 
     private void showSchedule(String stopId) {
+        A.log("Showing schedule for " + stopId);
         Intent i = new Intent(this,ScheduleActivity.class);
         i.putExtra(ScheduleActivity.STOP_ID_KEY,stopId);
         startActivity(i);

@@ -7,25 +7,39 @@
     <FrameLayout
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:id="@+id/bottomBar">
 
-        <TextView
-            android:id="@+id/tvInfo"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            android:id="@+id/manualInput"
+            android:background="#646466"
+            android:textColor="#ffffff"
+            android:alpha="0.5"
+            android:editable="true"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:numeric="integer"
+            android:focusableInTouchMode="true"
+            android:hint="@string/input_hint"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1" />
 
-        <Button
-            android:id="@+id/bRead"
-            android:text="Read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="center" />
     </LinearLayout>
+
 </RelativeLayout>
