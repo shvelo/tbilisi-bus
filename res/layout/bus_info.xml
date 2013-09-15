@@ -9,19 +9,19 @@
     <TextView android:id="@+id/busNumber"
         style="@style/BusListText"
         android:layout_weight="1"
-        android:textAlignment="viewStart"
+        android:gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
     <TextView android:id="@+id/busDestination"
         style="@style/BusListText"
         android:layout_weight="8"
-        android:textAlignment="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:gravity="center"></TextView>
     <TextView android:id="@+id/busArrival"
         style="@style/BusListText"
         android:layout_weight="1"
-        android:textAlignment="viewEnd"
+        android:gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
 

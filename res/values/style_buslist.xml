@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BusListItem"></style>
+    <style name="BusListItem">
+        <item name="android:background">#2d2d2d</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
     <style name="BusListText">
         <item name="android:padding">10dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

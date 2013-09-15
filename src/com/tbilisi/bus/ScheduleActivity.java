@@ -2,8 +2,10 @@ package com.tbilisi.bus;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.webkit.WebView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +17,10 @@ import java.util.ArrayList;
 
 public class ScheduleActivity extends Activity{
     public ArrayList<BusInfo> busList;
-    public ListView listView;
+    private ListView listView;
+    private String stopId;
+    private BusListAdapter adapter;
+    private ProgressBar progressBar;
     public static final String STOP_ID_KEY = "stopId";
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
@@ -28,17 +33,34 @@ public class ScheduleActivity extends Activity{
             A.log("getIntent().getExtras() == null");
             return;
         }
-        String stopId = getIntent().getExtras().getString(STOP_ID_KEY);
+        stopId = getIntent().getExtras().getString(STOP_ID_KEY);
         if (stopId == null){
             A.log("stopId == null");
             return;
         }
         listView = (ListView) findViewById(R.id.busSchedule);
-        String url = API + stopId;
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        loadList();
+
+        adapter = new BusListAdapter(getApplicationContext(), busList);
+
+        listView.setAdapter(adapter);
+
+        Button reloadButton = (Button) findViewById(R.id.reload);
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
+            }
+        });
+    }
+
+    public void loadList() {
         busList = new ArrayList<BusInfo>();
-
+        String url = API + stopId;
         Document doc = null;
+        progressBar.setVisibility(View.VISIBLE);
         try {
             doc = Jsoup.connect(url).get();
             Elements elements = doc.select(".arrivalTimesScrol tr");
@@ -66,8 +88,11 @@ public class ScheduleActivity extends Activity{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        listView.setAdapter(new BusListAdapter(getApplicationContext(), busList));
+        progressBar.setVisibility(View.GONE);
     }
 
+    public void reload() {
+        loadList();
+        adapter.update(busList);
+    }
 }

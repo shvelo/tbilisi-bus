@@ -1,17 +1,15 @@
 package com.tbilisi.bus;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class BusListAdapter implements ListAdapter {
+public class BusListAdapter extends BaseAdapter {
     public ArrayList<BusInfo> busList;
     private Context context;
 
@@ -20,24 +18,9 @@ public class BusListAdapter implements ListAdapter {
         this.busList = busList;
     }
 
-    @Override
-    public boolean areAllItemsEnabled() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled(int i) {
-        return false;
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
+    public void update(ArrayList<BusInfo> newList) {
+        busList = newList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -52,41 +35,30 @@ public class BusListAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return (long) i;
     }
 
     @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        A.log("Rendering position "+ i);
+        View view = convertView;
         BusInfo item = busList.get(i);
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        LinearLayout rowView = (LinearLayout) inflater.inflate(R.layout.bus_info, viewGroup, false);
+        if(view == null) {
+            A.log("View is null, inflating");
+            view = inflater.inflate(R.layout.bus_info, viewGroup, false);
+        }
 
-        TextView busNumber = (TextView) rowView.findViewById(R.id.busNumber);
-        TextView busDestination = (TextView) rowView.findViewById(R.id.busDestination);
-        TextView busArrival = (TextView) rowView.findViewById(R.id.busArrival);
+        TextView busNumber = (TextView) view.findViewById(R.id.busNumber);
+        TextView busDestination = (TextView) view.findViewById(R.id.busDestination);
+        TextView busArrival = (TextView) view.findViewById(R.id.busArrival);
 
         busNumber.setText("№" + String.valueOf(item.number));
         busDestination.setText(item.destination);
         busArrival.setText(String.valueOf(item.arrival) + "წთ");
 
-        return rowView;
-    }
-
-    @Override
-    public int getItemViewType(int i) {
-        return 0;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 1;
+        return view;
     }
 
     @Override

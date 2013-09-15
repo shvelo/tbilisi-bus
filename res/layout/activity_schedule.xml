@@ -4,8 +4,40 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-<ListView
-    android:layout_width="match_parent"
-    android:id="@+id/busSchedule"
-    android:layout_height="match_parent"/>
+    <LinearLayout android:id="@+id/busListHeader"
+        style="@style/BusListItem"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#111111">
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/buses"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:paddingLeft="5pt"
+                android:gravity="center_vertical" />
+
+        <ProgressBar
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:id="@+id/progressBar"
+            android:indeterminateOnly="true"
+            android:keepScreenOn="false"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:visibility="visible"
+            android:indeterminate="true" />
+
+        <Button
+            android:layout_width="45dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/reload"
+            android:background="@android:drawable/stat_notify_sync"
+            android:enabled="true"
+            android:clickable="true" />
+    </LinearLayout>
+    <ListView android:id="@+id/busSchedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
