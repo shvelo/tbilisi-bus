@@ -2,18 +2,20 @@ package com.tbilisi.bus;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.webkit.WebView;
+import android.widget.ListView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.jsoup.nodes.Element;
 
-/**
- * Created by nick on 9/14/13.
- */
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class ScheduleActivity extends Activity{
+    public ArrayList<BusInfo> busList;
+    public ListView listView;
     public static final String STOP_ID_KEY = "stopId";
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
@@ -31,31 +33,41 @@ public class ScheduleActivity extends Activity{
             A.log("stopId == null");
             return;
         }
-        final WebView wvSchedule = (WebView) findViewById(R.id.wvSchedule);
-        wvSchedule.getSettings();
-        wvSchedule.setBackgroundColor(0x222222);
+        listView = (ListView) findViewById(R.id.busSchedule);
         String url = API + stopId;
-        A.getRequestQueue().add(new StringRequest(url,new Response.Listener<String>() {
-            @Override
-            public void onResponse(String html) {
-                String prepend = "<link rel=stylesheet href=style.css>\n" +
-                        "<meta name=viewport content=\"width=device-width, initial-scale=1.0\">";
-                html = prepend + html;
-                String mime = "text/html";
-                String encoding = "utf-8";
-                wvSchedule.getSettings().setJavaScriptEnabled(true);
-                wvSchedule.setBackgroundColor(0x222222);
-                wvSchedule.loadDataWithBaseURL("file:///android_asset/", html, mime, encoding, null);
-                A.log(html);
-                //add to web views
-            }
-        },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                A.log("onErrorResponse");
-            }
-        }));
 
+        busList = new ArrayList<BusInfo>();
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+            Elements elements = doc.select(".arrivalTimesScrol tr");
+            for (Element element : elements) {
+                int i = 0;
+
+                int busNumber = 0;
+                String busDestination = "";
+                int busArrival = 0;
+
+                for(Element td : element.children()) {
+                    String text = td.text();
+                    if(i == 0) {
+                        busNumber = Integer.valueOf(text);
+                    } else if(i == 1) {
+                        busDestination = text;
+                    } else {
+                        busArrival = Integer.valueOf(text);
+                    }
+                    i++;
+                }
+
+                busList.add(new BusInfo(busNumber,busDestination,busArrival));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        listView.setAdapter(new BusListAdapter(getApplicationContext(), busList));
     }
 
 }
