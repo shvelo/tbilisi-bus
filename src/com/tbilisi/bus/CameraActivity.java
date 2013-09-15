@@ -1,20 +1,16 @@
-/*
- * Basic no frills app which integrates the ZBar barcode scanner with
- * the camera.
- * 
- * Created by lisah0 on 2012-02-24
- */
 package com.tbilisi.bus;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -67,7 +63,7 @@ public class CameraActivity extends Activity {
 
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
-        /* Instance barcode scanner */
+
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
@@ -77,11 +73,8 @@ public class CameraActivity extends Activity {
         preview.addView(mPreview);
 
         bottomBar = (LinearLayout) findViewById(R.id.bottomBar);
-
         manualInput = (EditText) findViewById(R.id.manualInput);
-
-        //manualInput.setImeActionLabel(res.getString(android.R.string.search_go), 100);
-        manualInput.setImeOptions(EditorInfo.IME_ACTION_GO);
+        manualInput.setTextColor(Color.WHITE);
 
         manualInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -95,8 +88,18 @@ public class CameraActivity extends Activity {
                 return true;
             }
         });
+
+        manualInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b) {
+                    view.bringToFront();
+                }
+            }
+        });
     }
     private void continueScanning(){
+        if(mCamera == null) mCamera = getCameraInstance();
         barcodeScanned = false;
         mCamera.setPreviewCallback(previewCb);
         mCamera.startPreview();
@@ -104,17 +107,18 @@ public class CameraActivity extends Activity {
         mCamera.autoFocus(autoFocusCB);
     }
 
-    //todo
     public void onPause() {
         super.onPause();
-        mCamera.stopPreview();
-        mCamera.release();
+        releaseCamera();
     }
 
     public void onResume() {
         super.onResume();
-        mCamera = getCameraInstance();
-        mCamera.startPreview();
+        if(mCamera != null) {
+            mCamera.startPreview();
+        } else {
+            mCamera = getCameraInstance();
+        }
     }
 
     public void onDestroy() {
@@ -122,7 +126,6 @@ public class CameraActivity extends Activity {
         releaseCamera();
     }
 
-    /** A safe way to get an instance of the Camera object. */
     public Camera getCameraInstance(){
         Camera c = null;
 

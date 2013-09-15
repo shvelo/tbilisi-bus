@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,39 +7,40 @@
     <FrameLayout
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        android:layout_height="0dip"
+        android:layout_weight="1" />
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.5"
         android:id="@+id/bottomBar">
 
+        <LinearLayout android:focusable="true" android:focusableInTouchMode="true"
+            android:layout_width="0px" android:layout_height="0px"/>
+
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:id="@+id/manualInput"
-            android:background="#646466"
+            android:background="@null"
             android:textColor="#ffffff"
             android:alpha="0.5"
-            android:editable="true"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:padding="10dp"
             android:numeric="integer"
-            android:focusableInTouchMode="true"
             android:hint="@string/input_hint"
             android:gravity="center"
-            android:lines="1"
-            android:maxLines="1" />
+            android:singleLine="true"
+            android:textSize="25sp"
+            android:nextFocusUp="@id/manualInput"
+            android:nextFocusLeft="@id/manualInput"
+            android:textColorHint="#ffffff"
+            android:textColorHighlight="#ffffff"
+            android:textColorLink="#ffffff"
+            android:imeOptions="actionGo" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
