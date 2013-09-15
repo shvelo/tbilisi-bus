@@ -38,10 +38,8 @@ public class CameraActivity extends Activity
 {
     private Camera mCamera;
     private CameraPreview mPreview;
+    private int focuseI = 0;
     private Handler autoFocusHandler;
-
-    TextView scanText;
-    Button scanButton;
 
     ImageScanner scanner;
 
@@ -51,6 +49,9 @@ public class CameraActivity extends Activity
     static {
         System.loadLibrary("iconv");
     }
+
+    private TextView tvInfo;
+    private Button bRead;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,21 +71,23 @@ public class CameraActivity extends Activity
         FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
-        scanText = (TextView)findViewById(R.id.scanText);
+        tvInfo = (TextView)findViewById(R.id.tvInfo);
 
-        scanButton = (Button)findViewById(R.id.ScanButton);
+        bRead = (Button)findViewById(R.id.bRead);
 
-        scanButton.setOnClickListener(new OnClickListener() {
+        bRead.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (barcodeScanned) {
-                    continueScanning();
-                }
+//                if (barcodeScanned) {
+//                    continueScanning();
+//                }
+                focuseI = 10;
+                doAutoFocus.run();
             }
         });
     }
     private void continueScanning(){
         barcodeScanned = false;
-        scanText.setText("Scanning...");
+        tvInfo.setText("Scanning...");
         mCamera.setPreviewCallback(previewCb);
         mCamera.startPreview();
         previewing = true;
@@ -92,10 +95,10 @@ public class CameraActivity extends Activity
     }
 
     //todo
-//    public void onPause() {
-//        super.onPause();
-//        mCamera.stopPreview();
-//    }
+    public void onPause() {
+        super.onPause();
+        mCamera.stopPreview();
+    }
 //    public void onRestart() {
 //        super.onRestart();
 //        mCamera.startPreview();
@@ -183,6 +186,8 @@ public class CameraActivity extends Activity
     // Mimic continuous auto-focusing
     AutoFocusCallback autoFocusCB = new AutoFocusCallback() {
         public void onAutoFocus(boolean success, Camera camera) {
+            focuseI--;
+            if (focuseI <= 0) return;
             autoFocusHandler.postDelayed(doAutoFocus, 1000);
         }
     };
