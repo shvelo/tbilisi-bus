@@ -32,14 +32,20 @@ public class ScheduleActivity extends Activity{
             return;
         }
         final WebView wvSchedule = (WebView) findViewById(R.id.wvSchedule);
+        wvSchedule.getSettings();
+        wvSchedule.setBackgroundColor(0x222222);
         String url = API + stopId;
         A.getRequestQueue().add(new StringRequest(url,new Response.Listener<String>() {
             @Override
             public void onResponse(String html) {
+                String prepend = "<link rel=stylesheet href=style.css>\n" +
+                        "<meta name=viewport content=\"width=device-width, initial-scale=1.0\">";
+                html = prepend + html;
                 String mime = "text/html";
                 String encoding = "utf-8";
                 wvSchedule.getSettings().setJavaScriptEnabled(true);
-                wvSchedule.loadDataWithBaseURL(null, html, mime, encoding, null);
+                wvSchedule.setBackgroundColor(0x222222);
+                wvSchedule.loadDataWithBaseURL("file:///android_asset/", html, mime, encoding, null);
                 A.log(html);
                 //add to web views
             }
