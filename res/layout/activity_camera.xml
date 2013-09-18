@@ -10,37 +10,4 @@
         android:layout_height="0dip"
         android:layout_weight="1" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:alpha="0.5"
-        android:id="@+id/bottomBar">
-
-        <LinearLayout android:focusable="true" android:focusableInTouchMode="true"
-            android:layout_width="0px" android:layout_height="0px"/>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:id="@+id/manualInput"
-            android:background="@null"
-            android:textColor="#ffffff"
-            android:alpha="0.5"
-            android:padding="10dp"
-            android:numeric="integer"
-            android:hint="@string/input_hint"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textSize="25sp"
-            android:nextFocusUp="@id/manualInput"
-            android:nextFocusLeft="@id/manualInput"
-            android:textColorHint="#ffffff"
-            android:textColorHighlight="#ffffff"
-            android:textColorLink="#ffffff"
-            android:imeOptions="actionGo" />
-
-    </LinearLayout>
-
 </LinearLayout>

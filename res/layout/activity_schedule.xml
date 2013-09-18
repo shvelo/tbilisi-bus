@@ -33,7 +33,7 @@
             android:layout_width="45dp"
             android:layout_height="fill_parent"
             android:id="@+id/reload"
-            android:background="@android:drawable/stat_notify_sync"
+            android:background="@drawable/refresh"
             android:enabled="true"
             android:clickable="true" />
     </LinearLayout>

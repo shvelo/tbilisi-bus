@@ -3,16 +3,9 @@ package com.tbilisi.bus;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
-import android.text.Editable;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import android.hardware.Camera;
@@ -20,8 +13,6 @@ import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Size;
 
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /* Import ZBar Class files */
@@ -39,9 +30,6 @@ public class CameraActivity extends Activity {
     private CameraPreview mPreview;
     private int focuseI = 0;
     private Handler autoFocusHandler;
-    private EditText manualInput;
-    private Resources res;
-    private LinearLayout bottomBar;
 
     ImageScanner scanner;
 
@@ -59,8 +47,6 @@ public class CameraActivity extends Activity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        res = getResources();
-
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
 
@@ -71,32 +57,6 @@ public class CameraActivity extends Activity {
         mPreview = new CameraPreview(this, mCamera, previewCb, autoFocusCB);
         FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
-
-        bottomBar = (LinearLayout) findViewById(R.id.bottomBar);
-        manualInput = (EditText) findViewById(R.id.manualInput);
-        manualInput.setTextColor(Color.WHITE);
-
-        manualInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Editable editable = manualInput.getText();
-                if (editable == null || editable.length() < 1) {
-                    return false;
-                }
-                String manualId = editable.toString();
-                showSchedule(manualId);
-                return true;
-            }
-        });
-
-        manualInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(b) {
-                    view.bringToFront();
-                }
-            }
-        });
     }
     private void continueScanning(){
         if(mCamera == null) mCamera = getCameraInstance();
