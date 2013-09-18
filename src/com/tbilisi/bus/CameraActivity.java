@@ -30,6 +30,7 @@ public class CameraActivity extends Activity {
     private CameraPreview mPreview;
     private int focuseI = 0;
     private Handler autoFocusHandler;
+    private FrameLayout preview;
 
     ImageScanner scanner;
 
@@ -52,14 +53,21 @@ public class CameraActivity extends Activity {
 
         A.camera = mCamera;
 
+        preview = (FrameLayout) findViewById(R.id.cameraPreview);
+
+        startPreview();
+
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
+    }
 
+    private void startPreview() {
         mPreview = new CameraPreview(this, mCamera, previewCb, autoFocusCB);
-        FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
+        preview.removeAllViews();
         preview.addView(mPreview);
     }
+
     private void continueScanning(){
         if(mCamera == null) mCamera = getCameraInstance();
         barcodeScanned = false;
@@ -77,10 +85,11 @@ public class CameraActivity extends Activity {
     public void onResume() {
         super.onResume();
         if(mCamera != null) {
-            mCamera.startPreview();
+            continueScanning();
         } else {
             mCamera = getCameraInstance();
-            mCamera.startPreview();
+            startPreview();
+            continueScanning();
         }
     }
 
