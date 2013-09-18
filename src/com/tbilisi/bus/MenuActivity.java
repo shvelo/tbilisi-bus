@@ -27,6 +27,9 @@ public class MenuActivity extends Activity {
 
         menu_items.add(new MainMenuItem(res.getString(R.string.scan), res.getDrawable(R.drawable.camera), intent_scan));
         menu_items.add(new MainMenuItem(res.getString(R.string.input), res.getDrawable(R.drawable.input), null));
+        menu_items.add(new MainMenuItem(res.getString(R.string.history), res.getDrawable(R.drawable.time), null));
+        menu_items.add(new MainMenuItem(res.getString(R.string.search), res.getDrawable(R.drawable.search), null));
+        menu_items.add(new MainMenuItem(res.getString(R.string.nearest), res.getDrawable(R.drawable.location), null));
         menu_items.add(new MainMenuItem(res.getString(R.string.help), res.getDrawable(R.drawable.help), null));
 
         listView = (ListView) findViewById(R.id.listView);
