@@ -50,6 +50,8 @@ public class CameraActivity extends Activity {
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
 
+        A.camera = mCamera;
+
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
@@ -78,6 +80,7 @@ public class CameraActivity extends Activity {
             mCamera.startPreview();
         } else {
             mCamera = getCameraInstance();
+            mCamera.startPreview();
         }
     }
 
@@ -106,6 +109,7 @@ public class CameraActivity extends Activity {
         if (mCamera != null) {
             previewing = false;
             mCamera.setPreviewCallback(null);
+            mPreview.getHolder().removeCallback(mPreview);
             mCamera.release();
             mCamera = null;
         }
@@ -113,7 +117,7 @@ public class CameraActivity extends Activity {
 
     private Runnable doAutoFocus = new Runnable() {
         public void run() {
-            if (previewing)
+            if (previewing && mCamera != null)
                 mCamera.autoFocus(autoFocusCB);
         }
     };
