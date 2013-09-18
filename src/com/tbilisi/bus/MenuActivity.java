@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,9 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
 
         res = getResources();
+
+        ((TextView) findViewById(R.id.header)).setTypeface(A.typeface);
+
         menu_items = new ArrayList<MainMenuItem>();
 
         Intent intent_scan = new Intent(this, CameraActivity.class);

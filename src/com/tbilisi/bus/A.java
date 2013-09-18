@@ -2,6 +2,7 @@ package com.tbilisi.bus;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.util.Log;
 
@@ -9,13 +10,15 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     private static Context mContext;
     public static A instance;
     public static Camera camera;
+    public static Typeface typeface;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Thread.setDefaultUncaughtExceptionHandler(this);
         instance = this;
         mContext = getApplicationContext();
-        Thread.setDefaultUncaughtExceptionHandler(this);
+        typeface = Typeface.createFromAsset(getAssets(), "DejaVuSans.ttf");
     }
 
     public static Context getContext() {

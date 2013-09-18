@@ -15,7 +15,6 @@ import android.hardware.Camera.Size;
 
 import android.widget.Toast;
 
-/* Import ZBar Class files */
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.Symbol;

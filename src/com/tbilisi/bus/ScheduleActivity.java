@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,6 +55,8 @@ public class ScheduleActivity extends Activity{
                 reload();
             }
         });
+
+        ((TextView) findViewById(R.id.header)).setTypeface(A.typeface);
     }
 
     public void loadList() {

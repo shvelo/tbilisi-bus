@@ -12,6 +12,7 @@
         android:background="#111111">
             <TextView android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:id="@+id/header"
                 android:text="@string/buses"
                 android:layout_weight="1"
                 android:textSize="18sp"

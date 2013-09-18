@@ -49,7 +49,10 @@ public class MainMenuAdapter extends BaseAdapter {
 
         MainMenuItem item = items.get(i);
 
-        ((TextView) view.findViewById(R.id.textView)).setText(item.label);
+        TextView textView = (TextView) view.findViewById(R.id.textView);
+        textView.setText(item.label);
+        textView.setTypeface(A.typeface);
+
         ((ImageView) view.findViewById(R.id.imageView)).setImageDrawable(item.icon);
 
         view.setTag(item.intent);

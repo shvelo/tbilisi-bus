@@ -52,6 +52,10 @@ public class BusListAdapter extends BaseAdapter {
         TextView busDestination = (TextView) view.findViewById(R.id.busDestination);
         TextView busArrival = (TextView) view.findViewById(R.id.busArrival);
 
+        busNumber.setTypeface(A.typeface);
+        busDestination.setTypeface(A.typeface);
+        busArrival.setTypeface(A.typeface);
+
         busNumber.setText("№" + String.valueOf(item.number));
         busDestination.setText(item.destination);
         busArrival.setText(String.valueOf(item.arrival) + "წთ");
