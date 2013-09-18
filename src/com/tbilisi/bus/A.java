@@ -11,6 +11,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     public static A instance;
     public static Camera camera;
     public static Typeface typeface;
+    public static DatabaseHelper db;
 
     @Override
     public void onCreate() {

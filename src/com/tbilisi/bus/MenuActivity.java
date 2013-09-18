@@ -25,6 +25,8 @@ public class MenuActivity extends Activity {
 
         ((TextView) findViewById(R.id.header)).setTypeface(A.typeface);
 
+        A.db = new DatabaseHelper(this);
+
         menu_items = new ArrayList<MainMenuItem>();
 
         Intent intent_scan = new Intent(this, CameraActivity.class);
@@ -38,7 +40,7 @@ public class MenuActivity extends Activity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        listView.setAdapter(new MainMenuAdapter(getApplicationContext(), menu_items));
+        listView.setAdapter(new MainMenuAdapter(this, menu_items));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

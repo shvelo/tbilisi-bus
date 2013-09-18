@@ -44,7 +44,7 @@ public class ScheduleActivity extends Activity{
 
         loadList();
 
-        adapter = new BusListAdapter(getApplicationContext(), busList);
+        adapter = new BusListAdapter(this, busList);
 
         listView.setAdapter(adapter);
 
