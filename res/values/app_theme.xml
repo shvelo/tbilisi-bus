@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Black"></style>
-    <style name="AppTheme.NoTitleBar" parent="android:Theme.Black.NoTitleBar"></style>
+    <style name="AppTheme" parent="android:Theme.Black">
+        <item name="android:background">#111111</item>
+    </style>
+    <style name="AppTheme.NoTitleBar" parent="android:Theme.Black.NoTitleBar">
+        <item name="android:background">#111111</item>
+    </style>
 </resources>

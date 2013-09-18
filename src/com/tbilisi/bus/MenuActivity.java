@@ -25,7 +25,7 @@ public class MenuActivity extends Activity {
 
         Intent intent_scan = new Intent(this, CameraActivity.class);
 
-        menu_items.add(new MainMenuItem(res.getString(R.string.scan), res.getDrawable(R.drawable.camera), intent_scan));
+        menu_items.add(new MainMenuItem(res.getString(R.string.scan), res.getDrawable(R.drawable.qr), intent_scan));
         menu_items.add(new MainMenuItem(res.getString(R.string.input), res.getDrawable(R.drawable.input), null));
         menu_items.add(new MainMenuItem(res.getString(R.string.history), res.getDrawable(R.drawable.time), null));
         menu_items.add(new MainMenuItem(res.getString(R.string.search), res.getDrawable(R.drawable.search), null));

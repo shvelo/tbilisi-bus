@@ -88,6 +88,8 @@ public class ScheduleActivity extends Activity{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(busList.size() == 0)
+            busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
         progressBar.setVisibility(View.GONE);
     }
 

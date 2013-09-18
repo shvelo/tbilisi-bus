@@ -3,4 +3,5 @@
     <string name="app_name">Tbilisi Bus</string>
     <string name="buses">ავტობუსები</string>
     <string name="input_hint">გაჩერების ნომერი</string>
+    <string name="nothing_found">ინფორმაცია არ არის</string>
 </resources>
