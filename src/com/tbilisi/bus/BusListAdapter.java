@@ -40,13 +40,11 @@ public class BusListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        A.log("Rendering position "+ i);
         View view = convertView;
         BusInfo item = busList.get(i);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(view == null) {
-            A.log("View is null, inflating");
             view = inflater.inflate(R.layout.bus_info, viewGroup, false);
         }
 
