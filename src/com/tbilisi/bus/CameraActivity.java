@@ -104,7 +104,7 @@ public class CameraActivity extends Activity {
         }
 
         if (c == null ){
-            Toast.makeText(CameraActivity.this, "კამერა მიუწვდომელია!", Toast.LENGTH_LONG).show();
+            Toast.makeText(CameraActivity.this, getResources().getString(R.string.camera_unavailable), Toast.LENGTH_LONG).show();
             finish();
         }
         return c;
@@ -161,8 +161,8 @@ public class CameraActivity extends Activity {
 
     private void showSchedule(String stopId) {
         A.log("Showing schedule for " + stopId);
-        Intent i = new Intent(this,ScheduleActivity.class);
-        i.putExtra(ScheduleActivity.STOP_ID_KEY,stopId);
+        Intent i = new Intent(this, ScheduleActivity.class);
+        i.putExtra(ScheduleActivity.STOP_ID_KEY, stopId);
         startActivity(i);
     }
 
