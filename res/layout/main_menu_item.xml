@@ -2,7 +2,8 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp">
 
     <ImageView
         android:layout_width="0dip"
@@ -18,7 +19,7 @@
         android:id="@+id/textView"
         android:layout_gravity="left|center_vertical"
         android:layout_weight="4"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
