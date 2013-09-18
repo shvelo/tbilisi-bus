@@ -25,8 +25,9 @@ public class MenuActivity extends Activity {
 
         Intent intent_scan = new Intent(this, CameraActivity.class);
 
-        menu_items.add(new MainMenuItem("სკანირება", res.getDrawable(R.drawable.camera), intent_scan));
-        menu_items.add(new MainMenuItem("შეყვანა", res.getDrawable(R.drawable.input), null));
+        menu_items.add(new MainMenuItem(res.getString(R.string.scan), res.getDrawable(R.drawable.camera), intent_scan));
+        menu_items.add(new MainMenuItem(res.getString(R.string.input), res.getDrawable(R.drawable.input), null));
+        menu_items.add(new MainMenuItem(res.getString(R.string.help), res.getDrawable(R.drawable.help), null));
 
         listView = (ListView) findViewById(R.id.listView);
 

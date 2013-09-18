@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scan">სკანირება</string>
+    <string name="input">შეყვანა</string>
+    <string name="help">დახმარება</string>
+</resources>
