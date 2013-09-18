@@ -12,16 +12,19 @@ public class BusStop {
     @DatabaseField
     private boolean hasBoard;
     @DatabaseField
+    private boolean hasData;
+    @DatabaseField
     private double lat;
     @DatabaseField
     private double lon;
 
     public BusStop() {}
 
-    public BusStop(int id, String name, boolean hasBoard, double lat, double lon) {
+    public BusStop(int id, String name, boolean hasBoard, boolean hasData, double lat, double lon) {
         this.id = id;
         this.name = name;
         this.hasBoard = hasBoard;
+        this.hasData = hasData;
         this.lat = lat;
         this.lon = lon;
     }
