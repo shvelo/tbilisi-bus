@@ -3,23 +3,20 @@ package com.tbilisi.bus;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.hardware.Camera;
+import android.hardware.Camera.AutoFocusCallback;
+import android.hardware.Camera.PreviewCallback;
+import android.hardware.Camera.Size;
 import android.os.Bundle;
 import android.os.Handler;
-
 import android.widget.FrameLayout;
-
-import android.hardware.Camera;
-import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.AutoFocusCallback;
-import android.hardware.Camera.Size;
-
 import android.widget.Toast;
 
-import net.sourceforge.zbar.ImageScanner;
+import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
+import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
-import net.sourceforge.zbar.Config;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
