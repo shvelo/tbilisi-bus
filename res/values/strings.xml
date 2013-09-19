@@ -3,5 +3,7 @@
     <string name="app_name">Tbilisi Bus</string>
     <string name="buses">ავტობუსები</string>
     <string name="input_hint">გაჩერების ნომერი</string>
-    <string name="updating">ბაზის განახლება</string><string name="input_id">გაჩერების ნომერი</string>
+    <string name="updating">ბაზის განახლება</string>
+    <string name="updating_info">მიმდინარეობს ბაზის განახლება</string>
+    <string name="input_id">გაჩერების ნომერი</string>
 </resources>

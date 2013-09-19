@@ -1,10 +1,14 @@
 package com.tbilisi.bus;
 
 import android.app.Application;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -53,9 +57,20 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     private class BaseLoader extends AsyncTask<Void,Integer,Void> {
         private Elements stops;
         private boolean clean = true;
+        NotificationManager notificationManager;
 
         @Override
         protected Void doInBackground(Void... voids) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
+                .setSmallIcon(R.drawable.refresh)
+                .setContentTitle(getResources().getString(R.string.updating))
+                .setContentText(getResources().getString(R.string.updating_info))
+                .setContentIntent(PendingIntent.getActivity(instance, 0,
+                    new Intent(instance, MenuActivity.class), 0))
+                .setOngoing(true);
+            notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, builder.build());
+
             db = new DatabaseHelper(mContext);
             try {
                 BufferedReader reader = new BufferedReader(
@@ -120,6 +135,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
         protected void onPostExecute(Void result) {
             dbLoaded = true;
             MenuActivity.instance.enableItems();
+            notificationManager.cancel(0);
         }
     }
 }

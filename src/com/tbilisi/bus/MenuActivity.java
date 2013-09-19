@@ -61,6 +61,14 @@ public class MenuActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        if(A.dbLoaded) enableItems();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(A.dbLoaded) enableItems();
     }
 
     public void enableItems() {

@@ -18,6 +18,7 @@
     <orderEntry type="library" name="zbar" level="project" />
     <orderEntry type="library" name="jsoup-1.7.2" level="project" />
     <orderEntry type="library" name="ormlite" level="project" />
+    <orderEntry type="library" name="android-support-v13" level="project" />
   </component>
 </module>
 
