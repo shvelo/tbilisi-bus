@@ -22,6 +22,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     public static Camera camera;
     public static Typeface typeface;
     public static DatabaseHelper db;
+    public static boolean dbLoaded = false;
 
     @Override
     public void onCreate() {
@@ -117,6 +118,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
         }
         @Override
         protected void onPostExecute(Void result) {
+            dbLoaded = true;
             MenuActivity.instance.enableItems();
         }
     }

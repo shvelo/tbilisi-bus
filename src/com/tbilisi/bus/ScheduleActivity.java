@@ -62,7 +62,7 @@ public class ScheduleActivity extends Activity{
     public void loadList() {
         busList = new ArrayList<BusInfo>();
         String url = API + stopId;
-        Document doc = null;
+        Document doc;
         progressBar.setVisibility(View.VISIBLE);
         try {
             doc = Jsoup.connect(url).get();
@@ -88,7 +88,8 @@ public class ScheduleActivity extends Activity{
 
                 busList.add(new BusInfo(busNumber,busDestination,busArrival));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
+            progressBar.setVisibility(View.GONE);
             e.printStackTrace();
         }
         if(busList.size() == 0)
