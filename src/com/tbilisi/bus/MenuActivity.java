@@ -1,17 +1,20 @@
 package com.tbilisi.bus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tbilisi.bus.util.MainMenuAdapter;
+import com.tbilisi.bus.util.MainMenuItem;
+
 import java.util.ArrayList;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends ActionBarActivity {
     private ListView listView;
     private View loadingView;
     private ArrayList<MainMenuItem> menu_items;
@@ -27,7 +30,6 @@ public class MenuActivity extends Activity {
 
         res = getResources();
 
-        ((TextView) findViewById(R.id.header)).setTypeface(A.typeface);
         listView = (ListView) findViewById(R.id.listView);
 
         loadingView = getLayoutInflater().inflate(R.layout.loading_db, null);

@@ -1,8 +1,8 @@
 package com.tbilisi.bus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.tbilisi.bus.data.BusStop;
+
 import java.util.ArrayList;
 
-public class InputActivity extends Activity {
+public class InputActivity extends ActionBarActivity {
     private EditText input;
     private ListView list;
     private ArrayList<String> items;

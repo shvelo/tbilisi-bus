@@ -1,28 +1,29 @@
 package com.tbilisi.bus;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import com.tbilisi.bus.data.BusInfo;
+import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.util.BusListAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ScheduleActivity extends Activity{
+public class ScheduleActivity extends ActionBarActivity {
     public ArrayList<BusInfo> busList;
     private ListView listView;
     private String stopId;
     private BusListAdapter adapter;
-    private ProgressBar progressBar;
     public static final String STOP_ID_KEY = "stopId";
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
@@ -41,7 +42,6 @@ public class ScheduleActivity extends Activity{
             return;
         }
         listView = (ListView) findViewById(R.id.busSchedule);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         loadList();
 
@@ -49,20 +49,10 @@ public class ScheduleActivity extends Activity{
 
         listView.setAdapter(adapter);
 
-        Button reloadButton = (Button) findViewById(R.id.reload);
-        reloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reload();
-            }
-        });
-
-        TextView header = (TextView) findViewById(R.id.header);
-        header.setTypeface(A.typeface);
         if(A.dbLoaded) {
             try {
                 BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(stopId));
-                if(busStop != null) header.setText(busStop.name);
+                if(busStop != null) setTitle(busStop.name);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -73,7 +63,6 @@ public class ScheduleActivity extends Activity{
         busList = new ArrayList<BusInfo>();
         String url = API + stopId;
         Document doc;
-        progressBar.setVisibility(View.VISIBLE);
         try {
             doc = Jsoup.connect(url).get();
             Elements elements = doc.select(".arrivalTimesScrol tr");
@@ -99,12 +88,27 @@ public class ScheduleActivity extends Activity{
                 busList.add(new BusInfo(busNumber,busDestination,busArrival));
             }
         } catch (Exception e) {
-            progressBar.setVisibility(View.GONE);
             e.printStackTrace();
         }
         if(busList.size() == 0)
             busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
-        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_schedule, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reload:
+                reload();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void reload() {

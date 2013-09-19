@@ -11,6 +11,10 @@ import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.DatabaseHelper;
+import com.tbilisi.bus.data.UserPreference;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -66,6 +70,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                 .setSmallIcon(R.drawable.refresh)
                 .setContentTitle(getResources().getString(R.string.updating))
                 .setContentText(getResources().getString(R.string.updating_info))
+                .setProgress(0, 0, true)
                 .setContentIntent(PendingIntent.getActivity(instance, 0,
                         new Intent(instance, MenuActivity.class), 0))
                 .setOngoing(true);

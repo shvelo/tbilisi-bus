@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.tbilisi.bus.util.CameraPreview;
+
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
@@ -143,7 +145,7 @@ public class CameraActivity extends Activity {
                 mCamera.stopPreview();
 
                 SymbolSet syms = scanner.getResults();
-                Pattern p = Pattern.compile("SMSTO:([0-9]+):([0-9]+)");
+                Pattern p = Pattern.compile("SMS:([0-9]+):([0-9]+)");
                 for (Symbol sym : syms) {
                     String qrData = sym.getData();
                     Matcher m = p.matcher(qrData);
