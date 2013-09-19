@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ScheduleActivity extends Activity{
@@ -56,7 +57,16 @@ public class ScheduleActivity extends Activity{
             }
         });
 
-        ((TextView) findViewById(R.id.header)).setTypeface(A.typeface);
+        TextView header = (TextView) findViewById(R.id.header);
+        header.setTypeface(A.typeface);
+        if(A.dbLoaded) {
+            try {
+                BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(stopId));
+                if(busStop != null) header.setText(busStop.name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void loadList() {
