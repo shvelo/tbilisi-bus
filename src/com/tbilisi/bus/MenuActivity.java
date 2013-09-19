@@ -37,6 +37,7 @@ public class MenuActivity extends ActionBarActivity {
 
         Intent intent_scan = new Intent(this, CameraActivity.class);
         Intent intent_input = new Intent(this, InputActivity.class);
+        Intent intent_history = new Intent(this, HistoryActivity.class);
 
         menu_items = new ArrayList<MainMenuItem>();
         menu_items.add(new MainMenuItem(res.getString(R.string.scan),
@@ -45,7 +46,7 @@ public class MenuActivity extends ActionBarActivity {
                 res.getDrawable(R.drawable.input), true, intent_input));
 
         menu_items.add(new MainMenuItem(res.getString(R.string.history),
-                res.getDrawable(R.drawable.time), false, null));
+                res.getDrawable(R.drawable.time), false, intent_history));
         menu_items.add(new MainMenuItem(res.getString(R.string.search),
                 res.getDrawable(R.drawable.search), false, null));
         menu_items.add(new MainMenuItem(res.getString(R.string.nearest),
