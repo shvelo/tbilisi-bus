@@ -13,8 +13,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
 public class A extends Application implements Thread.UncaughtExceptionHandler {
     public static Context mContext;
@@ -35,7 +35,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     }
 
     public static void log(Object string){
-        Log.d("BUS",String.valueOf(string));
+        Log.i("BUS",String.valueOf(string));
     }
 
     @Override
@@ -50,33 +50,68 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     }
 
     private class BaseLoader extends AsyncTask<Void,Integer,Void> {
+        private Elements stops;
+        private boolean clean = true;
+
         @Override
         protected Void doInBackground(Void... voids) {
             db = new DatabaseHelper(mContext);
             try {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(getAssets().open("stops.xml.md5")));
-                String checksum = reader.readLine();
+                final String checksum = reader.readLine();
                 UserPreference saved_checksum = db.userPreferenceDao.queryForId("checksum");
                 if(saved_checksum != null && saved_checksum.value.equals(checksum)) {
                     return null;
                 }
 
+                log("Parsing stops.xml");
+
                 Document document = Jsoup.parse(getAssets().open("stops.xml"), "UTF-8", "");
-                Elements stops = document.select("Stops");
-                for(Element stop : stops) {
-                    int id = Integer.valueOf(stop.select("StopId").text());
-                    String name = stop.select("Name").text();
-                    if(name.length() == 0) continue;
-                    boolean hasBoard = Boolean.valueOf(stop.select("HasBoard").text());
-                    boolean hasData = Boolean.valueOf(stop.select("Virtual").text());
-                    double lat = Double.valueOf(stop.select("Lat").text());
-                    double lon = Double.valueOf(stop.select("Lon").text());
-                    db.busStopDao.create(new BusStop(id, name, hasBoard, hasData, lat, lon));
+                stops = document.select("Stops");
+
+                log("Parsed stops.xml");
+
+                db.busStopDao.callBatchTasks(new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        String tagName; int id = -1; String name = ""; boolean hasBoard = false;
+                        boolean hasData = false; double lat = 0.0; double lon = 0.0;
+                        for(Element stop : stops) {
+                            log("Parsing record");
+                            if(! stop.select("Type").first().text().equals("bus")) continue;
+                            for(Element child: stop.children()) {
+                                tagName = child.tagName();
+                                if(tagName.equals("stopid")) {
+                                    id = Integer.valueOf(child.text());
+                                } else if(tagName.equals("name")) {
+                                    name = child.text();
+                                } else if(tagName.equals("hasboard")) {
+                                    hasBoard = Boolean.valueOf(child.text());
+                                } else if(tagName.equals("virtual")) {
+                                    hasData = Boolean.valueOf(child.text());
+                                } else if(tagName.equals("lat")) {
+                                    lat = Double.valueOf(child.text());
+                                } else if(tagName.equals("lon")) {
+                                    lon = Double.valueOf(child.text());
+                                }
+                            }
+                            if(name.length() == 0 || id == -1) continue;
+                            log("Inserting record");
+                            db.busStopDao.create(new BusStop(id, name, hasBoard, hasData, lat, lon));
+                        }
+                        return null;
+                    }
+                });
+                if(clean) {
+                    log("Operation successful, saving checksum");
+                    db.userPreferenceDao.createOrUpdate(new UserPreference("checksum", checksum));
+                } else {
+                    log("Operation failed");
                 }
-                db.userPreferenceDao.createOrUpdate(new UserPreference("checksum", checksum));
             } catch (Exception e) {
                 e.printStackTrace();
+                clean = false;
             }
             return null;
         }
