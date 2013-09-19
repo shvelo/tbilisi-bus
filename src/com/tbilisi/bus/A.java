@@ -19,6 +19,7 @@ import org.jsoup.select.Elements;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
+import java.util.regex.Pattern;
 
 public class A extends Application implements Thread.UncaughtExceptionHandler {
     public static Context mContext;
@@ -66,7 +67,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                 .setContentTitle(getResources().getString(R.string.updating))
                 .setContentText(getResources().getString(R.string.updating_info))
                 .setContentIntent(PendingIntent.getActivity(instance, 0,
-                    new Intent(instance, MenuActivity.class), 0))
+                        new Intent(instance, MenuActivity.class), 0))
                 .setOngoing(true);
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, builder.build());
@@ -93,6 +94,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                     public Void call() throws Exception {
                         String tagName; int id = -1; String name = ""; boolean hasBoard = false;
                         boolean hasData = false; double lat = 0.0; double lon = 0.0;
+                        Pattern p = Pattern.compile(" - ");
                         for(Element stop : stops) {
                             log("Parsing record");
                             if(! stop.select("Type").first().text().equals("bus")) continue;
@@ -102,6 +104,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                                     id = Integer.valueOf(child.text());
                                 } else if(tagName.equals("name")) {
                                     name = child.text();
+                                    name = p.split(name)[0];
                                 } else if(tagName.equals("hasboard")) {
                                     hasBoard = Boolean.valueOf(child.text());
                                 } else if(tagName.equals("virtual")) {
