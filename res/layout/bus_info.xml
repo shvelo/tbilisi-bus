@@ -11,18 +11,21 @@
         android:layout_weight="1"
         android:gravity="left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"></TextView>
     <TextView android:id="@+id/busDestination"
         style="@style/BusListText"
         android:layout_weight="8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"></TextView>
+        android:gravity="center"
+        android:textColor="#ffffff"></TextView>
     <TextView android:id="@+id/busArrival"
         style="@style/BusListText"
         android:layout_weight="1"
         android:gravity="right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"></TextView>
 
 </LinearLayout>

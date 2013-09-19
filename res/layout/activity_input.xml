@@ -13,7 +13,12 @@
         android:layout_margin="5dp"
         android:layout_marginTop="10dp"
         android:numeric="integer"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:nextFocusDown="@id/input"
+        android:nextFocusForward="@id/input"
+        android:nextFocusLeft="@id/input"
+        android:nextFocusRight="@id/input"
+        android:nextFocusUp="@id/input" />
 
     <ListView
         android:layout_width="match_parent"

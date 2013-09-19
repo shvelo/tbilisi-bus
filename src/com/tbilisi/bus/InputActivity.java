@@ -7,20 +7,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.util.StopListAdapter;
 
 import java.util.ArrayList;
 
 public class InputActivity extends ActionBarActivity {
     private EditText input;
     private ListView list;
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
-    private String stopId;
+    private ArrayList<BusStop> items;
+    private StopListAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,8 +28,8 @@ public class InputActivity extends ActionBarActivity {
 
         input = (EditText) findViewById(R.id.input);
         list = (ListView) findViewById(R.id.list);
-        items = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.list_item_text, items);
+        items = new ArrayList<BusStop>();
+        adapter = new StopListAdapter(this, items);
         list.setAdapter(adapter);
 
         input.addTextChangedListener(new TextWatcher() {
@@ -47,23 +46,22 @@ public class InputActivity extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                A.log("Showing schedule for " + stopId);
+                String id = (String) view.getTag();
+                A.log("Showing schedule for " + id);
                 Intent intent = new Intent(getApplicationContext(), ScheduleActivity.class);
-                intent.putExtra(ScheduleActivity.STOP_ID_KEY, stopId);
+                intent.putExtra(ScheduleActivity.STOP_ID_KEY, id);
                 startActivity(intent);
             }
         });
     }
 
     public void updateList(String id) {
-        stopId = id;
         try {
             items.clear();
             if(A.dbLoaded) {
                 BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(id));
-                if(busStop != null) items.add(busStop.name);
+                if(busStop != null) items.add(busStop);
             }
-            if(items.size() == 0) items.add(String.valueOf(id));
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.tbilisi.bus.data.BusInfo;
 import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.BusListAdapter;
 
 import org.jsoup.Jsoup;
@@ -52,7 +53,10 @@ public class ScheduleActivity extends ActionBarActivity {
         if(A.dbLoaded) {
             try {
                 BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(stopId));
-                if(busStop != null) setTitle(busStop.name);
+                if(busStop != null) {
+                    setTitle(busStop.name);
+                    A.db.historyItemDao.createIfNotExists(new HistoryItem(Integer.valueOf(stopId)));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
