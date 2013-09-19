@@ -6,17 +6,17 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "stops")
 public class BusStop {
     @DatabaseField(id = true)
-    private int id;
+    public int id;
     @DatabaseField
-    private String name;
+    public String name;
     @DatabaseField
-    private boolean hasBoard;
+    public boolean hasBoard;
     @DatabaseField
-    private boolean hasData;
+    public boolean hasData;
     @DatabaseField
-    private double lat;
+    public double lat;
     @DatabaseField
-    private double lon;
+    public double lon;
 
     public BusStop() {}
 

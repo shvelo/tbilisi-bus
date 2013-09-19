@@ -7,10 +7,12 @@ public class MainMenuItem {
     public String label;
     public Drawable icon;
     public Intent intent;
+    public boolean enabled;
 
-    public MainMenuItem(String label, Drawable icon, Intent intent) {
+    public MainMenuItem(String label, Drawable icon, boolean enabled, Intent intent) {
         this.label = label;
         this.icon = icon;
         this.intent = intent;
+        this.enabled = enabled;
     }
 }

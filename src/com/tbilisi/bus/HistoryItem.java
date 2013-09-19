@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "history")
 public class HistoryItem {
     @DatabaseField(id = true)
-    private int id;
+    public int id;
 
     public HistoryItem(){}
 

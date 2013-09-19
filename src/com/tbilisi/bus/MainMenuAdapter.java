@@ -39,13 +39,15 @@ public class MainMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        MainMenuItem item = items.get(i);
+
+        if(! item.enabled) return new View(context);
+
         View view = convertView;
 
         if(view == null) {
             view = inflater.inflate(R.layout.main_menu_item, viewGroup, false);
         }
-
-        MainMenuItem item = items.get(i);
 
         TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setText(item.label);

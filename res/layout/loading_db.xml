@@ -5,24 +5,25 @@
     android:layout_height="wrap_content"
     android:paddingBottom="5dp">
 
-    <ImageView
-        android:layout_width="0dip"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView"
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
         android:layout_gravity="left|center_vertical"
-        android:layout_weight="1"
-        android:src="@drawable/ic_launcher"
-        android:scaleType="fitCenter" />
+        android:indeterminate="true"
+        android:layout_marginLeft="5dp" />
 
     <TextView
-        android:layout_width="0dip"
+        android:text="@string/updating"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_gravity="left|center_vertical"
-        android:layout_weight="4"
         android:textSize="26sp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#777" />
 </LinearLayout>

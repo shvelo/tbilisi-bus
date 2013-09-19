@@ -6,9 +6,9 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "preferences")
 public class UserPreference {
     @DatabaseField(id = true)
-    private String key;
+    public String key;
     @DatabaseField
-    private String value;
+    public String value;
 
     public UserPreference(){}
 

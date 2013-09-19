@@ -18,7 +18,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // Database Access Objects
     public Dao<BusStop, Integer> busStopDao;
     public Dao<HistoryItem, Integer> historyItemDao;
-    public Dao<UserPreference, Integer> userPreferenceDao;
+    public Dao<UserPreference, String> userPreferenceDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
