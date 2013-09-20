@@ -29,7 +29,7 @@ public class CameraActivity extends Activity {
     private int focuseI = 0;
     private Handler autoFocusHandler;
     private FrameLayout preview;
-    private boolean autoFocus;
+    private boolean autoFocus = true;
 
     ImageScanner scanner;
 
@@ -50,6 +50,8 @@ public class CameraActivity extends Activity {
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
 
+        autoFocus = getPackageManager().hasSystemFeature("android.hardware.camera.autofocus");
+
         /*
          * Set camera to continuous focus if supported, otherwise use
          * software auto-focus. Only works for API level >=9.
@@ -59,11 +61,6 @@ public class CameraActivity extends Activity {
         if(parameters.getSupportedFocusModes() != null) {
             if(parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-                autoFocus = false;
-            } else if(parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-                autoFocus = true;
-            } else {
                 autoFocus = false;
             }
             mCamera.setParameters(parameters);
