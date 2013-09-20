@@ -1,5 +1,6 @@
 package com.tbilisi.bus;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -28,6 +29,7 @@ public class ScheduleActivity extends ActionBarActivity {
     public static final String STOP_ID_KEY = "stopId";
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class ScheduleActivity extends ActionBarActivity {
             try {
                 BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(stopId));
                 if(busStop != null) {
-                    setTitle(busStop.name);
+                    setTitle(busStop.name + " " + stopId);
                     A.db.historyItemDao.createIfNotExists(new HistoryItem(Integer.valueOf(stopId)));
                 }
             } catch (Exception e) {
@@ -65,37 +67,51 @@ public class ScheduleActivity extends ActionBarActivity {
 
     public void loadList() {
         busList = new ArrayList<BusInfo>();
-        String url = API + stopId;
-        Document doc;
-        try {
-            doc = Jsoup.connect(url).get();
-            Elements elements = doc.select(".arrivalTimesScrol tr");
-            for (Element element : elements) {
-                int i = 0;
+        url = API + stopId;
+        new ListLoader().execute(null);
+    }
 
-                int busNumber = 0;
-                String busDestination = "";
-                int busArrival = 0;
+    private class ListLoader extends AsyncTask<Void,Integer,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Document doc;
+            try {
+                doc = Jsoup.connect(url).get();
+                Elements elements = doc.select(".arrivalTimesScrol tr");
+                for (Element element : elements) {
+                    int i = 0;
 
-                for(Element td : element.children()) {
-                    String text = td.text();
-                    if(i == 0) {
-                        busNumber = Integer.valueOf(text);
-                    } else if(i == 1) {
-                        busDestination = text;
-                    } else {
-                        busArrival = Integer.valueOf(text);
+                    int busNumber = 0;
+                    String busDestination = "";
+                    int busArrival = 0;
+
+                    for(Element td : element.children()) {
+                        String text = td.text();
+                        if(i == 0) {
+                            busNumber = Integer.valueOf(text);
+                        } else if(i == 1) {
+                            busDestination = text;
+                        } else {
+                            busArrival = Integer.valueOf(text);
+                        }
+                        i++;
                     }
-                    i++;
-                }
 
-                busList.add(new BusInfo(busNumber,busDestination,busArrival));
+                    busList.add(new BusInfo(busNumber,busDestination,busArrival));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if(busList.size() == 0)
+                busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
+            return null;
         }
-        if(busList.size() == 0)
-            busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
+
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.update(busList);
+            return;
+        }
     }
 
     @Override
