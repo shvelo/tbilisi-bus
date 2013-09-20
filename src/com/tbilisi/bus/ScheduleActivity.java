@@ -66,7 +66,7 @@ public class ScheduleActivity extends ActionBarActivity {
     }
 
     public void loadList() {
-        busList = new ArrayList<BusInfo>();
+        if(busList == null) busList = new ArrayList<BusInfo>();
         url = API + stopId;
         new ListLoader().execute(null);
     }
@@ -75,6 +75,7 @@ public class ScheduleActivity extends ActionBarActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             Document doc;
+            ArrayList<BusInfo> newBusList = new ArrayList<BusInfo>();
             try {
                 doc = Jsoup.connect(url).get();
                 Elements elements = doc.select(".arrivalTimesScrol tr");
@@ -97,13 +98,16 @@ public class ScheduleActivity extends ActionBarActivity {
                         i++;
                     }
 
-                    busList.add(new BusInfo(busNumber,busDestination,busArrival));
+                    newBusList.add(new BusInfo(busNumber,busDestination,busArrival));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(busList.size() == 0)
+            if(newBusList.size() == 0 && busList.size() == 0)
                 busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
+            else if(newBusList.size() > 0) {
+                busList = newBusList;
+            }
             return null;
         }
 
