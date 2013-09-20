@@ -18,14 +18,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // Database Access Objects
     public Dao<BusStop, Integer> busStopDao;
     public Dao<HistoryItem, Integer> historyItemDao;
-    public Dao<UserPreference, String> userPreferenceDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         try {
             busStopDao = getDao(BusStop.class);
             historyItemDao = getDao(HistoryItem.class);
-            userPreferenceDao = getDao(UserPreference.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,7 +34,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, BusStop.class);
             TableUtils.createTable(connectionSource, HistoryItem.class);
-            TableUtils.createTable(connectionSource, UserPreference.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +44,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, BusStop.class, true);
             TableUtils.dropTable(connectionSource, HistoryItem.class, true);
-            TableUtils.dropTable(connectionSource, UserPreference.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

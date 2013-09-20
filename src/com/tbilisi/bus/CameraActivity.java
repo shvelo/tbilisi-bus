@@ -29,6 +29,7 @@ public class CameraActivity extends Activity {
     private int focuseI = 0;
     private Handler autoFocusHandler;
     private FrameLayout preview;
+    private boolean autoFocus;
 
     ImageScanner scanner;
 
@@ -49,6 +50,25 @@ public class CameraActivity extends Activity {
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
 
+        /*
+         * Set camera to continuous focus if supported, otherwise use
+         * software auto-focus. Only works for API level >=9.
+         */
+
+        Camera.Parameters parameters = mCamera.getParameters();
+        if(parameters.getSupportedFocusModes() != null) {
+            if(parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                autoFocus = false;
+            } else if(parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+                autoFocus = true;
+            } else {
+                autoFocus = false;
+            }
+            mCamera.setParameters(parameters);
+        }
+
         A.camera = mCamera;
 
         preview = (FrameLayout) findViewById(R.id.cameraPreview);
@@ -61,7 +81,7 @@ public class CameraActivity extends Activity {
     }
 
     private void startPreview() {
-        mPreview = new CameraPreview(this, mCamera, previewCb, autoFocusCB);
+        mPreview = new CameraPreview(this, mCamera, previewCb, autoFocus, autoFocusCB);
         preview.removeAllViews();
         preview.addView(mPreview);
     }
@@ -72,6 +92,7 @@ public class CameraActivity extends Activity {
         mCamera.setPreviewCallback(previewCb);
         mCamera.startPreview();
         previewing = true;
+        if(autoFocus)
         mCamera.autoFocus(autoFocusCB);
     }
 
@@ -124,7 +145,7 @@ public class CameraActivity extends Activity {
 
     private Runnable doAutoFocus = new Runnable() {
         public void run() {
-            if (previewing && mCamera != null)
+            if (previewing && mCamera != null && autoFocus)
                 mCamera.autoFocus(autoFocusCB);
         }
     };

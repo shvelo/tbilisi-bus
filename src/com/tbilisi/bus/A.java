@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.DatabaseHelper;
-import com.tbilisi.bus.data.UserPreference;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -66,26 +65,21 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
-                .setSmallIcon(R.drawable.refresh)
-                .setContentTitle(getResources().getString(R.string.updating))
-                .setContentText(getResources().getString(R.string.updating_info))
-                .setProgress(0, 0, true)
-                .setContentIntent(PendingIntent.getActivity(instance, 0,
-                        new Intent(instance, MenuActivity.class), 0))
-                .setOngoing(true);
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, builder.build());
 
             db = new DatabaseHelper(mContext);
             try {
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(getAssets().open("stops.xml.md5")));
-                final String checksum = reader.readLine();
-                UserPreference saved_checksum = db.userPreferenceDao.queryForId("checksum");
-                if(saved_checksum != null && saved_checksum.value.equals(checksum)) {
-                    return null;
-                }
+                if(db.busStopDao.countOf() > 0) return null;
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
+                        .setSmallIcon(R.drawable.refresh)
+                        .setContentTitle(getResources().getString(R.string.updating))
+                        .setContentText(getResources().getString(R.string.updating_info))
+                        .setProgress(0, 0, true)
+                        .setContentIntent(PendingIntent.getActivity(instance, 0,
+                                new Intent(instance, MenuActivity.class), 0))
+                        .setOngoing(true);
+                notificationManager.notify(0, builder.build());
 
                 log("Parsing stops.xml");
 
@@ -128,8 +122,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                     }
                 });
                 if(clean) {
-                    log("Operation successful, saving checksum");
-                    db.userPreferenceDao.createOrUpdate(new UserPreference("checksum", checksum));
+                    log("Operation successful");
                 } else {
                     log("Operation failed");
                 }
