@@ -163,9 +163,11 @@ public class CameraActivity extends Activity {
                 mCamera.stopPreview();
 
                 SymbolSet syms = scanner.getResults();
-                Pattern p = Pattern.compile("SMS:([0-9]+):([0-9]+)");
+
+                Pattern p = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
                 for (Symbol sym : syms) {
                     String qrData = sym.getData();
+                    Toast.makeText(CameraActivity.this, qrData, Toast.LENGTH_LONG).show();
                     Matcher m = p.matcher(qrData);
                     if (m.find()) {
                         showSchedule(m.group(2));
