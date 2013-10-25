@@ -95,7 +95,6 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                         boolean hasData = false; double lat = 0.0; double lon = 0.0;
                         Pattern p = Pattern.compile(" - ");
                         for(Element stop : stops) {
-                            log("Parsing record");
                             if(! stop.select("Type").first().text().equals("bus")) continue;
                             for(Element child: stop.children()) {
                                 tagName = child.tagName();
@@ -115,7 +114,6 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                                 }
                             }
                             if(name.length() == 0 || id == -1) continue;
-                            log("Inserting record");
                             db.busStopDao.create(new BusStop(id, name, hasBoard, hasData, lat, lon));
                         }
                         return null;

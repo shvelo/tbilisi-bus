@@ -1,14 +1,14 @@
 package com.tbilisi.bus;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -23,7 +23,7 @@ import net.sourceforge.zbar.SymbolSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends ActionBarActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
     private int focuseI = 0;
@@ -45,7 +45,8 @@ public class CameraActivity extends Activity {
 
         setContentView(R.layout.activity_camera);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
