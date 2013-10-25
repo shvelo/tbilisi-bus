@@ -4,7 +4,8 @@
     android:versionCode="4"
     android:versionName="Beta 3">
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="18" />
+
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +18,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:name=".A"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:allowBackup="true">
         <activity
             android:screenOrientation="portrait"
             android:icon="@drawable/ic_launcher"
@@ -36,14 +38,29 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".ScheduleActivity"
-            android:label="@string/buses"/>
+            android:parentActivityName=".MenuActivity"
+            android:label="@string/buses">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+            </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".InputActivity"
-            android:label="@string/input_hint"/>
+            android:parentActivityName=".MenuActivity"
+            android:label="@string/input_hint">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".HistoryActivity"
-            android:label="@string/history"/>
+            android:parentActivityName=".MenuActivity"
+            android:label="@string/history">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
     </application>
 </manifest> 

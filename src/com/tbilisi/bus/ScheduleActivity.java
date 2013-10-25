@@ -2,11 +2,10 @@ package com.tbilisi.bus;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.tbilisi.bus.data.BusInfo;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 
 public class ScheduleActivity extends ActionBarActivity {
     public ArrayList<BusInfo> busList;
-    private ListView listView;
     private String stopId;
     private BusListAdapter adapter;
     public static final String STOP_ID_KEY = "stopId";
@@ -44,7 +42,11 @@ public class ScheduleActivity extends ActionBarActivity {
             A.log("stopId == null");
             return;
         }
-        listView = (ListView) findViewById(R.id.busSchedule);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        ListView listView = (ListView) findViewById(R.id.busSchedule);
 
         loadList();
 
@@ -114,7 +116,6 @@ public class ScheduleActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             adapter.update(busList);
-            return;
         }
     }
 

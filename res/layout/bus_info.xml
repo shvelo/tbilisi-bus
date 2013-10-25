@@ -12,10 +12,9 @@
         android:singleLine="true"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:layout_gravity="center_vertical|left"
         android:ellipsize="none"
-        android:layout_weight="2"></TextView>
+        android:layout_weight="2"/>
     <TextView android:id="@+id/busDestination"
         style="@style/BusListText"
         android:singleLine="true"
@@ -25,21 +24,19 @@
         android:layout_height="wrap_content"
         android:scrollHorizontally="true"
         android:gravity="center"
-        android:textColor="#ffffff"
         android:layout_gravity="center"
         android:layout_weight="5"
         android:enabled="false"
         android:focusable="true"
-        android:focusableInTouchMode="true"></TextView>
+        android:focusableInTouchMode="true"/>
     <TextView android:id="@+id/busArrival"
         style="@style/BusListText"
         android:gravity="right"
         android:singleLine="true"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:layout_gravity="center_vertical|right"
         android:ellipsize="none"
-        android:layout_weight="2"></TextView>
+        android:layout_weight="2" />
 
 </LinearLayout>

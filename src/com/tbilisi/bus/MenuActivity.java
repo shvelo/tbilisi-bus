@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tbilisi.bus.util.MainMenuAdapter;
 import com.tbilisi.bus.util.MainMenuItem;
@@ -18,7 +17,6 @@ public class MenuActivity extends ActionBarActivity {
     private ListView listView;
     private View loadingView;
     private ArrayList<MainMenuItem> menu_items;
-    private Resources res;
 
     public static MenuActivity instance;
 
@@ -28,7 +26,7 @@ public class MenuActivity extends ActionBarActivity {
         instance = this;
         setContentView(R.layout.activity_menu);
 
-        res = getResources();
+        Resources res = getResources();
 
         listView = (ListView) findViewById(R.id.listView);
 
