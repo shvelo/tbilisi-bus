@@ -45,13 +45,13 @@ public class MenuActivity extends ActionBarActivity {
 
         menu_items.add(new MainMenuItem(res.getString(R.string.history),
                 res.getDrawable(R.drawable.time), false, intent_history));
-        menu_items.add(new MainMenuItem(res.getString(R.string.search),
-                res.getDrawable(R.drawable.search), false, null));
-        menu_items.add(new MainMenuItem(res.getString(R.string.nearest),
-                res.getDrawable(R.drawable.location), false, null));
-
-        menu_items.add(new MainMenuItem(res.getString(R.string.help),
-                res.getDrawable(R.drawable.help), true, null));
+//        menu_items.add(new MainMenuItem(res.getString(R.string.search),
+//                res.getDrawable(R.drawable.search), false, null));
+//        menu_items.add(new MainMenuItem(res.getString(R.string.nearest),
+//                res.getDrawable(R.drawable.location), false, null));
+//
+//        menu_items.add(new MainMenuItem(res.getString(R.string.help),
+//                res.getDrawable(R.drawable.help), true, null));
 
         listView.setAdapter(new MainMenuAdapter(this, menu_items));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,8 +75,8 @@ public class MenuActivity extends ActionBarActivity {
     public void enableItems() {
         listView.removeHeaderView(loadingView);
         menu_items.get(2).enabled = true;
-        menu_items.get(3).enabled = true;
-        menu_items.get(4).enabled = true;
+//        menu_items.get(3).enabled = true;
+//        menu_items.get(4).enabled = true;
         listView.setAdapter(new MainMenuAdapter(this, menu_items));
     }
 }
