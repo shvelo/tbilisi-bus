@@ -25,10 +25,7 @@
         android:scrollHorizontally="true"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_weight="5"
-        android:enabled="false"
-        android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:layout_weight="5"/>
     <TextView android:id="@+id/busArrival"
         style="@style/BusListText"
         android:gravity="right"

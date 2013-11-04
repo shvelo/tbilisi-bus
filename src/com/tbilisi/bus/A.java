@@ -72,7 +72,7 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
                 if(db.busStopDao.countOf() > 0) return null;
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
-                        .setSmallIcon(R.drawable.refresh)
+                        .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getResources().getString(R.string.updating))
                         .setContentText(getResources().getString(R.string.updating_info))
                         .setProgress(0, 0, true)
