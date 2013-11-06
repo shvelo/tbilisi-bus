@@ -9,6 +9,7 @@ rescue Gem::LoadError
 end
 
 require 'nokogiri'
+require './translit.rb'
 
 debug = ARGV[0] == "-d"
 
@@ -26,15 +27,17 @@ doc.css("Stops").each do |node|
 	id = node.css("StopId").first.content
 	name = node.css("Name").first.content
 	name = name.split(" - ")[0]
+	name_en = translit name
 	lat = node.css("Lat").first.content
 	lon = node.css("Lon").first.content
 	has_board = (node.css("HasBoard").first.content == "true") ? 1 : 0
 	has_data = (node.css("Virtual").first.content == "true") ? 1 : 0
     
-    sql_record = "INSERT INTO \"stops\" VALUES('#{name}',#{has_data},#{lat},#{lon},#{id},#{has_board});\n"
+    sql_record = "INSERT INTO stops(id,name,name_en,lat,lon,hasData,hasBoard) \
+VALUES(#{id},'#{name}','#{name_en}',#{lat},#{lon},#{has_data},#{has_board});\n"
     sql += sql_record
 
-	puts "#{id} #{name} #{lat} #{lon}" if debug
+	puts "#{id} #{name} #{name_en}" if debug
 	puts sql_record if debug
 	count += 1
 end

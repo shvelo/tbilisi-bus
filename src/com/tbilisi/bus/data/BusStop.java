@@ -10,6 +10,8 @@ public class BusStop {
     @DatabaseField
     public String name;
     @DatabaseField
+    public String name_en;
+    @DatabaseField
     public boolean hasBoard;
     @DatabaseField
     public boolean hasData;
@@ -20,9 +22,10 @@ public class BusStop {
 
     public BusStop() {}
 
-    public BusStop(int id, String name, boolean hasBoard, boolean hasData, double lat, double lon) {
+    public BusStop(int id, String name, String name_en, boolean hasBoard, boolean hasData, double lat, double lon) {
         this.id = id;
         this.name = name;
+        this.name_en = name_en;
         this.hasBoard = hasBoard;
         this.hasData = hasData;
         this.lat = lat;
