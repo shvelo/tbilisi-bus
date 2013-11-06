@@ -7,11 +7,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.crashlytics.android.Crashlytics;
 import com.tbilisi.bus.util.MainMenuAdapter;
 import com.tbilisi.bus.util.MainMenuItem;
 import java.util.ArrayList;
-
-import com.google.analytics.tracking.android.EasyTracker;
 
 public class MenuActivity extends ActionBarActivity {
     private ListView listView;
@@ -23,6 +22,7 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         instance = this;
         setContentView(R.layout.activity_menu);
 
@@ -68,18 +68,6 @@ public class MenuActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
         if(A.dbLoaded) enableItems();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance(this).activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
     }
 
     public void enableItems() {
