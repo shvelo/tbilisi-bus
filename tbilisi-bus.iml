@@ -16,6 +16,16 @@
     <orderEntry type="library" name="android-support-v7-appcompat" level="project" />
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="module" module-name="appcompat" />
+    <orderEntry type="library" name="libGoogleAnalyticsServices" level="project" />
+    <orderEntry type="module-library">
+      <library name="Crashlytics">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/crashlytics.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

@@ -66,6 +66,7 @@ public class SearchActivity extends ActionBarActivity {
                 id = id.trim();
                 QueryBuilder<BusStop, Integer> qb = A.db.busStopDao.queryBuilder();
                 Where<BusStop, Integer> query = qb.where().like("name", "%" + id + "%");
+                query.or().like("name_en", "%" + id + "%");
                 if(id.matches("[0-9]+")) {
                     query.or().idEq(Integer.valueOf(id));
                 }

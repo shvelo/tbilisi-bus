@@ -7,10 +7,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import com.crashlytics.android.Crashlytics;
 import com.tbilisi.bus.util.MainMenuAdapter;
 import com.tbilisi.bus.util.MainMenuItem;
-
 import java.util.ArrayList;
 
 public class MenuActivity extends ActionBarActivity {
@@ -23,6 +22,7 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         instance = this;
         setContentView(R.layout.activity_menu);
 

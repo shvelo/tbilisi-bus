@@ -6,7 +6,6 @@
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="19" />
 
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -66,5 +65,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="f72d9799e7252480389df22417502b46c5d81d43"/>
     </application>
 </manifest> 
