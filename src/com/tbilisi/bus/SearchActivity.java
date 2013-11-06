@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.util.StopListAdapter;
-
 import java.util.ArrayList;
 
-public class InputActivity extends ActionBarActivity {
+public class SearchActivity extends ActionBarActivity {
     private EditText input;
     private ListView list;
     private ArrayList<BusStop> items;
@@ -25,7 +25,7 @@ public class InputActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input);
+        setContentView(R.layout.activity_search);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -61,14 +61,17 @@ public class InputActivity extends ActionBarActivity {
 
     public void updateList(String id) {
         try {
-            items.clear();
             if(A.dbLoaded) {
-                BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(id));
-                if(busStop != null) items.add(busStop);
+                items.clear();
+                id = id.trim();
+                QueryBuilder<BusStop, Integer> qb = A.db.busStopDao.queryBuilder();
+                Where<BusStop, Integer> query = qb.where().like("name", "%" + id + "%");
+                if(id.matches("[0-9]+")) {
+                    query.or().idEq(Integer.valueOf(id));
+                }
+                items.addAll(query.query());
+                adapter.notifyDataSetChanged();
             }
-            if(items.size() == 0)
-                items.add(new BusStop(Integer.valueOf(id), "გაჩერება "+id, false, false, 0.0, 0.0));
-            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
