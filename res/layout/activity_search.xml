@@ -18,8 +18,7 @@
         android:nextFocusLeft="@id/input"
         android:nextFocusRight="@id/input"
         android:nextFocusUp="@id/input"
-        android:enabled="true"
-        android:editable="true" />
+        android:enabled="true" />
 
     <ListView
         android:layout_width="match_parent"
