@@ -163,6 +163,7 @@ public class IntentIntegrator {
    *  {@link #startActivityForResult(Intent, int)} will be called on the {@link Fragment} instead
    *  of an {@link Activity}
    */
+  @TargetApi(11)
   public IntentIntegrator(Fragment fragment) {
     this.activity = fragment.getActivity();
     this.fragment = fragment;
