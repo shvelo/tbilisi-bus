@@ -70,7 +70,7 @@ public class ScheduleActivity extends ActionBarActivity {
     public void loadList() {
         if(busList == null) busList = new ArrayList<BusInfo>();
         url = API + stopId;
-        new ListLoader().execute(null);
+        new ListLoader().execute();
     }
 
     private class ListLoader extends AsyncTask<Void,Integer,Void> {

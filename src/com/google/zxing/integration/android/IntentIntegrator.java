@@ -25,7 +25,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +32,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 /**
@@ -163,7 +163,7 @@ public class IntentIntegrator {
    *  {@link #startActivityForResult(Intent, int)} will be called on the {@link Fragment} instead
    *  of an {@link Activity}
    */
-  @TargetApi(11)
+
   public IntentIntegrator(Fragment fragment) {
     this.activity = fragment.getActivity();
     this.fragment = fragment;

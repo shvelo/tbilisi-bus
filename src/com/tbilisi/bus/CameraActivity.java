@@ -35,12 +35,15 @@ public class CameraActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = 
             IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        A.log(resultCode);
         if (scanResult != null) {
             String scanned = scanResult.getContents();
+            Toast.makeText(this, scanned, Toast.LENGTH_LONG).show();
             Matcher m = pattern.matcher(scanned);
             if (m.find()) {
                 showSchedule(m.group(2));
             } else {
+                Toast.makeText(this, "NO MATCH", Toast.LENGTH_LONG).show();
                 startScanning();
             }
         } else {
