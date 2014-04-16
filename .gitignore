@@ -4,3 +4,4 @@ out
 build
 data/db.sql
 gradle-app.setting
+*.properties
