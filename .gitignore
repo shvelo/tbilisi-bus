@@ -1,5 +1,6 @@
 .idea
 .gradle
+gradle
 out
 build
 data/db.sql

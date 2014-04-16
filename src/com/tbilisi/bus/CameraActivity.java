@@ -43,7 +43,7 @@ public class CameraActivity extends Activity {
             if (m.find()) {
                 showSchedule(m.group(2));
             } else {
-                Toast.makeText(this, "NO MATCH", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Doesn't match, GabeN help us", Toast.LENGTH_LONG).show();
                 startScanning();
             }
         } else {

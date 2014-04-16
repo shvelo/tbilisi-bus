@@ -21,6 +21,10 @@ android {
 	   targetSdkVersion 19
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
