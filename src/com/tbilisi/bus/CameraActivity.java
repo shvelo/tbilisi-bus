@@ -54,12 +54,12 @@ public class CameraActivity extends Activity {
             if (m.find()) {
                 scanning = false;
                 showSchedule(m.group(2));
+                finish();
             } else {
-                Toast.makeText(this, "Doesn't match, GabeN help us", Toast.LENGTH_LONG).show();
                 startScanning();
             }
         } else {
-            Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
