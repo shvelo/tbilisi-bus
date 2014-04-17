@@ -26,6 +26,14 @@ android {
 	   targetSdkVersion 19
     }
 
+    buildTypes {
+        release {
+            debuggable false
+            runProguard true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
