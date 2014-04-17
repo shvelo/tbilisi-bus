@@ -12,17 +12,29 @@ import java.util.regex.Pattern;
 
 public class CameraActivity extends Activity {
     private Pattern pattern;
+    private boolean scanning = false;
+    private boolean started = false;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
+        started = true;
 
         startScanning();
     }
 
     public void startScanning() {
         IntentIntegrator integrator = new IntentIntegrator(this);
+        scanning = true;
         integrator.initiateScan();
+    }
+
+    public void onRestart() {
+        super.onRestart();
+        
+        if(started && !scanning) {
+            startScanning();
+        }
     }
 
     private void showSchedule(String stopId) {
@@ -35,12 +47,12 @@ public class CameraActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = 
             IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        A.log(resultCode);
         if (scanResult != null) {
             String scanned = scanResult.getContents();
             Toast.makeText(this, scanned, Toast.LENGTH_LONG).show();
             Matcher m = pattern.matcher(scanned);
             if (m.find()) {
+                scanning = false;
                 showSchedule(m.group(2));
             } else {
                 Toast.makeText(this, "Doesn't match, GabeN help us", Toast.LENGTH_LONG).show();
