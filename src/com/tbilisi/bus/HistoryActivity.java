@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.StopListAdapter;
@@ -46,6 +49,11 @@ public class HistoryActivity extends ActionBarActivity {
             }
         });
 
+        loadList();
+    }
+
+    public void loadList() {
+        items.clear();
         try {
             for(HistoryItem item : A.db.historyItemDao.queryForAll()) {
                 items.add(A.db.busStopDao.queryForId(item.id));
@@ -54,5 +62,27 @@ public class HistoryActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_history, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.clear:
+                clear();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void clear() {
+        A.db.clearTable(HistoryItem.class);
+        loadList();
     }
 }

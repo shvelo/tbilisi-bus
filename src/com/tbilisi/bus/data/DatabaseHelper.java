@@ -49,4 +49,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
     }
+
+    public void clearTable(Class dataClass) {
+        try {
+            TableUtils.dropTable(connectionSource, dataClass, true);
+            TableUtils.createTable(connectionSource, dataClass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
