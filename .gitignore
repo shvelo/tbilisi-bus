@@ -6,3 +6,4 @@ build
 data/db.sql
 gradle-app.setting
 local.properties
+signing.gradle
