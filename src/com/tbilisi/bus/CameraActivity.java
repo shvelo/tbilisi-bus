@@ -49,7 +49,9 @@ public class CameraActivity extends Activity {
             IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             String scanned = scanResult.getContents();
-            Toast.makeText(this, scanned, Toast.LENGTH_LONG).show();
+
+            if(scanned == null) scanned = "";
+
             Matcher m = pattern.matcher(scanned);
             if (m.find()) {
                 scanning = false;
