@@ -11,6 +11,7 @@ apply plugin: 'android'
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':libraries:appcompat')
+    compile project(':libraries:google-play-services_lib')
 }
 
 android {

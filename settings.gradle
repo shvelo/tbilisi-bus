@@ -1,1 +1,2 @@
 include ':libraries:appcompat'
+include ':libraries:google-play-services_lib'
