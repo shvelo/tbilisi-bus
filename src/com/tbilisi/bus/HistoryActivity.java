@@ -11,12 +11,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.j256.ormlite.stmt.DeleteBuilder;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.StopListAdapter;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HistoryActivity extends ActionBarActivity {
