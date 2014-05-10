@@ -25,4 +25,9 @@ android {
 }
 eos
 
+File.open("signing.gradle", "w+") do |file|
+	file.write contents
+end
+
+puts "Generated signing.gradle with contents: \n"
 puts contents
