@@ -7,6 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -62,6 +68,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCGDNiDm6t8PHHefQfk0OKlYD_vBYtimJU"/>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="f72d9799e7252480389df22417502b46c5d81d43"/>
     </application>
 </manifest> 
