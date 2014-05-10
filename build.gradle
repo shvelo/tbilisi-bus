@@ -35,6 +35,12 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

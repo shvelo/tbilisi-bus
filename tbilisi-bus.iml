@@ -74,6 +74,7 @@
     <orderEntry type="library" exported="" name="crashlytics" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.7.2" level="project" />
     <orderEntry type="library" exported="" name="android-support-v7-appcompat" level="project" />
+    <orderEntry type="library" exported="" name="google-play-services" level="project" />
     <orderEntry type="module" module-name="google-play-services_lib" exported="" />
     <orderEntry type="module" module-name="appcompat" exported="" />
   </component>
