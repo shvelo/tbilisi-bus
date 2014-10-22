@@ -30,6 +30,9 @@ public class ScheduleActivity extends ActionBarActivity {
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
     private String url;
+    private final int delay = 60000; //Auto-update interval, seconds x 1000
+    private Handler handler;
+    private AutoUpdater autoUpdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,21 +71,34 @@ public class ScheduleActivity extends ActionBarActivity {
             }
         }
 
-        final Handler handler = new Handler();
-        final int delay = 30000;
-
-        handler.postDelayed(new Runnable(){
-            public void run(){
-                reload();
-                handler.postDelayed(this, delay);
-            }
-        }, delay);
+        handler = new Handler();
+        autoUpdater = new AutoUpdater();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.postDelayed(autoUpdater, delay);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(autoUpdater);
+    }
+
 
     public void loadList() {
         if(busList == null) busList = new ArrayList<BusInfo>();
         url = API + stopId;
         new ListLoader().execute();
+    }
+
+    private class AutoUpdater implements Runnable {
+        public void run(){
+            reload();
+            handler.postDelayed(this, delay);
+        }
     }
 
     private class ListLoader extends AsyncTask<Void,Integer,Void> {
