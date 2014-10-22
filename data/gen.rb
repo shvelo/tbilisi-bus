@@ -1,37 +1,29 @@
 #!/usr/bin/env ruby
 
-begin
-	gem 'nokogiri'
-rescue Gem::LoadError
-	puts "Nokogiri not installed, install it via following command:"
-	puts " sudo gem install nokogiri"
-	exit 1
-end
-
-require 'nokogiri'
 require './translit.rb'
+require 'json'
 
 debug = ARGV[0] == "-d"
 
 count = 0
 
-puts "Parsing XML"
+puts "Parsing JSON"
 
-doc = Nokogiri::XML(File.open("stops.xml"))
+doc = JSON.parse(File.read("stops.json"))
 sql = ""
 
-puts "Parsed XML"
+puts "Parsed JSON"
 
-doc.css("Stops").each do |node|
-	next if node.css("Type").first.content != "bus"
-	id = node.css("StopId").first.content
-	name = node.css("Name").first.content
+doc["Stops"].each do |node|
+	next if node["Type"] != "bus"
+	id = node["StopId"]
+	name = node["Name"]
 	name = name.split(" - ")[0]
 	name_en = translit name
-	lat = node.css("Lat").first.content
-	lon = node.css("Lon").first.content
-	has_board = (node.css("HasBoard").first.content == "true") ? 1 : 0
-	has_data = (node.css("Virtual").first.content == "true") ? 1 : 0
+	lat = node["Lat"]
+	lon = node["Lon"]
+	has_board = (node["HasBoard"] == "true") ? 1 : 0
+	has_data = (node["Virtual"] == "true") ? 1 : 0
     
     sql_record = "INSERT INTO stops(id,name,name_en,lat,lon,hasData,hasBoard) \
 VALUES(#{id},'#{name}','#{name_en}',#{lat},#{lon},#{has_data},#{has_board});\n"

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 def translit text
 	out = text
 
