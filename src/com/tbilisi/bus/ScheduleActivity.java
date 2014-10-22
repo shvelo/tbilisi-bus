@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import java.lang.Runnable;
+import android.os.Handler;
 
 import com.tbilisi.bus.data.BusInfo;
 import com.tbilisi.bus.data.BusStop;
@@ -65,6 +67,16 @@ public class ScheduleActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
         }
+
+        final Handler handler = new Handler();
+        final int delay = 30000;
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                reload();
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
     }
 
     public void loadList() {
