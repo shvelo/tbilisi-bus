@@ -4,22 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textNoSuggestions"
-        android:ems="10"
-        android:id="@+id/input"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"
-        android:singleLine="true"
-        android:nextFocusDown="@id/input"
-        android:nextFocusForward="@id/input"
-        android:nextFocusLeft="@id/input"
-        android:nextFocusRight="@id/input"
-        android:nextFocusUp="@id/input"
-        android:enabled="true" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,4 +6,6 @@ build
 data/db.sql
 gradle-app.setting
 local.properties
+project.properties
 signing.gradle
+*.iml

@@ -3,7 +3,11 @@ package com.tbilisi.bus;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,8 +44,8 @@ public class MenuActivity extends ActionBarActivity {
         menu_items = new ArrayList<MainMenuItem>();
         menu_items.add(new MainMenuItem(res.getString(R.string.scan),
                 res.getDrawable(R.drawable.qr), true, intent_scan));
-        menu_items.add(new MainMenuItem(res.getString(R.string.search),
-                res.getDrawable(R.drawable.search), true, intent_search));
+//        menu_items.add(new MainMenuItem(res.getString(R.string.search),
+//                res.getDrawable(R.drawable.search), true, intent_search));
 
         menu_items.add(new MainMenuItem(res.getString(R.string.history),
                 res.getDrawable(R.drawable.time), false, intent_history));
@@ -70,9 +74,34 @@ public class MenuActivity extends ActionBarActivity {
         if(A.dbLoaded) enableItems();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_app, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Intent intent = new Intent(instance, SearchActivity.class);
+                intent.putExtra("query", s);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public void enableItems() {
         listView.removeHeaderView(loadingView);
-        menu_items.get(2).enabled = true;
+        menu_items.get(1).enabled = true;
 //        menu_items.get(3).enabled = true;
 //        menu_items.get(4).enabled = true;
         listView.setAdapter(new MainMenuAdapter(this, menu_items));

@@ -2,10 +2,15 @@ package com.tbilisi.bus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -21,6 +26,7 @@ public class SearchActivity extends ActionBarActivity {
     private ListView list;
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
+    private String query;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,22 +36,10 @@ public class SearchActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        input = (EditText) findViewById(R.id.input);
         list = (ListView) findViewById(R.id.list);
         items = new ArrayList<BusStop>();
         adapter = new StopListAdapter(this, items);
         list.setAdapter(adapter);
-
-        input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                updateList(editable.toString());
-            }
-        });
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,6 +51,11 @@ public class SearchActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        Intent thisIntent = getIntent();
+        query = thisIntent.getStringExtra("query");
+        Log.d("BUS", query);
+        if(query != null) updateList(query);
     }
 
     public void updateList(String id) {
@@ -76,5 +75,33 @@ public class SearchActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_app, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setSubmitButtonEnabled(false);
+        if(query != null) {
+            searchView.setQuery(query, false);
+            searchView.setIconified(false);
+        }
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                updateList(s);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
