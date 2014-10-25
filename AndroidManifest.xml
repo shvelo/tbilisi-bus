@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tbilisi.bus"
-    android:versionCode="12"
-    android:versionName="1.5.0">
+    android:versionCode="13"
+    android:versionName="2.0.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -61,6 +61,7 @@
         </activity>
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCGDNiDm6t8PHHefQfk0OKlYD_vBYtimJU"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
         <meta-data android:name="com.crashlytics.ApiKey" android:value="f72d9799e7252480389df22417502b46c5d81d43"/>
     </application>
 </manifest> 
