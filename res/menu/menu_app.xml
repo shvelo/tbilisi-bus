@@ -5,6 +5,13 @@
     <item android:id="@+id/search"
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        android:title="@string/search"
-        />
+        android:title="@string/search" />
+    <item android:id="@+id/scan"
+        app:showAsAction="always"
+        android:icon="@drawable/qr"
+        android:title="@string/scan" />
+    <item android:id="@+id/history"
+        android:icon="@drawable/time"
+        app:showAsAction="always"
+        android:title="@string/history" />
 </menu>

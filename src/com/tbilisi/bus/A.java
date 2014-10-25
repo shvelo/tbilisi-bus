@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -15,10 +14,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
-public class A extends Application implements Thread.UncaughtExceptionHandler {
+public class A extends Application {
     public static Context mContext;
     public static A instance;
-    public static Camera camera;
     public static Typeface typeface;
     public static DatabaseHelper db;
     public static boolean dbLoaded = false;
@@ -26,7 +24,6 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
     @Override
     public void onCreate() {
         super.onCreate();
-        Thread.setDefaultUncaughtExceptionHandler(this);
         instance = this;
         mContext = getApplicationContext();
         typeface = Typeface.createFromAsset(getAssets(), "DejaVuSans.ttf");
@@ -36,17 +33,6 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
 
     public static void log(Object string){
         Log.i("BUS",String.valueOf(string));
-    }
-
-    @Override
-    public void uncaughtException(Thread thread, Throwable throwable) {
-        if(camera != null) {
-            camera.setPreviewCallback(null);
-            camera.release();
-            camera = null;
-        }
-        throwable.printStackTrace();
-        System.exit(1);
     }
 
     private class BaseLoader extends AsyncTask<Void,Integer,Void> {
@@ -92,7 +78,6 @@ public class A extends Application implements Thread.UncaughtExceptionHandler {
         @Override
         protected void onPostExecute(Void result) {
             dbLoaded = true;
-            MenuActivity.instance.enableItems();
             notificationManager.cancel(0);
         }
     }
