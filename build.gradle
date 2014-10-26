@@ -20,6 +20,11 @@ dependencies {
 }
 
 android {
+    defaultConfig {
+        versionCode 16
+        versionName "2.1.0"
+    }
+
     compileSdkVersion 21
     buildToolsVersion "21.0.2"
 
