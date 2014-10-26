@@ -57,12 +57,15 @@ public class MenuActivity extends ActionBarActivity {
         String provider = locationManager.getBestProvider(criteria, true);
         Location myLocation = locationManager.getLastKnownLocation(provider);
         double latitude, longitude;
+        int zoomLevel;
         if(myLocation != null) {
             latitude = myLocation.getLatitude();
             longitude = myLocation.getLongitude();
+            zoomLevel = 17;
         } else {
             latitude = 41.7167f;
             longitude = 44.7833f;
+            zoomLevel = 11;
         }
 
         LatLng latLng = new LatLng(latitude, longitude);
