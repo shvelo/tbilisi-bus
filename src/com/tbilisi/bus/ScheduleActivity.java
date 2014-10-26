@@ -10,6 +10,8 @@ import android.widget.ListView;
 import java.lang.Runnable;
 import android.os.Handler;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tbilisi.bus.data.BusInfo;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
@@ -33,6 +35,7 @@ public class ScheduleActivity extends ActionBarActivity {
     private final int delay = 60000; //Auto-update interval, seconds x 1000
     private Handler handler;
     private AutoUpdater autoUpdater;
+    private AdView ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +76,40 @@ public class ScheduleActivity extends ActionBarActivity {
 
         handler = new Handler();
         autoUpdater = new AutoUpdater();
+
+        ad = (AdView)findViewById(R.id.ad_schedule);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("F405EEB4E7BFB13CFC1CD35E3688395F")
+                .build();
+
+        ad.loadAd(adRequest);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        if(ad != null) ad.resume();
+
         handler.postDelayed(autoUpdater, delay);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+
+        if(ad != null) ad.pause();
+
         handler.removeCallbacks(autoUpdater);
     }
 
+    @Override
+    public void onDestroy() {
+        if (ad != null) {
+            ad.destroy();
+        }
+        super.onDestroy();
+    }
 
     public void loadList() {
         if(busList == null) busList = new ArrayList<BusInfo>();

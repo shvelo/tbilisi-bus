@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 public class MenuActivity extends ActionBarActivity {
     private Pattern qr_pattern;
     private GoogleMap googleMap;
+    private boolean mapPopulated = false;
 
     public static MenuActivity instance;
 
@@ -44,11 +45,13 @@ public class MenuActivity extends ActionBarActivity {
 
         googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMap();
+
+        if(A.dbLoaded && !mapPopulated) populateMap();
     }
 
     private void setUpMap() {
         googleMap.setMyLocationEnabled(true);
-        googleMap.setTrafficEnabled(true);
+        googleMap.setTrafficEnabled(false);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
@@ -65,11 +68,11 @@ public class MenuActivity extends ActionBarActivity {
                 showSchedule(marker.getSnippet());
             }
         });
-
-        populateMap();
     }
 
     public void populateMap() {
+        mapPopulated = true;
+
         new AsyncTask<Void, BusStop, Void>() {
             private CloseableIterator<BusStop> iterator;
 
@@ -92,9 +95,14 @@ public class MenuActivity extends ActionBarActivity {
                                 .position(new LatLng(items[0].lat, items[0].lon))
                                 .title(items[0].name)
                                 .snippet(String.valueOf(items[0].id))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.time))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_icon))
+                                .anchor(0.5f, 1.0f) //bottom-center
                 );
             }
+
+//            @Override
+//            protected void onPostExecute(Void result) {
+//            }
         }.execute();
     }
 

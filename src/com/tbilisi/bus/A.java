@@ -39,22 +39,31 @@ public class A extends Application {
         NotificationManager notificationManager;
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected void onPreExecute() {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
             db = new DatabaseHelper(mContext);
+
+            try {
+                if(db.busStopDao.countOf() > 0) return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
+                    .setSmallIcon(R.drawable.refresh)
+                    .setContentTitle(getResources().getString(R.string.updating))
+                    .setContentText(getResources().getString(R.string.updating_info))
+                    .setProgress(0, 0, true)
+                    .setContentIntent(PendingIntent.getActivity(instance, 0,
+                            new Intent(instance, MenuActivity.class), 0))
+                    .setOngoing(true);
+            notificationManager.notify(0, builder.build());
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
             try {
                 if(db.busStopDao.countOf() > 0) return null;
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(instance)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(getResources().getString(R.string.updating))
-                        .setContentText(getResources().getString(R.string.updating_info))
-                        .setProgress(0, 0, true)
-                        .setContentIntent(PendingIntent.getActivity(instance, 0,
-                                new Intent(instance, MenuActivity.class), 0))
-                        .setOngoing(true);
-                notificationManager.notify(0, builder.build());
 
                 db.busStopDao.callBatchTasks(new Callable<Void>() {
                     @Override
@@ -75,9 +84,11 @@ public class A extends Application {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             dbLoaded = true;
+            MenuActivity.instance.populateMap();
             notificationManager.cancel(0);
         }
     }
