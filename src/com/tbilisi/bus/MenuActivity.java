@@ -70,7 +70,7 @@ public class MenuActivity extends ActionBarActivity {
 
         LatLng latLng = new LatLng(latitude, longitude);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(19));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
