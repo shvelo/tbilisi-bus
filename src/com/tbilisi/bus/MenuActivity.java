@@ -56,8 +56,15 @@ public class MenuActivity extends ActionBarActivity {
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
         Location myLocation = locationManager.getLastKnownLocation(provider);
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
+        double latitude, longitude;
+        if(myLocation != null) {
+            latitude = myLocation.getLatitude();
+            longitude = myLocation.getLongitude();
+        } else {
+            latitude = 41.7167f;
+            longitude = 44.7833f;
+        }
+
         LatLng latLng = new LatLng(latitude, longitude);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(19));
