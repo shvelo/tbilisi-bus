@@ -55,7 +55,7 @@ public class A extends Application {
                     .setContentText(getResources().getString(R.string.updating_info))
                     .setProgress(0, 0, true)
                     .setContentIntent(PendingIntent.getActivity(instance, 0,
-                            new Intent(instance, MenuActivity.class), 0))
+                            new Intent(instance, MainActivity.class), 0))
                     .setOngoing(true);
             notificationManager.notify(0, builder.build());
         }
@@ -88,7 +88,7 @@ public class A extends Application {
         @Override
         protected void onPostExecute(Void result) {
             dbLoaded = true;
-            MenuActivity.instance.populateMap();
+            MainActivity.instance.populateMap();
             notificationManager.cancel(0);
         }
     }

@@ -50,6 +50,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void setUpMap() {
+        if(googleMap == null) return;
+
         googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(false);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -84,6 +86,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void populateMap() {
+        if(googleMap == null) return;
+
         mapPopulated = true;
 
         new AsyncTask<Void, BusStop, Void>() {
