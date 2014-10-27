@@ -27,19 +27,19 @@ import com.tbilisi.bus.data.BusStop;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MenuActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity {
     private Pattern qr_pattern;
     private GoogleMap googleMap;
     private boolean mapPopulated = false;
 
-    public static MenuActivity instance;
+    public static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
         instance = this;
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_main);
 
         qr_pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
 
@@ -54,10 +54,13 @@ public class MenuActivity extends ActionBarActivity {
         googleMap.setTrafficEnabled(false);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
-        Location myLocation = locationManager.getLastKnownLocation(provider);
+        String provider = locationManager.getBestProvider(criteria, false);
+        Location myLocation = null;
         double latitude, longitude;
         int zoomLevel;
+        if(provider != null) {
+            myLocation = locationManager.getLastKnownLocation(provider);
+        }
         if(myLocation != null) {
             latitude = myLocation.getLatitude();
             longitude = myLocation.getLongitude();
@@ -110,9 +113,10 @@ public class MenuActivity extends ActionBarActivity {
                 );
             }
 
-//            @Override
-//            protected void onPostExecute(Void result) {
-//            }
+            @Override
+            protected void onPostExecute(Void result) {
+                iterator.closeQuietly();
+            }
         }.execute();
     }
 
