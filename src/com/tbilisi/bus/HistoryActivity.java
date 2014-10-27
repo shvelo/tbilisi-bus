@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.StopListAdapter;
@@ -18,10 +20,10 @@ import com.tbilisi.bus.util.StopListAdapter;
 import java.util.ArrayList;
 
 public class HistoryActivity extends ActionBarActivity {
-    private EditText input;
     private ListView list;
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
+    private AdView ad;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,34 @@ public class HistoryActivity extends ActionBarActivity {
         });
 
         loadList();
+
+        ad = (AdView)findViewById(R.id.ad_history);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("F405EEB4E7BFB13CFC1CD35E3688395F")
+                .build();
+
+        ad.loadAd(adRequest);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(ad != null) ad.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(ad != null) ad.pause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (ad != null) ad.destroy();
+
+        super.onDestroy();
     }
 
     public void loadList() {
