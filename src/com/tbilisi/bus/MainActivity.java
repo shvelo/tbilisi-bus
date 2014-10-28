@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends ActionBarActivity {
     private Pattern qr_pattern;
+    private SearchFragment searchFragment;
     private GoogleMap googleMap;
     private boolean mapPopulated = false;
 
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         qr_pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
+        searchFragment = (SearchFragment) getFragmentManager().findFragmentById(R.id.search_fragment);
 
         googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMap();
@@ -133,20 +135,27 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_app, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setSubmitButtonEnabled(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Intent intent = new Intent(instance, SearchActivity.class);
-                intent.putExtra("query", s);
-                startActivity(intent);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                searchFragment.updateList(s);
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchFragment.clearList();
                 return false;
             }
         });
