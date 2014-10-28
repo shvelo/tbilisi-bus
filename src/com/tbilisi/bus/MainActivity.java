@@ -135,7 +135,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_app, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
         searchView.setSubmitButtonEnabled(false);
 
