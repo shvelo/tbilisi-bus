@@ -58,21 +58,21 @@ public class MainActivity extends ActionBarActivity {
         googleMap.setTrafficEnabled(false);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, false);
+        String provider = locationManager.getBestProvider(criteria, true);
         Location myLocation = null;
-        double latitude, longitude;
-        int zoomLevel;
+
+        //Default location and zoom level (Tbilisi)
+        double latitude = 41.7167f;
+        double longitude = 44.7833f;
+        int zoomLevel = 11;
+
         if(provider != null) {
             myLocation = locationManager.getLastKnownLocation(provider);
-        }
-        if(myLocation != null) {
-            latitude = myLocation.getLatitude();
-            longitude = myLocation.getLongitude();
-            zoomLevel = 17;
-        } else {
-            latitude = 41.7167f;
-            longitude = 44.7833f;
-            zoomLevel = 11;
+            if(myLocation != null) {
+                latitude = myLocation.getLatitude();
+                longitude = myLocation.getLongitude();
+                zoomLevel = 17;
+            }
         }
 
         LatLng latLng = new LatLng(latitude, longitude);
