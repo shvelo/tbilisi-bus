@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.+'
+        classpath 'com.android.tools.build:gradle:1.0.+'
     }
 }
 
@@ -12,7 +12,7 @@ repositories {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+    gradleVersion = '2.2'
 }
 
 apply plugin: 'com.android.application'
@@ -25,12 +25,12 @@ dependencies {
 
 android {
     defaultConfig {
-        versionCode 21
-        versionName "2.5.0"
+        versionCode 22
+        versionName "2.6.0"
     }
 
     compileSdkVersion 21
-    buildToolsVersion "21.0.2"
+    buildToolsVersion "21.1.1"
 
     lintOptions {
       abortOnError false
@@ -44,8 +44,7 @@ android {
     buildTypes {
         release {
             debuggable false
-            runProguard false
-            proguardFile file('proguard.cfg')
+            minifyEnabled false
         }
     }
 

@@ -60,7 +60,7 @@ public class BusListAdapter extends BaseAdapter {
         busDestination.setTypeface(A.typeface);
         busArrival.setTypeface(A.typeface);
 
-        busNumber.setText("№" + String.valueOf(item.number));
+        busNumber.setText(String.valueOf(item.number));
         busDestination.setText(item.destination);
         busArrival.setText(String.valueOf(item.arrival) + "წთ");
 

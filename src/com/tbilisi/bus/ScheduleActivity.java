@@ -2,13 +2,13 @@ package com.tbilisi.bus;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
-import java.lang.Runnable;
-import android.os.Handler;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -156,9 +156,7 @@ public class ScheduleActivity extends ActionBarActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(newBusList.size() == 0 && busList.size() == 0)
-                busList.add(new BusInfo(0, getResources().getString(R.string.nothing_found), 0));
-            else if(newBusList.size() > 0) {
+            if(newBusList.size() > 0) {
                 busList = newBusList;
             }
             return null;
@@ -167,6 +165,11 @@ public class ScheduleActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             adapter.update(busList);
+            if(busList.size() == 0) {
+                findViewById(R.id.nothing_found).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.nothing_found).setVisibility(View.GONE);
+            }
         }
     }
 
