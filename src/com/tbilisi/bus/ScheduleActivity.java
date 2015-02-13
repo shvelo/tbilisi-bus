@@ -42,13 +42,11 @@ public class ScheduleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         if (getIntent().getExtras() == null){
-            A.log("getIntent().getExtras() == null");
-            return;
+            finish();
         }
         stopId = getIntent().getExtras().getString(STOP_ID_KEY);
         if (stopId == null){
-            A.log("stopId == null");
-            return;
+            finish();
         }
 
         ActionBar actionBar = getSupportActionBar();

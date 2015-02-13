@@ -33,7 +33,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = (String) view.getTag();
-                A.log("Showing schedule for " + id);
                 Intent intent = new Intent(getActivity(), ScheduleActivity.class);
                 intent.putExtra(ScheduleActivity.STOP_ID_KEY, id);
                 startActivity(intent);

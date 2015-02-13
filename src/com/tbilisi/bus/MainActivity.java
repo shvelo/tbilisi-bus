@@ -6,11 +6,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -164,7 +164,7 @@ public class MainActivity extends ActionBarActivity {
         scan.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                IntentIntegrator integrator = new IntentIntegrator(instance);
+                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
                 integrator.initiateScan();
                 return true;
             }
@@ -174,7 +174,7 @@ public class MainActivity extends ActionBarActivity {
         history.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Intent intent_history = new Intent(instance, HistoryActivity.class);
+                Intent intent_history = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(intent_history);
                 return true;
             }

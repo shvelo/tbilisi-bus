@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tbilisi.bus.A;
 import com.tbilisi.bus.R;
 import com.tbilisi.bus.data.BusInfo;
 
@@ -55,10 +54,6 @@ public class BusListAdapter extends BaseAdapter {
         TextView busNumber = (TextView) view.findViewById(R.id.busNumber);
         TextView busDestination = (TextView) view.findViewById(R.id.busDestination);
         TextView busArrival = (TextView) view.findViewById(R.id.busArrival);
-
-        busNumber.setTypeface(A.typeface);
-        busDestination.setTypeface(A.typeface);
-        busArrival.setTypeface(A.typeface);
 
         busNumber.setText(String.valueOf(item.number));
         busDestination.setText(item.destination);

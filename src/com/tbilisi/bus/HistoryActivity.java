@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -42,7 +41,6 @@ public class HistoryActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = (String) view.getTag();
-                A.log("Showing schedule for " + id);
                 Intent intent = new Intent(getApplicationContext(), ScheduleActivity.class);
                 intent.putExtra(ScheduleActivity.STOP_ID_KEY, id);
                 startActivity(intent);

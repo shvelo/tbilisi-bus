@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tbilisi.bus.A;
 import com.tbilisi.bus.R;
 import com.tbilisi.bus.data.BusStop;
 
@@ -51,9 +50,6 @@ public class StopListAdapter extends BaseAdapter {
 
         stopNumber.setText(String.valueOf(stop.id));
         stopName.setText(String.valueOf(stop.name));
-
-        stopNumber.setTypeface(A.typeface);
-        stopName.setTypeface(A.typeface);
 
         view.setTag(String.valueOf(stop.id));
 
