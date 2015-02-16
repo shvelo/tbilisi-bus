@@ -19,7 +19,6 @@ import com.tbilisi.bus.util.StopListAdapter;
 import java.util.ArrayList;
 
 public class HistoryActivity extends ActionBarActivity {
-    private ListView list;
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
     private AdView ad;
@@ -32,8 +31,8 @@ public class HistoryActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        list = (ListView) findViewById(R.id.listView);
-        items = new ArrayList<BusStop>();
+        ListView list = (ListView) findViewById(R.id.listView);
+        items = new ArrayList<>();
         adapter = new StopListAdapter(this, items);
         list.setAdapter(adapter);
 

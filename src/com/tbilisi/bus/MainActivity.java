@@ -1,37 +1,43 @@
 package com.tbilisi.bus;
 
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.j256.ormlite.dao.CloseableIterator;
 import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.MapItem;
+import com.tbilisi.bus.util.MapItemRenderer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private Pattern qr_pattern;
     private SearchFragment searchFragment;
     private GoogleMap googleMap;
+    private ClusterManager<MapItem> clusterManager;
     private boolean mapPopulated = false;
+    private GoogleApiClient googleApiClient;
+    private Location lastLocation;
 
     public static MainActivity instance;
 
@@ -49,42 +55,66 @@ public class MainActivity extends ActionBarActivity {
         setUpMap();
 
         if(A.dbLoaded && !mapPopulated) populateMap();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     private void setUpMap() {
         if(googleMap == null) return;
 
+        clusterManager = new ClusterManager<>(this, googleMap);
+        clusterManager.setRenderer(new MapItemRenderer(this, googleMap, clusterManager));
+
+        clusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<MapItem>() {
+            @Override
+            public void onClusterItemInfoWindowClick(MapItem mapItem) {
+                showSchedule(mapItem.id);
+            }
+        });
+
+        googleMap.setOnCameraChangeListener(clusterManager);
+        googleMap.setOnMarkerClickListener(clusterManager);
+        googleMap.setOnInfoWindowClickListener(clusterManager);
+
         googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(false);
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
-        Location myLocation = null;
 
         //Default location and zoom level (Tbilisi)
         double latitude = 41.7167f;
         double longitude = 44.7833f;
         int zoomLevel = 11;
 
-        if(provider != null) {
-            myLocation = locationManager.getLastKnownLocation(provider);
-            if(myLocation != null) {
-                latitude = myLocation.getLatitude();
-                longitude = myLocation.getLongitude();
-                zoomLevel = 17;
-            }
-        }
-
         LatLng latLng = new LatLng(latitude, longitude);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+    }
 
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                showSchedule(marker.getSnippet());
-            }
-        });
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.i("GoogleApiClient", "Connected");
+        lastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                googleApiClient);
+        if (lastLocation != null) {
+            Log.i("Location", "Location acquired");
+            double latitude = lastLocation.getLatitude();
+            double longitude = lastLocation.getLongitude();
+            int zoomLevel = 18;
+
+            LatLng latLng = new LatLng(latitude, longitude);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+        } else {
+            Log.w("Location", "Location null");
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 
     public void populateMap() {
@@ -110,13 +140,16 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             protected void onProgressUpdate(BusStop... items) {
-                googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(items[0].lat, items[0].lon))
-                                .title(items[0].name)
-                                .snippet(String.valueOf(items[0].id))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_icon))
-                                .anchor(0.5f, 1.0f) //bottom-center
-                );
+//                googleMap.addMarker(new MarkerOptions()
+//                                .position(new LatLng(items[0].lat, items[0].lon))
+//                                .title(items[0].name)
+//                                .snippet(String.valueOf(items[0].id))
+//                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_icon))
+//                                .anchor(0.5f, 1.0f) //bottom-center
+//                );
+                clusterManager.addItem(new MapItem(items[0].lat, items[0].lon,
+                        String.valueOf(items[0].id),
+                        items[0].name));
             }
 
             @Override
@@ -200,5 +233,10 @@ public class MainActivity extends ActionBarActivity {
             Matcher m = qr_pattern.matcher(scanned);
             if (m.find()) showSchedule(m.group(2));
         }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.w("GoogleApiClient", connectionResult.toString());
     }
 }
