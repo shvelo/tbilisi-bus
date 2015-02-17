@@ -19,15 +19,14 @@ public class A extends Application {
 
     private void loadRealm() {
         Realm realm = Realm.getInstance(this);
-        if(realm.where(BusStop.class).count() == 0) {
-            try {
-                InputStream is = getAssets().open("db.json");
-                realm.beginTransaction();
-                realm.createAllFromJson(BusStop.class, is);
-                realm.commitTransaction();
-            } catch (IOException e) {
-                realm.cancelTransaction();
-            }
+
+        try {
+            InputStream is = getAssets().open("db.json");
+            realm.beginTransaction();
+            realm.createOrUpdateAllFromJson(BusStop.class, is);
+            realm.commitTransaction();
+        } catch (IOException e) {
+            realm.cancelTransaction();
         }
     }
 }

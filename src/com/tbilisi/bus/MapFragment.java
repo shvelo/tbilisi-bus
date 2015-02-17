@@ -79,6 +79,8 @@ public class MapFragment extends Fragment implements
         googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(false);
 
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+
         //Default location and zoom level (Tbilisi)
         double latitude = 41.7167f;
         double longitude = 44.7833f;
@@ -127,6 +129,7 @@ public class MapFragment extends Fragment implements
     public void populateMap() {
         if(googleMap == null) return;
         clusterManager.addItems(realm.allObjects(BusStop.class));
+        Log.i("Map", "Added items");
     }
 
     @Override
