@@ -27,6 +27,8 @@ public class A extends Application {
             realm.commitTransaction();
         } catch (IOException e) {
             realm.cancelTransaction();
+        } finally {
+            realm.close();
         }
     }
 }

@@ -108,6 +108,7 @@ public class ScheduleActivity extends ActionBarActivity {
         if (ad != null) {
             ad.destroy();
         }
+        realm.close();
         super.onDestroy();
     }
 

@@ -48,6 +48,12 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        realm.close();
+    }
+
     public void updateList(String id) {
         try {
             items.clear();

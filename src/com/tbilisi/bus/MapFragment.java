@@ -49,6 +49,12 @@ public class MapFragment extends Fragment implements
     }
 
     @Override
+    public void onDestroy(){
+        super.onDestroy();
+        realm.close();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_map, container, false);
