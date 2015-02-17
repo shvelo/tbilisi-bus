@@ -51,7 +51,7 @@ public class MapFragment extends Fragment implements
     @Override
     public void onDestroy(){
         super.onDestroy();
-        realm.close();
+        if(realm != null) realm.close();
     }
 
     @Override

@@ -78,7 +78,7 @@ public class HistoryActivity extends ActionBarActivity {
     @Override
     public void onDestroy() {
         if (ad != null) ad.destroy();
-        realm.close();
+        if(realm != null) realm.close();
 
         super.onDestroy();
     }

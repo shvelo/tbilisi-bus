@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        realm.close();
+        if(realm != null) realm.close();
     }
 
     public void updateList(String id) {

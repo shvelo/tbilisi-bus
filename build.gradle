@@ -14,7 +14,7 @@ repositories {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
+    gradleVersion = '2.3'
 }
 
 apply plugin: 'com.android.application'
@@ -29,8 +29,8 @@ dependencies {
 
 android {
     defaultConfig {
-        versionCode 30
-        versionName "3.0.0"
+        versionCode 35
+        versionName "3.5.0"
     }
 
     compileSdkVersion 21
