@@ -18,15 +18,20 @@ import com.tbilisi.bus.util.StopListAdapter;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class HistoryActivity extends ActionBarActivity {
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
     private AdView ad;
+    private Realm realm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        realm = Realm.getInstance(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -80,8 +85,9 @@ public class HistoryActivity extends ActionBarActivity {
     public void loadList() {
         items.clear();
         try {
-            for(HistoryItem item : A.db.historyItemDao.queryForAll()) {
-                items.add(A.db.busStopDao.queryForId(item.id));
+            for(HistoryItem item : realm.allObjects(HistoryItem.class)){
+                BusStop stop = realm.where(BusStop.class).equalTo("id", item.getId()).findFirst();
+                items.add(stop);
             }
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
@@ -107,7 +113,6 @@ public class HistoryActivity extends ActionBarActivity {
     }
 
     public void clear() {
-        A.db.clearTable(HistoryItem.class);
         loadList();
     }
 }

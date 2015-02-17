@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/map"
+    <fragment android:id="@+id/map_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_height="wrap_content"
+        android:name="com.tbilisi.bus.MapFragment"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true" />
 
     <fragment android:id="@+id/search_fragment"
         android:layout_width="match_parent"

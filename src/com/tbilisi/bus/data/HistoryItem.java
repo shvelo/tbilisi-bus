@@ -1,16 +1,17 @@
 package com.tbilisi.bus.data;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-@DatabaseTable(tableName = "history")
-public class HistoryItem {
-    @DatabaseField(id = true)
-    public int id;
+public class HistoryItem extends RealmObject {
+    @PrimaryKey
+    private int id;
 
-    public HistoryItem(){}
+    public int getId() {
+        return id;
+    }
 
-    public HistoryItem(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

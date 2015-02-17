@@ -14,11 +14,9 @@ import java.util.ArrayList;
 
 public class StopListAdapter extends BaseAdapter {
     public ArrayList<BusStop> stops;
-    private Context context;
     private LayoutInflater inflater;
 
     public StopListAdapter(Context context, ArrayList<BusStop> stops) {
-        this.context = context;
         this.stops = stops;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -41,17 +39,17 @@ public class StopListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null) {
-            view = inflater.inflate(R.layout.stop_list_item, null, false);
+            view = inflater.inflate(R.layout.stop_list_item, viewGroup, false);
         }
         BusStop stop = stops.get(i);
 
         TextView stopNumber = (TextView) view.findViewById(R.id.stopNumber);
         TextView stopName = (TextView) view.findViewById(R.id.stopName);
 
-        stopNumber.setText(String.valueOf(stop.id));
-        stopName.setText(String.valueOf(stop.name));
+        stopNumber.setText(String.valueOf(stop.getId()));
+        stopName.setText(String.valueOf(stop.getName()));
 
-        view.setTag(String.valueOf(stop.id));
+        view.setTag(String.valueOf(stop.getId()));
 
         return view;
     }

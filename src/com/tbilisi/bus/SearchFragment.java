@@ -8,24 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
+
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.util.StopListAdapter;
+
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class SearchFragment extends Fragment {
     private ListView list;
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
+    private Realm realm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.activity_search, container);
 
+        realm = Realm.getInstance(getActivity());
+
         list = (ListView) view.findViewById(R.id.list);
-        items = new ArrayList<BusStop>();
+        items = new ArrayList<>();
         adapter = new StopListAdapter(getActivity(), items);
         list.setAdapter(adapter);
 
@@ -44,18 +50,14 @@ public class SearchFragment extends Fragment {
 
     public void updateList(String id) {
         try {
-            if(A.dbLoaded) {
-                items.clear();
-                id = id.trim();
-                QueryBuilder<BusStop, Integer> qb = A.db.busStopDao.queryBuilder();
-                Where<BusStop, Integer> query = qb.where().like("name", "%" + id + "%");
-                query.or().like("name_en", "%" + id + "%");
-                if(id.matches("[0-9]+")) {
-                    query.or().idEq(Integer.valueOf(id));
-                }
-                items.addAll(query.query());
-                adapter.notifyDataSetChanged();
-            }
+            items.clear();
+            id = id.trim();
+            RealmResults<BusStop> results = realm.where(BusStop.class)
+                    .contains("name", id)
+                    .or().equalTo("id", Integer.parseInt(id))
+                    .findAll();
+            items.addAll(results);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,6 +65,7 @@ public class SearchFragment extends Fragment {
 
     public void clearList() {
         items.clear();
+        //TODO: Clear db
         adapter.notifyDataSetChanged();
     }
 }

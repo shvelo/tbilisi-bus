@@ -1,34 +1,54 @@
 package com.tbilisi.bus.data;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
 
-@DatabaseTable(tableName = "stops")
-public class BusStop {
-    @DatabaseField(id = true)
-    public int id;
-    @DatabaseField
-    public String name;
-    @DatabaseField
-    public String name_en;
-    @DatabaseField
-    public boolean hasBoard;
-    @DatabaseField
-    public boolean hasData;
-    @DatabaseField
-    public double lat;
-    @DatabaseField
-    public double lon;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class BusStop extends RealmObject implements ClusterItem {
+    @PrimaryKey
+    private int id;
+    private String name;
+    private double lat;
+    private double lon;
 
     public BusStop() {}
 
-    public BusStop(int id, String name, String name_en, boolean hasBoard, boolean hasData, double lat, double lon) {
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(lat, lon);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.name_en = name_en;
-        this.hasBoard = hasBoard;
-        this.hasData = hasData;
+    }
+
+    public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public double getLat() {
+        return this.lat;
+    }
+
+    public double getLon() {
+        return this.lon;
     }
 }

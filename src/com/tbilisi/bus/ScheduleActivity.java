@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.tbilisi.bus.data.BusInfo;
-import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.BusListAdapter;
 
@@ -23,6 +22,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class ScheduleActivity extends ActionBarActivity {
     public ArrayList<BusInfo> busList;
@@ -36,6 +37,7 @@ public class ScheduleActivity extends ActionBarActivity {
     private Handler handler;
     private AutoUpdater autoUpdater;
     private AdView ad;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class ScheduleActivity extends ActionBarActivity {
             finish();
         }
 
+        realm = Realm.getInstance(this);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -60,16 +64,14 @@ public class ScheduleActivity extends ActionBarActivity {
 
         listView.setAdapter(adapter);
 
-        if(A.dbLoaded) {
-            try {
-                BusStop busStop = A.db.busStopDao.queryForId(Integer.valueOf(stopId));
-                if(busStop != null) {
-                    setTitle(busStop.name + " " + stopId);
-                    A.db.historyItemDao.createIfNotExists(new HistoryItem(Integer.valueOf(stopId)));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            if(realm.where(HistoryItem.class).equalTo("id", Integer.parseInt(stopId)).count() == 0) {
+                realm.beginTransaction();
+                realm.createObject(HistoryItem.class).setId(Integer.parseInt(stopId));
+                realm.commitTransaction();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         handler = new Handler();
