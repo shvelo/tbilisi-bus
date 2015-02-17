@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 import io.realm.Realm;
 
-public class A extends Application {
+public class App extends Application {
 
     @Override
     public void onCreate() {
@@ -21,10 +21,13 @@ public class A extends Application {
         Realm realm = Realm.getInstance(this);
 
         try {
-            InputStream is = getAssets().open("db.json");
-            realm.beginTransaction();
-            realm.createOrUpdateAllFromJson(BusStop.class, is);
-            realm.commitTransaction();
+            if(realm.where(BusStop.class).count() == 0) {
+                InputStream is = getAssets().open("db.json");
+                realm.beginTransaction();
+                realm.createAllFromJson(BusStop.class, is);
+                realm.commitTransaction();
+            }
+
         } catch (IOException e) {
             realm.cancelTransaction();
         } finally {
