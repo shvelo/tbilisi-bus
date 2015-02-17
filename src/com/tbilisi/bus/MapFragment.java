@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.MapItem;
 import com.tbilisi.bus.util.MapItemRenderer;
 
 import io.realm.Realm;
@@ -25,10 +26,8 @@ import io.realm.Realm;
 public class MapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleMap googleMap;
-    private ClusterManager<BusStop> clusterManager;
+    private ClusterManager<MapItem> clusterManager;
     private GoogleApiClient googleApiClient;
-
-    public static MapFragment instance;
 
     private Realm realm;
 
@@ -71,10 +70,10 @@ public class MapFragment extends Fragment implements
         clusterManager = new ClusterManager<>(getActivity(), googleMap);
         clusterManager.setRenderer(new MapItemRenderer(getActivity(), googleMap, clusterManager));
 
-        clusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<BusStop>() {
+        clusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<MapItem>() {
             @Override
-            public void onClusterItemInfoWindowClick(BusStop mapItem) {
-                showSchedule(String.valueOf(mapItem.getId()));
+            public void onClusterItemInfoWindowClick(MapItem mapItem) {
+                showSchedule(String.valueOf(mapItem.id));
             }
         });
 
@@ -134,7 +133,9 @@ public class MapFragment extends Fragment implements
 
     public void populateMap() {
         if(googleMap == null) return;
-        clusterManager.addItems(realm.allObjects(BusStop.class));
+        for(BusStop stop : realm.allObjects(BusStop.class)) {
+            clusterManager.addItem(new MapItem(stop));
+        }
         Log.i("Map", "Added items");
     }
 

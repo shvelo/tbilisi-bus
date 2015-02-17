@@ -17,7 +17,7 @@ public class BusStop extends RealmObject implements ClusterItem {
 
     @Override
     public LatLng getPosition() {
-        return new LatLng(lat, lon);
+        return new LatLng(getLat(), getLon());
     }
 
     public int getId() {

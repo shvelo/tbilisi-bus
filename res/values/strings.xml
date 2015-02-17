@@ -8,7 +8,4 @@
     <string name="input_id">გაჩერების ნომერი</string>
     <string name="clear_history">ისტორიის გაწმენდა</string>
     <string name="search_hint">გაჩერების სახელი ან ID</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
