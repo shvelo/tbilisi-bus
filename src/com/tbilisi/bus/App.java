@@ -1,6 +1,7 @@
 package com.tbilisi.bus;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.tbilisi.bus.data.BusStop;
 
@@ -22,6 +23,7 @@ public class App extends Application {
 
         try {
             if(realm.where(BusStop.class).count() == 0) {
+                Log.i("Realm", "Initializing DB");
                 InputStream is = getAssets().open("db.json");
                 realm.beginTransaction();
                 realm.createAllFromJson(BusStop.class, is);

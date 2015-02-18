@@ -27,10 +27,14 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.activity_search, container);
-
-        realm = Realm.getInstance(getActivity());
-
         list = (ListView) view.findViewById(R.id.list);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        realm = Realm.getInstance(getActivity());
         items = new ArrayList<>();
         adapter = new StopListAdapter(getActivity(), items);
         list.setAdapter(adapter);
@@ -44,8 +48,6 @@ public class SearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        return view;
     }
 
     @Override
@@ -71,7 +73,6 @@ public class SearchFragment extends Fragment {
 
     public void clearList() {
         items.clear();
-        //TODO: Clear db
         adapter.notifyDataSetChanged();
     }
 }

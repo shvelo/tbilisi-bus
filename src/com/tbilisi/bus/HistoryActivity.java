@@ -114,6 +114,9 @@ public class HistoryActivity extends ActionBarActivity {
     }
 
     public void clear() {
+        realm.beginTransaction();
+        realm.where(HistoryItem.class).findAll().clear();
+        realm.commitTransaction();
         loadList();
     }
 }
