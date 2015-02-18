@@ -1,7 +1,6 @@
 package com.tbilisi.bus;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +41,13 @@ public class SearchFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id = (String) view.getTag();
-                Intent intent = new Intent(getActivity(), ScheduleFragment.class);
-                intent.putExtra(ScheduleFragment.STOP_ID_KEY, id);
-                startActivity(intent);
+                showSchedule((int) view.getTag());
             }
         });
+    }
+
+    private void showSchedule(int stopId) {
+        ((MainActivity)getActivity()).showSchedule(stopId);
     }
 
     @Override

@@ -48,9 +48,9 @@ public class StopListAdapter extends BaseAdapter {
             TextView stopName = (TextView) view.findViewById(R.id.stopName);
 
             stopNumber.setText(String.valueOf(stop.getId()));
-            stopName.setText(String.valueOf(stop.getName()));
+            stopName.setText(stop.getName());
 
-            view.setTag(String.valueOf(stop.getId()));
+            view.setTag(stop.getId());
         }
 
         return view;
