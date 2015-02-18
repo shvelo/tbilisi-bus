@@ -26,7 +26,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.activity_search, container);
+        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_search, container);
         list = (ListView) view.findViewById(R.id.list);
         return view;
     }
@@ -43,8 +43,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = (String) view.getTag();
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                intent.putExtra(ScheduleActivity.STOP_ID_KEY, id);
+                Intent intent = new Intent(getActivity(), ScheduleFragment.class);
+                intent.putExtra(ScheduleFragment.STOP_ID_KEY, id);
                 startActivity(intent);
             }
         });

@@ -2,7 +2,6 @@ package com.tbilisi.bus;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +28,7 @@ public class MapFragment extends Fragment implements
     private GoogleMap googleMap;
     private ClusterManager<MapItem> clusterManager;
     private GoogleApiClient googleApiClient;
+    private boolean googleApiLoaded;
 
     private Realm realm;
 
@@ -74,10 +74,11 @@ public class MapFragment extends Fragment implements
         clusterManager = new ClusterManager<>(getActivity(), googleMap);
         clusterManager.setRenderer(new MapItemRenderer(getActivity(), googleMap, clusterManager));
 
-        clusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<MapItem>() {
+        clusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MapItem>() {
             @Override
-            public void onClusterItemInfoWindowClick(MapItem mapItem) {
-                showSchedule(String.valueOf(mapItem.id));
+            public boolean onClusterItemClick(MapItem mapItem) {
+                showSchedule(mapItem.id);
+                return true;
             }
         });
         clusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<MapItem>() {
@@ -100,6 +101,8 @@ public class MapFragment extends Fragment implements
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+        if(googleApiLoaded) return;
+
         //Default location and zoom level (Tbilisi)
         double latitude = 41.7167f;
         double longitude = 44.7833f;
@@ -112,7 +115,9 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        googleApiLoaded = true;
         Log.i("GoogleApiClient", "Connected");
+
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 googleApiClient);
         if (lastLocation != null) {
@@ -139,10 +144,8 @@ public class MapFragment extends Fragment implements
         Log.w("GoogleApiClient", connectionResult.toString());
     }
 
-    private void showSchedule(String stopId) {
-        Intent i = new Intent(getActivity(), ScheduleActivity.class);
-        i.putExtra(ScheduleActivity.STOP_ID_KEY, stopId);
-        startActivity(i);
+    private void showSchedule(int stopId) {
+        ((MainActivity)getActivity()).showSchedule(stopId);
     }
 
     public void populateMap() {

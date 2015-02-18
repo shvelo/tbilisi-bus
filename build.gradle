@@ -27,8 +27,8 @@ dependencies {
 
 android {
     defaultConfig {
-        versionCode 36
-        versionName "3.6.0"
+        versionCode 37
+        versionName "3.7.0"
     }
 
     compileSdkVersion 21

@@ -8,4 +8,5 @@
     <string name="input_id">გაჩერების ნომერი</string>
     <string name="clear_history">ისტორიის გაწმენდა</string>
     <string name="search_hint">გაჩერების სახელი ან ID</string>
+    <string name="hide_schedule">დამალვა</string>
 </resources>

@@ -1,17 +1,14 @@
 package com.tbilisi.bus;
 
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.tbilisi.bus.data.BusInfo;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.BusListAdapter;
@@ -25,95 +22,61 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-public class ScheduleActivity extends ActionBarActivity {
+public class ScheduleFragment extends Fragment {
     public ArrayList<BusInfo> busList;
-    private String stopId;
+    private int stopId;
     private BusListAdapter adapter;
     public static final String STOP_ID_KEY = "stopId";
     private static final String API =
             "http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=";
     private String url;
-    private final int delay = 60000; //Auto-update interval, seconds x 1000
+    private final int delay = 30000; //Auto-update interval, seconds x 1000
     private Handler handler;
     private AutoUpdater autoUpdater;
-    private AdView ad;
     private Realm realm;
+    private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
-        if (getIntent().getExtras() == null){
-            finish();
-        }
-        stopId = getIntent().getExtras().getString(STOP_ID_KEY);
-        if (stopId == null){
-            finish();
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        return view;
+    }
 
-        realm = Realm.getInstance(this);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        realm = Realm.getInstance(getActivity());
 
-        ListView listView = (ListView) findViewById(R.id.busSchedule);
-
+        ListView listView = (ListView) view.findViewById(R.id.busSchedule);
         loadList();
-
-        adapter = new BusListAdapter(this, busList);
-
+        adapter = new BusListAdapter(getActivity(), busList);
         listView.setAdapter(adapter);
-
-        try {
-            if(realm.where(HistoryItem.class).equalTo("id", Integer.parseInt(stopId)).count() == 0) {
-                realm.beginTransaction();
-                realm.createObject(HistoryItem.class).setId(Integer.parseInt(stopId));
-                realm.commitTransaction();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         handler = new Handler();
         autoUpdater = new AutoUpdater();
-
-        ad = (AdView)findViewById(R.id.ad_schedule);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("F405EEB4E7BFB13CFC1CD35E3688395F")
-                .build();
-
-        ad.loadAd(adRequest);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        if(ad != null) ad.resume();
-
         handler.postDelayed(autoUpdater, delay);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-        if(ad != null) ad.pause();
-
         handler.removeCallbacks(autoUpdater);
     }
 
     @Override
     public void onDestroy() {
-        if (ad != null) {
-            ad.destroy();
-        }
         if(realm != null) realm.close();
         super.onDestroy();
     }
 
     public void loadList() {
-        if(busList == null) busList = new ArrayList<BusInfo>();
+        if(busList == null) busList = new ArrayList<>();
         url = API + stopId;
         new ListLoader().execute();
     }
@@ -167,32 +130,33 @@ public class ScheduleActivity extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             adapter.update(busList);
             if(busList.size() == 0) {
-                findViewById(R.id.nothing_found).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.nothing_found).setVisibility(View.VISIBLE);
             } else {
-                findViewById(R.id.nothing_found).setVisibility(View.GONE);
+                view.findViewById(R.id.nothing_found).setVisibility(View.GONE);
             }
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_schedule, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.reload:
-                reload();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 
     public void reload() {
         loadList();
         adapter.update(busList);
+    }
+
+    private void saveToHistory() {
+        try {
+            if(realm.where(HistoryItem.class).equalTo("id", stopId).count() == 0) {
+                realm.beginTransaction();
+                realm.createObject(HistoryItem.class).setId(stopId);
+                realm.commitTransaction();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showSchedule(int id) {
+        stopId = id;
+        loadList();
+        saveToHistory();
     }
 }

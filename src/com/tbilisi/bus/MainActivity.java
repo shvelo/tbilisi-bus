@@ -6,26 +6,46 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.tbilisi.bus.data.BusStop;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.realm.Realm;
+
 public class MainActivity extends ActionBarActivity {
     private Pattern qr_pattern;
     private SearchFragment searchFragment;
+    private ScheduleFragment scheduleFragment;
+    private Button scheduleButton;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
         setContentView(R.layout.activity_main);
+        realm = Realm.getInstance(this);
 
         qr_pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
         searchFragment = (SearchFragment) getFragmentManager().findFragmentById(R.id.search_fragment);
+        scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentById(R.id.schedule_fragment);
+        scheduleButton = (Button) findViewById(R.id.hide_schedule);
+
+        scheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSchedule();
+            }
+        });
+
+        hideSchedule();
     }
 
     @Override
@@ -85,10 +105,17 @@ public class MainActivity extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void showSchedule(String stopId) {
-        Intent i = new Intent(this, ScheduleActivity.class);
-        i.putExtra(ScheduleActivity.STOP_ID_KEY, stopId);
-        startActivity(i);
+    public void showSchedule(int stopId) {
+        findViewById(R.id.schedule_fragment).setVisibility(View.VISIBLE);
+        scheduleButton.setVisibility(View.VISIBLE);
+        String stopName = realm.where(BusStop.class).equalTo("id", stopId).findFirst().getName();
+        scheduleButton.setText(stopName);
+        scheduleFragment.showSchedule(stopId);
+    }
+
+    public void hideSchedule() {
+        findViewById(R.id.schedule_fragment).setVisibility(View.GONE);
+        scheduleButton.setVisibility(View.GONE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -100,7 +127,7 @@ public class MainActivity extends ActionBarActivity {
             if (scanned == null) return;
 
             Matcher m = qr_pattern.matcher(scanned);
-            if (m.find()) showSchedule(m.group(2));
+            if (m.find()) showSchedule(Integer.parseInt(m.group(2)));
         }
     }
 }

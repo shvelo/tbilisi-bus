@@ -3,14 +3,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <fragment android:id="@+id/map_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.tbilisi.bus.MapFragment"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:layout_height="fill_parent">
+
+        <fragment android:id="@+id/map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:name="com.tbilisi.bus.MapFragment" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hide_schedule"
+            android:text="@string/hide_schedule"
+            android:background="#ffc107"
+            android:textColor="#ffffff"
+            android:padding="0dp" />
+        <fragment android:id="@+id/schedule_fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:name="com.tbilisi.bus.ScheduleFragment"/>
+    </LinearLayout>
 
     <fragment android:id="@+id/search_fragment"
         android:layout_width="match_parent"

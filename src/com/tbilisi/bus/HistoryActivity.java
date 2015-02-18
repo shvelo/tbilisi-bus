@@ -1,17 +1,16 @@
 package com.tbilisi.bus;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
 import com.tbilisi.bus.util.StopListAdapter;
@@ -23,7 +22,8 @@ import io.realm.Realm;
 public class HistoryActivity extends ActionBarActivity {
     private ArrayList<BusStop> items;
     private StopListAdapter adapter;
-    private AdView ad;
+    private ScheduleFragment scheduleFragment;
+    private Button scheduleButton;
     private Realm realm;
 
     @Override
@@ -45,48 +45,49 @@ public class HistoryActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = (String) view.getTag();
-                Intent intent = new Intent(getApplicationContext(), ScheduleActivity.class);
-                intent.putExtra(ScheduleActivity.STOP_ID_KEY, id);
-                startActivity(intent);
+                showSchedule(Integer.parseInt(id));
             }
         });
 
         loadList();
 
-        ad = (AdView)findViewById(R.id.ad_history);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("F405EEB4E7BFB13CFC1CD35E3688395F")
-                .build();
+        scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentById(R.id.schedule_fragment);
+        scheduleButton = (Button) findViewById(R.id.hide_schedule);
 
-        ad.loadAd(adRequest);
+        scheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSchedule();
+            }
+        });
+
+        hideSchedule();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(ad != null) ad.resume();
+    public void showSchedule(int stopId) {
+        findViewById(R.id.schedule_fragment).setVisibility(View.VISIBLE);
+        scheduleButton.setVisibility(View.VISIBLE);
+        String stopName = realm.where(BusStop.class).equalTo("id", stopId).findFirst().getName();
+        scheduleButton.setText(stopName);
+        scheduleFragment.showSchedule(stopId);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if(ad != null) ad.pause();
+    public void hideSchedule() {
+        findViewById(R.id.schedule_fragment).setVisibility(View.GONE);
+        scheduleButton.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroy() {
-        if (ad != null) ad.destroy();
-        if(realm != null) realm.close();
-
         super.onDestroy();
+        if(realm != null) realm.close();
     }
 
     public void loadList() {
         items.clear();
         try {
             for(HistoryItem item : realm.allObjects(HistoryItem.class)){
+                Log.d("History", String.valueOf(item.getId()));
                 BusStop stop = realm.where(BusStop.class).equalTo("id", item.getId()).findFirst();
                 items.add(stop);
             }

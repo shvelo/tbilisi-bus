@@ -43,13 +43,15 @@ public class StopListAdapter extends BaseAdapter {
         }
         BusStop stop = stops.get(i);
 
-        TextView stopNumber = (TextView) view.findViewById(R.id.stopNumber);
-        TextView stopName = (TextView) view.findViewById(R.id.stopName);
+        if(stop != null) {
+            TextView stopNumber = (TextView) view.findViewById(R.id.stopNumber);
+            TextView stopName = (TextView) view.findViewById(R.id.stopName);
 
-        stopNumber.setText(String.valueOf(stop.getId()));
-        stopName.setText(String.valueOf(stop.getName()));
+            stopNumber.setText(String.valueOf(stop.getId()));
+            stopName.setText(String.valueOf(stop.getName()));
 
-        view.setTag(String.valueOf(stop.getId()));
+            view.setTag(String.valueOf(stop.getId()));
+        }
 
         return view;
     }
