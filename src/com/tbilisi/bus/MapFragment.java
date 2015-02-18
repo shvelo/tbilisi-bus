@@ -14,6 +14,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.Cluster;
@@ -25,7 +26,7 @@ import com.tbilisi.bus.util.MapItemRenderer;
 import io.realm.Realm;
 
 public class MapFragment extends Fragment implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
     private GoogleMap googleMap;
     private ClusterManager<MapItem> clusterManager;
     private GoogleApiClient googleApiClient;
@@ -67,9 +68,7 @@ public class MapFragment extends Fragment implements
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if(mapFragment == null) return;
-        googleMap = mapFragment.getMap();
-        setUpMap();
-        populateMap();
+        mapFragment.getMapAsync(this);
     }
 
     private void setUpMap() {
@@ -168,5 +167,12 @@ public class MapFragment extends Fragment implements
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        setUpMap();
+        populateMap();
     }
 }
