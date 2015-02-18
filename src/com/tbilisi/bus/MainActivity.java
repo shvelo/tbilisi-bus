@@ -34,8 +34,8 @@ public class MainActivity extends ActionBarActivity {
         realm = Realm.getInstance(this);
 
         qr_pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
-        searchFragment = (SearchFragment) getFragmentManager().findFragmentById(R.id.search_fragment);
-        scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentById(R.id.schedule_fragment);
+        searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.search_fragment);
+        scheduleFragment = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_fragment);
         scheduleButton = (Button) findViewById(R.id.hide_schedule);
 
         scheduleButton.setOnClickListener(new View.OnClickListener() {

@@ -51,7 +51,7 @@ public class HistoryActivity extends ActionBarActivity {
 
         loadList();
 
-        scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentById(R.id.schedule_fragment);
+        scheduleFragment = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_fragment);
         scheduleButton = (Button) findViewById(R.id.hide_schedule);
 
         scheduleButton.setOnClickListener(new View.OnClickListener() {

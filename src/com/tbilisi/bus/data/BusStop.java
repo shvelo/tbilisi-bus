@@ -1,12 +1,11 @@
 package com.tbilisi.bus.data;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.clustering.ClusterItem;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 
-public class BusStop extends RealmObject implements ClusterItem {
+@RealmClass
+public class BusStop extends RealmObject {
     @PrimaryKey
     private int id;
     private String name;
@@ -14,11 +13,6 @@ public class BusStop extends RealmObject implements ClusterItem {
     private double lon;
 
     public BusStop() {}
-
-    @Override
-    public LatLng getPosition() {
-        return new LatLng(getLat(), getLon());
-    }
 
     public int getId() {
         return id;
