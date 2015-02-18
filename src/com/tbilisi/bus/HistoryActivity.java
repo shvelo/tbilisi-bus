@@ -44,8 +44,7 @@ public class HistoryActivity extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id = (String) view.getTag();
-                showSchedule(Integer.parseInt(id));
+                showSchedule((int) view.getTag());
             }
         });
 
