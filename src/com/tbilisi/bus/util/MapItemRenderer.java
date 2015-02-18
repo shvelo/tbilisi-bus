@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.tbilisi.bus.R;
@@ -22,5 +23,10 @@ public class MapItemRenderer extends DefaultClusterRenderer<MapItem>{
         markerOptions.snippet(String.valueOf(mapItem.id))
                 .anchor(0.5f, 1.0f)
                 .title(mapItem.name);
+    }
+
+    @Override
+    protected boolean shouldRenderAsCluster(Cluster cluster) {
+        return cluster.getSize() > 2;
     }
 }

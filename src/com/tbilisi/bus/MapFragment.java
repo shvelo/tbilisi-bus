@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.MapItem;
@@ -77,6 +78,16 @@ public class MapFragment extends Fragment implements
             @Override
             public void onClusterItemInfoWindowClick(MapItem mapItem) {
                 showSchedule(String.valueOf(mapItem.id));
+            }
+        });
+        clusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<MapItem>() {
+            @Override
+            public boolean onClusterClick(Cluster<MapItem> mapItemCluster) {
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        mapItemCluster.getPosition(),
+                        googleMap.getCameraPosition().zoom + 1)
+                );
+                return true;
             }
         });
 
