@@ -64,6 +64,7 @@ public class MainActivity extends ActionBarActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                searchFragment.updateList(s);
                 return false;
             }
 

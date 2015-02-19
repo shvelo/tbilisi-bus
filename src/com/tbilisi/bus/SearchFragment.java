@@ -41,7 +41,9 @@ public class SearchFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showSchedule((int) view.getTag());
+                int id = (int) view.getTag();
+                clearList();
+                showSchedule(id);
             }
         });
     }
@@ -62,7 +64,6 @@ public class SearchFragment extends Fragment {
             id = id.trim();
             RealmResults<BusStop> results = realm.where(BusStop.class)
                     .contains("name", id)
-                    .or().equalTo("id", Integer.parseInt(id))
                     .findAll();
             items.addAll(results);
             adapter.notifyDataSetChanged();
