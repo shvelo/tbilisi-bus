@@ -8,15 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tbilisi.bus.R;
-import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.MapItem;
 
 import java.util.ArrayList;
 
 public class StopListAdapter extends BaseAdapter {
-    public ArrayList<BusStop> stops;
+    public ArrayList<MapItem> stops;
     private LayoutInflater inflater;
 
-    public StopListAdapter(Context context, ArrayList<BusStop> stops) {
+    public StopListAdapter(Context context, ArrayList<MapItem> stops) {
         this.stops = stops;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -41,16 +41,16 @@ public class StopListAdapter extends BaseAdapter {
         if(view == null) {
             view = inflater.inflate(R.layout.stop_list_item, viewGroup, false);
         }
-        BusStop stop = stops.get(i);
+        MapItem stop = stops.get(i);
 
         if(stop != null) {
             TextView stopNumber = (TextView) view.findViewById(R.id.stopNumber);
             TextView stopName = (TextView) view.findViewById(R.id.stopName);
 
-            stopNumber.setText(String.valueOf(stop.getId()));
-            stopName.setText(stop.getName());
+            stopNumber.setText(String.valueOf(stop.id));
+            stopName.setText(stop.name);
 
-            view.setTag(stop.getId());
+            view.setTag(stop.id);
         }
 
         return view;

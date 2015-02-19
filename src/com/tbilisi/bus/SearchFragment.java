@@ -1,7 +1,7 @@
 package com.tbilisi.bus;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tbilisi.bus.data.BusStop;
+import com.tbilisi.bus.data.MapItem;
 import com.tbilisi.bus.util.StopListAdapter;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import io.realm.RealmResults;
 
 public class SearchFragment extends Fragment {
     private ListView list;
-    private ArrayList<BusStop> items;
+    private ArrayList<MapItem> items;
     private StopListAdapter adapter;
     private Realm realm;
 
@@ -65,7 +66,9 @@ public class SearchFragment extends Fragment {
             RealmResults<BusStop> results = realm.where(BusStop.class)
                     .contains("name", id)
                     .findAll();
-            items.addAll(results);
+            for(BusStop result : results){
+                items.add(new MapItem(result));
+            }
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

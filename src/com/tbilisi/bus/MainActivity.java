@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.tbilisi.bus.data.BusStop;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,8 +33,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-        setContentView(R.layout.activity_main);
         realm = Realm.getInstance(this);
+        loadRealm();
+        setContentView(R.layout.activity_main);
 
         qr_pattern = Pattern.compile("smsto:([0-9]+):([0-9]+)", Pattern.CASE_INSENSITIVE);
         searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.search_fragment);
@@ -51,6 +55,20 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    private void loadRealm() {
+        try {
+            if(realm.where(BusStop.class).count() == 0) {
+                Log.i("Realm", "Initializing DB");
+                InputStream is = getAssets().open("db.json");
+                realm.beginTransaction();
+                realm.createAllFromJson(BusStop.class, is);
+                realm.commitTransaction();
+            }
+        } catch (IOException e) {
+            realm.cancelTransaction();
+        }
     }
 
     @Override

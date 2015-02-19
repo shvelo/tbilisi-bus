@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.tbilisi.bus.data.BusStop;
 import com.tbilisi.bus.data.HistoryItem;
+import com.tbilisi.bus.data.MapItem;
 import com.tbilisi.bus.util.StopListAdapter;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import io.realm.Realm;
 
 public class HistoryActivity extends ActionBarActivity {
-    private ArrayList<BusStop> items;
+    private ArrayList<MapItem> items;
     private StopListAdapter adapter;
     private ScheduleFragment scheduleFragment;
     private Button scheduleButton;
@@ -88,7 +89,7 @@ public class HistoryActivity extends ActionBarActivity {
             for(HistoryItem item : realm.allObjects(HistoryItem.class)){
                 Log.d("History", String.valueOf(item.getId()));
                 BusStop stop = realm.where(BusStop.class).equalTo("id", item.getId()).findFirst();
-                items.add(stop);
+                items.add(new MapItem(stop));
             }
             adapter.notifyDataSetChanged();
         } catch (Exception e) {

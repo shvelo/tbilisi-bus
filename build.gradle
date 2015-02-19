@@ -27,8 +27,8 @@ dependencies {
 
 android {
     defaultConfig {
-        versionCode 42
-        versionName "4.2.0"
+        versionCode 43
+        versionName "4.3.0"
     }
 
     compileSdkVersion 21
@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-	   minSdkVersion 9
+	   minSdkVersion 15
 	   targetSdkVersion 21
     }
 
