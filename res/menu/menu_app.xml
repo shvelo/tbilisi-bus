@@ -3,15 +3,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/search"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="@string/search" />
     <item android:id="@+id/scan"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/qr"
         android:title="@string/scan" />
     <item android:id="@+id/history"
         android:icon="@drawable/time"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:title="@string/history" />
 </menu>
