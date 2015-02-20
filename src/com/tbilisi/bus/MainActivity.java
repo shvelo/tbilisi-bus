@@ -60,11 +60,14 @@ public class MainActivity extends ActionBarActivity {
     private void loadRealm() {
         try {
             if(realm.where(BusStop.class).count() == 0) {
+                long elapsed = System.nanoTime();
                 Log.i("Realm", "Initializing DB");
                 InputStream is = getAssets().open("db.json");
                 realm.beginTransaction();
                 realm.createAllFromJson(BusStop.class, is);
                 realm.commitTransaction();
+                elapsed = (System.nanoTime() - elapsed) / 1000000;
+                Log.i("Realm", "Initialized DB in "+String.valueOf(elapsed) +"ms");
             }
         } catch (IOException e) {
             realm.cancelTransaction();
