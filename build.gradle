@@ -13,6 +13,7 @@ repositories {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
+    distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
 apply plugin: 'com.android.application'
