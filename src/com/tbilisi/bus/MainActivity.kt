@@ -36,6 +36,8 @@ public class MainActivity() : AppCompatActivity() {
             when(it.itemId) {
                 R.id.drawer_map -> navigate(MapFragment())
             }
+            supportActionBar.title = it.title
+            it.setChecked(true)
             drawerLayout.closeDrawers()
             true
         }
