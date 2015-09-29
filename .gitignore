@@ -1,11 +1,5 @@
 .idea
 .gradle
-gradle
-out
 build
-data/db.sql
-gradle-app.setting
+data/*.json
 local.properties
-project.properties
-signing.gradle
-*.iml

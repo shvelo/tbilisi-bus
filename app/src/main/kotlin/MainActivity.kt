@@ -33,7 +33,7 @@ public class MainActivity() : AppCompatActivity() {
         supportActionBar.setHomeButtonEnabled(true);
 
         drawer.setNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.drawer_map -> navigate(MapFragment())
             }
             supportActionBar.title = it.title
