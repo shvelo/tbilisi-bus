@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/title_map"
+        android:id="@+id/drawer_map"
+        android:checked="true"
+        android:icon="@drawable/ic_map"/>
+    <item
+        android:title="@string/title_history"
+        android:id="@+id/drawer_history"
+        android:icon="@drawable/ic_history"/>
+    <item
+        android:title="@string/title_scan"
+        android:id="@+id/drawer_scan"
+        android:icon="@drawable/ic_camera"/>
+</menu>

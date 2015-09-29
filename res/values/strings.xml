@@ -9,4 +9,10 @@
     <string name="clear_history">ისტორიის გაწმენდა</string>
     <string name="search_hint">გაჩერების სახელი ან ID</string>
     <string name="hide_schedule">დამალვა</string>
+    <string name="tile_source">http://1.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{2x}.png</string>
+    <string name="title_map">რუკა</string>
+    <string name="drawer_close">Open drawer</string>
+    <string name="drawer_open">Close drawer</string>
+    <string name="title_history">ისტორია</string>
+    <string name="title_scan">სკანირება</string>
 </resources>
