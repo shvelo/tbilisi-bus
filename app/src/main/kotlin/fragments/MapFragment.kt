@@ -47,6 +47,7 @@ public class MapFragment : Fragment() {
 
     fun setupMap(mv: MapView) {
         mv.setTileSource(WebSourceTileLayer("tiles", getString(R.string.tile_source)))
+        mv.setDiskCacheEnabled(true)
         mv.setUserLocationEnabled(true)
         mv.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW)
         mv.setUserLocationRequiredZoom(17F)
