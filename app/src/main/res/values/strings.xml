@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tbilisi Bus</string>
-    <string name="buses">ავტობუსები</string>
-    <string name="input_hint">გაჩერების ნომერი</string>
-    <string name="updating">ბაზის განახლება</string>
-    <string name="updating_info">მიმდინარეობს ბაზის განახლება</string>
-    <string name="input_id">გაჩერების ნომერი</string>
-    <string name="clear_history">ისტორიის გაწმენდა</string>
-    <string name="search_hint">გაჩერების სახელი ან ID</string>
-    <string name="hide_schedule">დამალვა</string>
-    <string name="tile_source">http://1.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{2x}.png</string>
-    <string name="title_map">რუკა</string>
-    <string name="drawer_close">Open drawer</string>
-    <string name="drawer_open">Close drawer</string>
-    <string name="title_history">ისტორია</string>
-    <string name="title_scan">სკანირება</string>
-    <string name="locate">მომძებნე</string>
-    <string name="app_icon">App icon</string>
+    <string name="clear_history">Clear history</string>
+    <string name="title_map">Map</string>
+    <string name="title_history">History</string>
+    <string name="title_scan">Scan</string>
+    <string name="locate">Locate me</string>
 </resources>

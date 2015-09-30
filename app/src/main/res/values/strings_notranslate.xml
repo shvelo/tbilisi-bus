@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Tbilisi Bus</string>
+    <string name="tile_source" translatable="false">http://1.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{2x}.png</string>
+    <string name="app_icon" translatable="false">App icon</string>
+    <string name="drawer_close" translatable="false">Open drawer</string>
+    <string name="drawer_open" translatable="false">Close drawer</string>
+</resources>
