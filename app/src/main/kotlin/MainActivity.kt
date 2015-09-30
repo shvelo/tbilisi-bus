@@ -20,7 +20,7 @@ public class MainActivity() : AppCompatActivity() {
         setupNavigationDrawer()
 
         setFragment(MapFragment())
-        toolbar.title = getString(R.string.title_map)
+        supportActionBar.title = getString(R.string.title_map)
     }
 
     fun setFragment(fragment: Fragment) {
