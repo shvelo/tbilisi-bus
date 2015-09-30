@@ -15,5 +15,10 @@
             android:checkable="false"
             android:icon="@drawable/ic_camera"
             android:title="@string/title_scan" />
+        <item
+            android:id="@+id/drawer_language"
+            android:checkable="false"
+            android:icon="@drawable/ic_language"
+            android:title="@string/change_language" />
     </group>
 </menu>

@@ -1,6 +1,7 @@
 package com.tbilisi.bus
 
 import android.app.Fragment
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
@@ -9,12 +10,14 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.MapFragment
 import kotlinx.android.synthetic.activity_main.*
+import java.util.*
 
 public class MainActivity() : AppCompatActivity() {
     var drawerToggle: ActionBarDrawerToggle? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+        restoreLocale()
         setContentView(R.layout.activity_main);
 
         setSupportActionBar(toolbar)
@@ -47,10 +50,48 @@ public class MainActivity() : AppCompatActivity() {
                     supportActionBar.title = it.title
                     true
                 }
-                R.id.drawer_scan -> false
+                R.id.drawer_language -> {
+                    switchLocale()
+                    false
+                }
                 else -> false
             }
         }
+    }
+
+    fun restoreLocale() {
+        val locale = getSharedPreferences("default", 0).getString("locale", null)
+        if(locale != null) {
+            setLocale(locale)
+        }
+    }
+
+    fun switchLocale() {
+        if (Locale.getDefault().equals(Locale("ka"))) {
+            setLocale("en")
+        } else {
+            setLocale("ka")
+        }
+        restartActivity()
+    }
+
+    fun setLocale(localeName: String) {
+        val locale = Locale(localeName)
+
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+
+        val preferences = getSharedPreferences("default", 0)
+        preferences.edit().putString("locale", localeName).apply()
+
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+    }
+
+    fun restartActivity() {
+        val intent = getIntent()
+        finish()
+        startActivity(intent)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
