@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
+import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
 import kotlinx.android.synthetic.activity_main.*
 import java.util.*
@@ -47,6 +48,11 @@ public class MainActivity() : AppCompatActivity() {
                 }
                 R.id.drawer_history -> {
                     setFragment(HistoryFragment())
+                    supportActionBar.title = it.title
+                    true
+                }
+                R.id.drawer_info -> {
+                    setFragment(InfoFragment())
                     supportActionBar.title = it.title
                     true
                 }

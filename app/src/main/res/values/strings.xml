@@ -6,4 +6,6 @@
     <string name="title_scan">Scan</string>
     <string name="locate">Locate me</string>
     <string name="change_language">ენის შეცვლა</string>
+    <string name="title_info">Info</string>
+    <string name="info_uri">file:///android_asset/info.html</string>
 </resources>

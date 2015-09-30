@@ -16,6 +16,10 @@
             android:icon="@drawable/ic_camera"
             android:title="@string/title_scan" />
         <item
+            android:id="@+id/drawer_info"
+            android:icon="@drawable/ic_info"
+            android:title="@string/title_info" />
+        <item
             android:id="@+id/drawer_language"
             android:checkable="false"
             android:icon="@drawable/ic_language"
