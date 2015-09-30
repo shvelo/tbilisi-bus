@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.MapFragment
 import kotlinx.android.synthetic.activity_main.*
 
@@ -35,9 +36,8 @@ public class MainActivity() : AppCompatActivity() {
 
         drawer.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.drawer_map -> {
-                    setFragment(MapFragment())
-                }
+                R.id.drawer_map -> setFragment(MapFragment())
+                R.id.drawer_history -> setFragment(HistoryFragment())
             }
             supportActionBar.title = it.title
             it.setChecked(true)
