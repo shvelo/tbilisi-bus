@@ -4,8 +4,10 @@ import android.app.Fragment
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.activity_main.*
 import java.util.*
 
 public class MainActivity() : AppCompatActivity() {
+    var activeFragmentId = R.id.drawer_map
     var drawerToggle: ActionBarDrawerToggle? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +27,41 @@ public class MainActivity() : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setupNavigationDrawer()
 
-        setFragment(MapFragment())
-        supportActionBar.title = getString(R.string.title_map)
+        activeFragmentId = savedInstanceState?.getInt("fragment") ?: activeFragmentId
+
+        Log.d("activeFragmentId", activeFragmentId.toString())
+        Log.d("mapFragmentId", R.id.drawer_map.toString())
+
+
+        setActive(activeFragmentId)
+    }
+
+    fun setActive(fragmentId: Int): Boolean {
+        when (fragmentId) {
+            R.id.drawer_map -> {
+                setFragment(MapFragment())
+                supportActionBar.title = getString(R.string.title_map)
+                activeFragmentId = fragmentId
+                return true
+            }
+            R.id.drawer_history -> {
+                setFragment(HistoryFragment())
+                supportActionBar.title = getString(R.string.title_history)
+                activeFragmentId = fragmentId
+                return true
+            }
+            R.id.drawer_info -> {
+                setFragment(InfoFragment())
+                supportActionBar.title = getString(R.string.title_info)
+                activeFragmentId = fragmentId
+                return true
+            }
+            R.id.drawer_language -> {
+                switchLocale()
+                return false
+            }
+            else -> return false
+        }
     }
 
     fun setFragment(fragment: Fragment) {
@@ -40,29 +76,16 @@ public class MainActivity() : AppCompatActivity() {
 
         drawer.setNavigationItemSelectedListener {
             drawerLayout.closeDrawers()
-            when (it.itemId) {
-                R.id.drawer_map -> {
-                    setFragment(MapFragment())
-                    supportActionBar.title = it.title
-                    true
-                }
-                R.id.drawer_history -> {
-                    setFragment(HistoryFragment())
-                    supportActionBar.title = it.title
-                    true
-                }
-                R.id.drawer_info -> {
-                    setFragment(InfoFragment())
-                    supportActionBar.title = it.title
-                    true
-                }
-                R.id.drawer_language -> {
-                    switchLocale()
-                    false
-                }
-                else -> false
-            }
+            setActive(it.itemId)
+            true
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        Log.d("save activeFragmentId", activeFragmentId.toString())
+
+        outState?.putInt("fragment", activeFragmentId)
+        super.onSaveInstanceState(outState)
     }
 
     fun restoreLocale() {
@@ -95,9 +118,7 @@ public class MainActivity() : AppCompatActivity() {
     }
 
     fun restartActivity() {
-        val intent = getIntent()
-        finish()
-        startActivity(intent)
+        recreate()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
