@@ -53,6 +53,9 @@ public class MainActivity() : AppCompatActivity() {
         }
     }
 
+    fun showScanner() {
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig);
         drawerToggle?.onConfigurationChanged(newConfig);
