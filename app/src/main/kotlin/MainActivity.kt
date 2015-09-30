@@ -19,10 +19,11 @@ public class MainActivity() : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setupNavigationDrawer()
 
-        navigate(MapFragment())
+        setFragment(MapFragment())
+        toolbar.title = getString(R.string.title_map)
     }
 
-    fun navigate(fragment: Fragment) {
+    fun setFragment(fragment: Fragment) {
         fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
     }
 
@@ -34,7 +35,9 @@ public class MainActivity() : AppCompatActivity() {
 
         drawer.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.drawer_map -> navigate(MapFragment())
+                R.id.drawer_map -> {
+                    setFragment(MapFragment())
+                }
             }
             supportActionBar.title = it.title
             it.setChecked(true)
