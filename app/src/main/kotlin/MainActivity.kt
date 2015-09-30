@@ -35,14 +35,21 @@ public class MainActivity() : AppCompatActivity() {
         supportActionBar.setHomeButtonEnabled(true);
 
         drawer.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.drawer_map -> setFragment(MapFragment())
-                R.id.drawer_history -> setFragment(HistoryFragment())
-            }
-            supportActionBar.title = it.title
-            it.setChecked(true)
             drawerLayout.closeDrawers()
-            true
+            when (it.itemId) {
+                R.id.drawer_map -> {
+                    setFragment(MapFragment())
+                    supportActionBar.title = it.title
+                    true
+                }
+                R.id.drawer_history -> {
+                    setFragment(HistoryFragment())
+                    supportActionBar.title = it.title
+                    true
+                }
+                R.id.drawer_scan -> false
+                else -> false
+            }
         }
     }
 

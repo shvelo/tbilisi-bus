@@ -12,6 +12,7 @@
             android:title="@string/title_history" />
         <item
             android:id="@+id/drawer_scan"
+            android:checkable="false"
             android:icon="@drawable/ic_camera"
             android:title="@string/title_scan" />
     </group>
