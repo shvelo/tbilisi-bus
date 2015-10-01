@@ -10,16 +10,23 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+import com.mopub.common.MoPub;
+import com.mopub.mobileads.MoPubView;
 import kotlinx.android.synthetic.activity_main.*
 import java.util.*
 
 public class MainActivity() : AppCompatActivity() {
     var activeFragmentId = R.id.drawer_map
     var drawerToggle: ActionBarDrawerToggle? = null;
+    val mopubUnit = "2a8525e43e434f68bdfc76fb1eec1f9a";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         restoreLocale()
+        Fabric.with(this, Crashlytics());
+        Fabric.with(this, MoPub());
         setContentView(R.layout.activity_main);
 
         setSupportActionBar(toolbar)
@@ -27,11 +34,15 @@ public class MainActivity() : AppCompatActivity() {
 
         activeFragmentId = savedInstanceState?.getInt("fragment") ?: activeFragmentId
 
-        Log.d("activeFragmentId", activeFragmentId.toString())
-        Log.d("mapFragmentId", R.id.drawer_map.toString())
-
-
         setActive(activeFragmentId)
+
+        (mopub_ad as MoPubView).adUnitId = mopubUnit
+        (mopub_ad as MoPubView).loadAd()
+    }
+
+    override fun onDestroy() {
+        (mopub_ad as MoPubView).destroy()
+        super.onDestroy()
     }
 
     fun setActive(fragmentId: Int): Boolean {
