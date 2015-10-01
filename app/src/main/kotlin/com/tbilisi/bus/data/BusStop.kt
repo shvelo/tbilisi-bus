@@ -10,6 +10,6 @@ public open class BusStop(): RealmObject() {
     public open var id = 0
     public open var name = ""
     public open var name_en = ""
-    public open val lat = 0.0
-    public open val lon = 0.0
+    public open var lat = 0.0
+    public open var lon = 0.0
 }
