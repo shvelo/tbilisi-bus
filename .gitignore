@@ -4,3 +4,4 @@ build
 data/*.json
 local.properties
 fabric.properties
+*.iml
