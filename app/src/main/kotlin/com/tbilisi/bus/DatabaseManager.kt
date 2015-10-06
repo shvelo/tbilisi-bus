@@ -10,6 +10,7 @@ class DatabaseManager(val context: Context) {
     fun initialize() {
         if(!isInitialized()) {
             Log.d("DatabaseManager", "Populating database")
+            populate()
             setInitialized()
         }
     }
