@@ -5,14 +5,20 @@ import android.app.Fragment
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.*
+import com.mapbox.mapboxsdk.events.MapListener
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.overlay.Icon
+import com.mapbox.mapboxsdk.overlay.Marker
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay
 import com.mapbox.mapboxsdk.tileprovider.tilesource.WebSourceTileLayer
 import com.mapbox.mapboxsdk.views.MapView
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
+import com.tbilisi.bus.data.BusStop
+import com.tbilisi.bus.util.BusMapListener
+import io.realm.Realm
 
 public class MapFragment : Fragment() {
     var mapView: MapView? = null
@@ -65,5 +71,7 @@ public class MapFragment : Fragment() {
         mv.setUserLocationEnabled(true)
         mv.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW)
         mv.setUserLocationRequiredZoom(17F)
+
+        mv.addListener(BusMapListener(activity, Realm.getInstance(activity)))
     }
 }

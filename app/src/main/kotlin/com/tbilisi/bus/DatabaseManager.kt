@@ -11,7 +11,6 @@ class DatabaseManager(val context: Context) {
         if(!isInitialized()) {
             Log.d("DatabaseManager", "Populating database")
             populate()
-            setInitialized()
         }
     }
 
@@ -26,16 +25,11 @@ class DatabaseManager(val context: Context) {
             realm.cancelTransaction()
         } finally {
             realm.commitTransaction()
+            jsonStream.close()
         }
     }
 
     fun isInitialized(): Boolean {
-        val preferences = context.getSharedPreferences("databasemanager", 0)
-        return preferences.contains("initialized")
-    }
-
-    fun setInitialized() {
-        val preferences = context.getSharedPreferences("databasemanager", 0)
-        preferences.edit().putBoolean("initialized", true).apply()
+        return Realm.getInstance(context).where(BusStop::class.java).count() > 0
     }
 }
