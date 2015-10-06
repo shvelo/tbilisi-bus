@@ -1,6 +1,7 @@
 package com.tbilisi.bus
 
 import android.app.Fragment
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
@@ -10,24 +11,24 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
-import com.mopub.common.MoPub;
-import com.mopub.mobileads.MoPubView;
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+import com.mopub.common.MoPub
+import com.mopub.mobileads.MoPubView
 import kotlinx.android.synthetic.activity_main.*
 import java.util.*
 
 public class MainActivity() : AppCompatActivity() {
     var activeFragmentId = R.id.drawer_map
-    var drawerToggle: ActionBarDrawerToggle? = null;
-    val mopubUnit = "2a8525e43e434f68bdfc76fb1eec1f9a";
+    var drawerToggle: ActionBarDrawerToggle? = null
+    val mopubUnit = "2a8525e43e434f68bdfc76fb1eec1f9a"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         restoreLocale()
-        Fabric.with(this, Crashlytics());
-        Fabric.with(this, MoPub());
-        setContentView(R.layout.activity_main);
+        Fabric.with(this, Crashlytics())
+        Fabric.with(this, MoPub())
+        setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
         setupNavigationDrawer()
@@ -59,6 +60,10 @@ public class MainActivity() : AppCompatActivity() {
                 activeFragmentId = fragmentId
                 return true
             }
+            R.id.drawer_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                return true
+            }
             R.id.drawer_info -> {
                 setFragment(InfoFragment())
                 supportActionBar.title = getString(R.string.title_info)
@@ -80,8 +85,8 @@ public class MainActivity() : AppCompatActivity() {
     fun setupNavigationDrawer() {
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
         drawerLayout.setDrawerListener(drawerToggle)
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeButtonEnabled(true);
+        supportActionBar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar.setHomeButtonEnabled(true)
 
         drawer.setNavigationItemSelectedListener {
             drawerLayout.closeDrawers()
@@ -131,19 +136,19 @@ public class MainActivity() : AppCompatActivity() {
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle?.onConfigurationChanged(newConfig);
+        super.onConfigurationChanged(newConfig)
+        drawerToggle?.onConfigurationChanged(newConfig)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle?.syncState();
+        super.onPostCreate(savedInstanceState)
+        drawerToggle?.syncState()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drawerToggle!!.onOptionsItemSelected(item)) {
-            return true;
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 }

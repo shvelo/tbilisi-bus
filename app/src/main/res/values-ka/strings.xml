@@ -3,10 +3,10 @@
     <string name="clear_history">ისტორიის გაწმენდა</string>
     <string name="title_map">რუკა</string>
     <string name="title_history">ისტორია</string>
-    <string name="title_scan">სკანირება</string>
     <string name="locate">მომძებნე</string>
     <string name="change_language">Change language</string>
     <string name="title_info">ინფორმაცია</string>
     <string name="info_uri">file:///android_asset/info-ka.html</string>
     <string name="search">ძებნა</string>
+    <string name="search_hint">სახელი ან ID</string>
 </resources>

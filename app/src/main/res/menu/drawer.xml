@@ -5,24 +5,24 @@
             android:id="@+id/drawer_map"
             android:checked="true"
             android:icon="@drawable/ic_map"
-            android:title="@string/title_map" />
+            android:title="@string/title_map"/>
         <item
             android:id="@+id/drawer_history"
             android:icon="@drawable/ic_history"
-            android:title="@string/title_history" />
+            android:title="@string/title_history"/>
         <item
-            android:id="@+id/drawer_scan"
+            android:id="@+id/drawer_search"
+            android:icon="@drawable/ic_search"
             android:checkable="false"
-            android:icon="@drawable/ic_camera"
-            android:title="@string/title_scan" />
+            android:title="@string/search"/>
         <item
             android:id="@+id/drawer_info"
             android:icon="@drawable/ic_info"
-            android:title="@string/title_info" />
+            android:title="@string/title_info"/>
         <item
             android:id="@+id/drawer_language"
             android:checkable="false"
             android:icon="@drawable/ic_language"
-            android:title="@string/change_language" />
+            android:title="@string/change_language"/>
     </group>
 </menu>
