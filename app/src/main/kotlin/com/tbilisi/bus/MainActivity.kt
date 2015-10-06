@@ -31,6 +31,8 @@ public class MainActivity() : AppCompatActivity() {
 
         setActive(activeFragmentId)
 
+        DatabaseManager(this).initialize()
+
         mopub_ad.adUnitId = mopubUnit
         mopub_ad.loadAd()
     }
