@@ -11,10 +11,6 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
-import com.mopub.common.MoPub
-import com.mopub.mobileads.MoPubView
 import kotlinx.android.synthetic.activity_main.*
 import java.util.*
 
@@ -26,8 +22,6 @@ public class MainActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreLocale()
-        Fabric.with(this, Crashlytics())
-        Fabric.with(this, MoPub())
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
@@ -37,12 +31,12 @@ public class MainActivity() : AppCompatActivity() {
 
         setActive(activeFragmentId)
 
-        (mopub_ad as MoPubView).adUnitId = mopubUnit
-        (mopub_ad as MoPubView).loadAd()
+        mopub_ad.adUnitId = mopubUnit
+        mopub_ad.loadAd()
     }
 
     override fun onDestroy() {
-        (mopub_ad as MoPubView).destroy()
+        mopub_ad.destroy()
         super.onDestroy()
     }
 
