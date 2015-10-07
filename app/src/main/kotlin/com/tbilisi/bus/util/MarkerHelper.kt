@@ -11,21 +11,28 @@ import com.tbilisi.bus.data.BusStop
 import io.realm.Realm
 import java.util.*
 
-object MarkerHelper {
+class MarkerHelper(val mapView: MapView) {
     var loadedMarkers: ArrayList<Int> = ArrayList()
 
-    fun addMarker(stop: BusStop, mapView: MapView) {
+    fun addMarker(stop: BusStop) {
         if(loadedMarkers.contains(stop.id))
             return
 
-        val marker = Marker(stop.name, stop.id.toString(), LatLng(stop.lat, stop.lon))
-        marker.setIcon(Icon(mapView.context.resources.getDrawable(R.drawable.stop_icon)))
+        Log.d("MarkerHelper", "Adding stop ${stop.name_en}")
+        val marker = createMarker(stop)
         mapView.addMarker(marker)
         loadedMarkers.add(stop.id)
     }
 
-    fun populateBounds(boundingBox: BoundingBox, mapView: MapView) {
+    fun createMarker(stop: BusStop): Marker {
+        val marker = Marker(stop.getLocalizedName(), stop.id.toString(), LatLng(stop.lat, stop.lon))
+        marker.setIcon(Icon(mapView.context.resources.getDrawable(R.drawable.stop_icon)))
+        return marker
+    }
+
+    fun populateBounds() {
         val realm = Realm.getInstance(mapView.context)
+        val boundingBox = mapView.boundingBox
 
         val query = realm.where(BusStop::class.java)
                 .between("lat", boundingBox.latSouth, boundingBox.latNorth)
@@ -35,8 +42,7 @@ object MarkerHelper {
         Log.d("MarkerHelper", "All objects ${realm.where(BusStop::class.java).count()}")
 
         for(stop in query.findAll()) {
-            Log.d("MarkerHelper", "Adding stop ${stop.name_en}")
-            MarkerHelper.addMarker(stop, mapView)
+            addMarker(stop)
         }
     }
 }

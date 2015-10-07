@@ -3,6 +3,7 @@ package com.tbilisi.bus.data
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
+import java.util.*
 
 @RealmClass
 public open class BusStop(): RealmObject() {
@@ -12,4 +13,12 @@ public open class BusStop(): RealmObject() {
     public open var name_en = ""
     public open var lat = 0.0
     public open var lon = 0.0
+
+    fun getLocalizedName(): String {
+        if (Locale.getDefault().equals(Locale("ka"))) {
+            return name
+        } else {
+            return name_en
+        }
+    }
 }

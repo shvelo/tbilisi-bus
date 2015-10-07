@@ -7,16 +7,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.support.v7.widget.SearchView
 import android.view.*
-import com.mapbox.mapboxsdk.events.MapListener
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.overlay.Icon
-import com.mapbox.mapboxsdk.overlay.Marker
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay
 import com.mapbox.mapboxsdk.tileprovider.tilesource.WebSourceTileLayer
 import com.mapbox.mapboxsdk.views.MapView
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
-import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusMapListener
 import io.realm.Realm
 
@@ -33,7 +28,10 @@ public class MapFragment : Fragment() {
         val createdView = inflater.inflate(R.layout.fragment_map, container, false)
 
         mapView = createdView.findViewById(R.id.mapview) as MapView
-        setupMap(mapView!!)
+        if (mapView != null) {
+            setupMap(mapView!!)
+            setupZoomControls(mapView!!, createdView)
+        }
 
         return createdView
     }
@@ -72,6 +70,19 @@ public class MapFragment : Fragment() {
         mv.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW)
         mv.setUserLocationRequiredZoom(17F)
 
-        mv.addListener(BusMapListener(activity, Realm.getInstance(activity)))
+        mv.addListener(BusMapListener(mv, Realm.getInstance(activity)))
+    }
+
+    fun setupZoomControls(mv: MapView, view: View) {
+        val zoom_plus = view.findViewById(R.id.zoom_plus)
+        val zoom_minus = view.findViewById(R.id.zoom_minus)
+
+        zoom_plus.setOnClickListener {
+            mv.zoomIn()
+        }
+
+        zoom_minus.setOnClickListener {
+            mv.zoomOut()
+        }
     }
 }
