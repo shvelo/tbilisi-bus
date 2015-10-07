@@ -10,9 +10,10 @@ import com.mapbox.mapboxsdk.views.MapView
 import io.realm.Realm
 
 class BusMapListener(val context: Context, val realm: Realm): MapListener {
+    val MIN_ZOOM = 16
+
     override fun onScroll(event: ScrollEvent?) {
         if(event != null) {
-            Log.d("BusMapListener", "Populating map bounds ${event.source.boundingBox.toString()}")
             populate(event.source)
         }
     }
@@ -27,6 +28,9 @@ class BusMapListener(val context: Context, val realm: Realm): MapListener {
     }
 
     fun populate(mapView: MapView) {
-        MarkerHelper.populateBounds(mapView.boundingBox, mapView)
+        if(mapView.zoomLevel >= MIN_ZOOM) {
+            Log.d("BusMapListener", "Populating map bounds ${mapView.boundingBox.toString()}")
+            MarkerHelper.populateBounds(mapView.boundingBox, mapView)
+        }
     }
 }

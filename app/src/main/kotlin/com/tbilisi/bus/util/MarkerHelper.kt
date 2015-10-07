@@ -9,12 +9,19 @@ import com.mapbox.mapboxsdk.views.MapView
 import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusStop
 import io.realm.Realm
+import java.util.*
 
 object MarkerHelper {
+    var loadedMarkers: ArrayList<Int> = ArrayList()
+
     fun addMarker(stop: BusStop, mapView: MapView) {
-        val marker = Marker(stop.id.toString(), stop.name, LatLng(stop.lat, stop.lon))
-        marker.setIcon(Icon(mapView.context.getDrawable(R.drawable.stop_icon)))
+        if(loadedMarkers.contains(stop.id))
+            return
+
+        val marker = Marker(stop.name, stop.id.toString(), LatLng(stop.lat, stop.lon))
+        marker.setIcon(Icon(mapView.context.resources.getDrawable(R.drawable.stop_icon)))
         mapView.addMarker(marker)
+        loadedMarkers.add(stop.id)
     }
 
     fun populateBounds(boundingBox: BoundingBox, mapView: MapView) {

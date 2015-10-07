@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.tbilisi.bus.data.BusStop
 import io.realm.Realm
-import io.realm.exceptions.RealmException
 
 class DatabaseManager(val context: Context) {
     fun initialize() {
@@ -21,7 +20,8 @@ class DatabaseManager(val context: Context) {
         realm.beginTransaction()
         try {
             realm.createAllFromJson(BusStop::class.java, jsonStream)
-        } catch(exception: RealmException) {
+        } catch(exception: Exception) {
+            exception.printStackTrace()
             realm.cancelTransaction()
         } finally {
             realm.commitTransaction()

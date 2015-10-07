@@ -21,9 +21,9 @@ for (var i in json_data_en.Stops) {
 for (var i in stops_map) {
   var stop = stops_map[i];
 
-  if (stop.Type != "bus") continue;
+  if (stop.Type != "bus" || !parseInt(stop.StopId)) continue;
 
-  var name = stop.Name.replace(/ - \[[0-9]+\]/ig, "");
+  var name = stop.Name.replace(/ ?- \[[0-9]+\]/ig, "");
   console.log(name);
 
   out_data.push({
