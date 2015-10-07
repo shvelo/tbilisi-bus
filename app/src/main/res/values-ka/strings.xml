@@ -4,7 +4,7 @@
     <string name="title_map">რუკა</string>
     <string name="title_history">ისტორია</string>
     <string name="locate">მომძებნე</string>
-    <string name="change_language">Change language</string>
+    <string name="change_language">English</string>
     <string name="title_info">ინფორმაცია</string>
     <string name="info_uri">file:///android_asset/info-ka.html</string>
     <string name="search">ძებნა</string>

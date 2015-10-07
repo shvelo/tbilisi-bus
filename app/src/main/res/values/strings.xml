@@ -4,7 +4,7 @@
     <string name="title_map">Map</string>
     <string name="title_history">History</string>
     <string name="locate">Locate me</string>
-    <string name="change_language">ენის შეცვლა</string>
+    <string name="change_language">ქართული</string>
     <string name="title_info">Info</string>
     <string name="info_uri">file:///android_asset/info.html</string>
     <string name="search">Search</string>
