@@ -31,7 +31,7 @@
         <Button
             android:id="@+id/zoom_minus"
             style="@style/ZoomButton"
-            android:text="-"/>
+            android:text="−"/>
     </LinearLayout>
 
 

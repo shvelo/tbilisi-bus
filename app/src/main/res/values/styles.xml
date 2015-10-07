@@ -3,7 +3,9 @@
     <style name="ZoomButton">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>]
-        <item name="backgroundTint">#ffffff</item>
-        <item name="colorButtonNormal">#ffffff</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/accent</item>
     </style>
 </resources>

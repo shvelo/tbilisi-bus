@@ -1,7 +1,6 @@
 package com.tbilisi.bus.util
 
 import android.util.Log
-import com.mapbox.mapboxsdk.geometry.BoundingBox
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.overlay.Icon
 import com.mapbox.mapboxsdk.overlay.Marker
@@ -25,7 +24,7 @@ class MarkerHelper(val mapView: MapView) {
     }
 
     fun createMarker(stop: BusStop): Marker {
-        val marker = Marker(stop.getLocalizedName(), stop.id.toString(), LatLng(stop.lat, stop.lon))
+        val marker = Marker(StopHelper.getLocalizedName(stop), stop.id.toString(), LatLng(stop.lat, stop.lon))
         marker.setIcon(Icon(mapView.context.resources.getDrawable(R.drawable.stop_icon)))
         return marker
     }
