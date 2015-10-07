@@ -8,7 +8,7 @@ import io.realm.Realm
 class DatabaseManager(val context: Context) {
     fun initialize() {
         if(!isInitialized()) {
-            Log.d("DatabaseManager", "Populating database")
+            Log.i("DatabaseManager", "Populating database")
             populate()
         }
     }
@@ -26,6 +26,7 @@ class DatabaseManager(val context: Context) {
         } finally {
             realm.commitTransaction()
             jsonStream.close()
+            Log.i("DatabaseManager", "Database populated")
         }
     }
 

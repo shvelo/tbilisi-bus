@@ -1,6 +1,5 @@
 package com.tbilisi.bus.util
 
-import android.util.Log
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.overlay.Icon
 import com.mapbox.mapboxsdk.overlay.Marker
@@ -17,7 +16,6 @@ class MarkerHelper(val mapView: MapView) {
         if(loadedMarkers.contains(stop.id))
             return
 
-        Log.d("MarkerHelper", "Adding stop ${stop.name_en}")
         val marker = createMarker(stop)
         mapView.addMarker(marker)
         loadedMarkers.add(stop.id)
@@ -36,9 +34,6 @@ class MarkerHelper(val mapView: MapView) {
         val query = realm.where(BusStop::class.java)
                 .between("lat", boundingBox.latSouth, boundingBox.latNorth)
                 .between("lon", boundingBox.lonWest, boundingBox.lonEast)
-
-        Log.d("MarkerHelper", "Found ${query.count()} objects")
-        Log.d("MarkerHelper", "All objects ${realm.where(BusStop::class.java).count()}")
 
         for(stop in query.findAll()) {
             addMarker(stop)

@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
@@ -92,8 +91,6 @@ public class MainActivity() : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        Log.d("save activeFragmentId", activeFragmentId.toString())
-
         outState?.putInt("fragment", activeFragmentId)
         super.onSaveInstanceState(outState)
     }
