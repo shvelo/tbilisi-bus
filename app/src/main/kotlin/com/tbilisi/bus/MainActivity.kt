@@ -10,7 +10,10 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
-import kotlinx.android.synthetic.activity_main.*
+import kotlinx.android.synthetic.activity_main.drawer
+import kotlinx.android.synthetic.activity_main.drawerLayout
+import kotlinx.android.synthetic.activity_main.mopub_ad
+import kotlinx.android.synthetic.activity_main.toolbar
 import java.util.*
 
 public class MainActivity() : AppCompatActivity() {

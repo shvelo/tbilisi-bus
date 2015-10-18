@@ -1,13 +1,13 @@
 package com.tbilisi.bus.fragments
 
-import android.os.Bundle
 import android.app.Fragment
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.view.*
-import com.mapbox.mapboxsdk.overlay.UserLocationOverlay
-import com.mapbox.mapboxsdk.tileprovider.tilesource.WebSourceTileLayer
-import com.mapbox.mapboxsdk.views.MapView
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.tbilisi.bus.R
 
 public class HistoryFragment : Fragment() {

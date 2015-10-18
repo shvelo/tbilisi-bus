@@ -1,12 +1,17 @@
 package com.tbilisi.bus.fragments
 
-import android.os.Bundle
 import android.app.Fragment
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.SearchView
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay
 import com.mapbox.mapboxsdk.tileprovider.tilesource.WebSourceTileLayer
 import com.mapbox.mapboxsdk.views.MapView
@@ -65,8 +70,6 @@ public class MapFragment : Fragment() {
 
     fun setupMap(mv: MapView) {
         mv.setTileSource(WebSourceTileLayer("tiles", getString(R.string.tile_source)))
-        mv.setDiskCacheEnabled(true)
-        mv.setUserLocationEnabled(true)
         mv.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW)
         mv.setUserLocationRequiredZoom(17F)
 
