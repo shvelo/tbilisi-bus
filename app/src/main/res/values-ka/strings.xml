@@ -9,5 +9,5 @@
     <string name="info_uri">file:///android_asset/info-ka.html</string>
     <string name="search">ძებნა</string>
     <string name="search_hint">სახელი ან ID</string>
-    <string name="service_url">http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet?stopId=%d</string>
+    <string name="service_url">http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>
 </resources>

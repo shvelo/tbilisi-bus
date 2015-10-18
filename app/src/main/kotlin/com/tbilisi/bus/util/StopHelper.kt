@@ -18,7 +18,8 @@ object StopHelper {
     }
 
     fun getSchedule(busStop: BusStop, context: Context): ArrayList<BusInfo> {
-        val doc = Jsoup.connect(context.getString(R.string.service_url, busStop.id)).get();
+        val doc = Jsoup.connect(context.getString(R.string.service_url))
+                .data("stopId", busStop.id.toString()).get()
         val buses = ArrayList<BusInfo>()
         for(tr in doc.select(".arrivalTimesInnerTable tr")) {
             val bus = tr.child(0).text().toInt()
