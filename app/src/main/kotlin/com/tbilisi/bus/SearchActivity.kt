@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.activity_search.toolbar
+import kotlinx.android.synthetic.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
     var searchButton: MenuItem? = null

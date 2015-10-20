@@ -10,4 +10,5 @@
     <string name="search">Search</string>
     <string name="search_hint">Name or ID</string>
     <string name="service_url">http://transiten.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>
+    <string name="schedule">Schedule</string>
 </resources>
