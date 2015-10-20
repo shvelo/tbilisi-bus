@@ -24,6 +24,7 @@ class MarkerHelper(val mapView: MapView) {
     fun createMarker(stop: BusStop): Marker {
         val marker = Marker(StopHelper.getLocalizedName(stop), stop.id.toString(), LatLng(stop.lat, stop.lon))
         marker.setIcon(Icon(mapView.context.resources.getDrawable(R.drawable.stop_icon)))
+        marker.relatedObject = stop
         return marker
     }
 

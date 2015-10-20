@@ -13,6 +13,7 @@ import com.mapbox.mapboxsdk.views.MapView
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
 import com.tbilisi.bus.util.BusMapListener
+import com.tbilisi.bus.util.BusMapViewListener
 import io.realm.Realm
 
 public class MapFragment : Fragment() {
@@ -69,6 +70,7 @@ public class MapFragment : Fragment() {
         mv.setUserLocationRequiredZoom(17F)
 
         mv.addListener(BusMapListener(mv, Realm.getInstance(activity)))
+        mv.setMapViewListener(BusMapViewListener(activity, mv.rootView))
     }
 
     fun setupZoomControls(mv: MapView, view: View) {
