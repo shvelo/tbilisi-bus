@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-fs = require('fs'),
+var fs = require('fs'),
   data = fs.readFileSync("stops.json"),
   data_en = fs.readFileSync("stops-en.json"),
   json_data = JSON.parse(data),
