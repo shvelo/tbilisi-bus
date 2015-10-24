@@ -7,8 +7,6 @@
 
     <com.mapbox.mapboxsdk.views.MapView
         android:id="@+id/mapview"
-        app:centerLat="41.7324592"
-        app:centerLng="44.8070955"
         app:zoomLevel="17"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

@@ -1,6 +1,6 @@
 buildscript {
     ext.support_version = '23.1.0'
-    ext.kotlin_version = '0.14.451'
+    ext.kotlin_version = '1.0.0-beta-1038'
     repositories {
         jcenter()
         mavenCentral()
@@ -27,13 +27,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'io.realm:realm-android:0.83.1'
-    kapt 'io.realm:realm-android:0.83.1'
+    compile 'io.realm:realm-android:0.84.0'
+    kapt 'io.realm:realm-android:0.84.0'
     compile 'org.jsoup:jsoup:1.8.3'
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.android.support:design:$support_version"
-    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.5-SNAPSHOT@aar') {
+    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.4@aar') {
         transitive = true
     }
     compile('com.mopub:mopub-sdk:4.0.0@aar') {
