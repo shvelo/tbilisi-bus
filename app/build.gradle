@@ -39,6 +39,7 @@ dependencies {
     compile('com.mopub:mopub-sdk:4.1.0@aar') {
         transitive = true
     }
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
 }
 
 android {
