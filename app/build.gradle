@@ -32,6 +32,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
     compile "com.android.support:design:$support_version"
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.4@aar') {
         transitive = true

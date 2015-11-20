@@ -14,7 +14,7 @@ object ScheduleRetriever {
      * Retrieve schedule for the stop
      * @param id stop ID
      */
-    fun retrieve(id: Int, context: Context, callback: (List<BusInfo>) -> Unit) {
+    fun retrieve(id: Int, context: Context, callback: (ArrayList<BusInfo>) -> Unit) {
         val request = Request.Builder()
                 .url(getUrlForStop(id, context))
                 .build()
