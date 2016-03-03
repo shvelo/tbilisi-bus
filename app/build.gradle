@@ -1,13 +1,13 @@
 buildscript {
-    ext.support_version = '23.1.1'
-    ext.kotlin_version = '1.0.0-beta-2423'
+    ext.support_version = '23.2.0'
+    ext.kotlin_version = '1.0.0'
     repositories {
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
@@ -22,13 +22,14 @@ repositories {
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'io.realm:realm-android:0.84.2'
-    kapt 'io.realm:realm-android:0.84.2'
+    kapt 'io.realm:realm-android:0.87.5'
     compile 'org.jsoup:jsoup:1.8.3'
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
@@ -37,10 +38,10 @@ dependencies {
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.4@aar') {
         transitive = true
     }
-    compile('com.mopub:mopub-sdk:4.1.0@aar') {
+    compile('com.mopub:mopub-sdk:4.4.1@aar') {
         transitive = true
     }
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
 }
 
 android {
