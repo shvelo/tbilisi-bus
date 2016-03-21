@@ -16,7 +16,7 @@ import com.tbilisi.bus.util.BusMapListener
 import com.tbilisi.bus.util.BusMapViewListener
 import io.realm.Realm
 
-public class MapFragment : Fragment() {
+class MapFragment : Fragment() {
     var mapView: MapView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

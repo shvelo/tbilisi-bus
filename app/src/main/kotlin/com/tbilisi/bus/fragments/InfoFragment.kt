@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import com.tbilisi.bus.R
 
-public class InfoFragment : Fragment() {
+class InfoFragment : Fragment() {
     var webView: WebView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

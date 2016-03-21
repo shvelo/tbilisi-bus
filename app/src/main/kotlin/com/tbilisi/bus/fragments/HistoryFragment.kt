@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.*
 import com.tbilisi.bus.R
 
-public class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)

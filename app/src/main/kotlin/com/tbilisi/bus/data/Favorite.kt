@@ -5,8 +5,8 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
 @RealmClass
-public open class Favorite(): RealmObject() {
+open class Favorite(): RealmObject() {
     @PrimaryKey
-    public open var id = 0
-    public open var stop: BusStop? = null
+    open var id = 0
+    open var stop: BusStop? = null
 }
