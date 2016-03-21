@@ -16,7 +16,6 @@ import java.util.*
 class MainActivity() : AppCompatActivity() {
     var activeFragmentId = R.id.drawer_map
     var drawerToggle: ActionBarDrawerToggle? = null
-    val mopubUnit = "2a8525e43e434f68bdfc76fb1eec1f9a"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +30,9 @@ class MainActivity() : AppCompatActivity() {
         setActive(activeFragmentId)
 
         DatabaseManager(this).initialize()
-
-        mopub_ad.adUnitId = mopubUnit
-        mopub_ad.loadAd()
     }
 
     override fun onDestroy() {
-        mopub_ad.destroy()
         super.onDestroy()
     }
 

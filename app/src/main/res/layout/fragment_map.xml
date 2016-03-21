@@ -5,11 +5,11 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context="com.tbilisi.bus.fragments.MapFragment">
 
-    <com.mapbox.mapboxsdk.views.MapView
-        android:id="@+id/mapview"
-        app:zoomLevel="17"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+    <!--<com.mapbox.mapboxsdk.views.MapView-->
+        <!--android:id="@+id/mapview"-->
+        <!--app:zoomLevel="17"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
