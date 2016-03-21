@@ -1,5 +1,7 @@
 package com.tbilisi.bus.fragments
 
+import android.Manifest
+import android.app.Activity
 import android.app.Fragment
 import android.app.SearchManager
 import android.content.ComponentName
@@ -9,26 +11,68 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.*
 import android.widget.Toast
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.common.api.Api
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
 import com.tbilisi.bus.util.BusMapListener
 import com.tbilisi.bus.util.BusMapViewListener
 import io.realm.Realm
+import pl.tajchert.nammu.Nammu
+import pl.tajchert.nammu.PermissionCallback
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     var map: GoogleMap? = null
+    var googleApiClient: GoogleApiClient? = null
 
     override fun onMapReady(readyMap: GoogleMap?) {
         map = readyMap
         Toast.makeText(activity, "Map initialized", Toast.LENGTH_SHORT).show()
+        askForLocation()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        googleApiClient = GoogleApiClient.Builder(activity)
+                .addApi(LocationServices.API)
+                .build()
+    }
+
+    override fun onStart() {
+        googleApiClient?.connect()
+        super.onStart()
+    }
+
+    override fun onStop() {
+        googleApiClient?.disconnect()
+        super.onStop()
+    }
+
+    fun askForLocation() {
+        Nammu.askForPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION, object:PermissionCallback {
+            override fun permissionRefused() {
+            }
+
+            override fun permissionGranted() {
+                map?.isMyLocationEnabled = true
+                gotoMyLocation()
+            }
+        })
+    }
+
+    fun gotoMyLocation() {
+        val location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
+        if(location != null)
+            map?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
+        Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
