@@ -18,6 +18,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://jitpack.io" }
 }
 
 apply plugin: 'com.github.ben-manes.versions'
@@ -37,6 +38,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.squareup.okhttp:okhttp:2.7.5'
     compile 'io.realm:realm-android:0.87.5'
+    compile 'com.github.tajchert:nammu:1.1.1'
     kapt 'io.realm:realm-android:0.87.5'
 }
 
