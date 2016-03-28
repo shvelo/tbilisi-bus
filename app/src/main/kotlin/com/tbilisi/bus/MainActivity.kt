@@ -1,6 +1,6 @@
 package com.tbilisi.bus
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -69,7 +69,7 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setFragment(fragment: Fragment) {
-        fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
     }
 
     fun setupNavigationDrawer() {

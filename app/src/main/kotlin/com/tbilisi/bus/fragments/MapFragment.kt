@@ -1,8 +1,7 @@
 package com.tbilisi.bus.fragments
 
 import android.Manifest
-import android.app.Activity
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
@@ -11,16 +10,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.*
 import android.widget.Toast
-import com.google.android.gms.common.api.Api
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
-import com.tbilisi.bus.util.BusMapListener
-import com.tbilisi.bus.util.BusMapViewListener
-import io.realm.Realm
 import pl.tajchert.nammu.Nammu
 import pl.tajchert.nammu.PermissionCallback
 
@@ -71,7 +66,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             map?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
@@ -79,7 +74,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                               savedInstanceState: Bundle?): View? {
         val createdView = inflater.inflate(R.layout.fragment_map, container, false)
 
-        var mapFragment = (activity as AppCompatActivity).supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment;
+        var mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment;
         mapFragment.getMapAsync(this);
 
         return createdView

@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha4'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -51,13 +51,16 @@ android {
     }
 
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     buildTypes {
         release {
             debuggable false
             minifyEnabled true
             proguardFile file("proguard.cfg")
+        }
+        debug {
+            applicationIdSuffix '.debug'
         }
     }
 
