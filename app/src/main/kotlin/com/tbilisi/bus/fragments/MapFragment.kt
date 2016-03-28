@@ -6,7 +6,6 @@ import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.*
 import android.widget.Toast
@@ -74,8 +73,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                               savedInstanceState: Bundle?): View? {
         val createdView = inflater.inflate(R.layout.fragment_map, container, false)
 
-        var mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment;
-        mapFragment.getMapAsync(this);
+        var mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         return createdView
     }
