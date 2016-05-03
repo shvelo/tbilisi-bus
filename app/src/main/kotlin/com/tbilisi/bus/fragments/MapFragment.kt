@@ -16,6 +16,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
+import com.tbilisi.bus.maps.MapClickListener
 import com.tbilisi.bus.maps.MapUpdateListener
 import pl.tajchert.nammu.Nammu
 import pl.tajchert.nammu.PermissionCallback
@@ -37,6 +38,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
         map = readyMap
         if(map != null) {
             map?.setOnCameraChangeListener(MapUpdateListener(map!!, context))
+            map?.setOnInfoWindowClickListener(MapClickListener(context))
+
             Toast.makeText(activity, "Map initialized", Toast.LENGTH_SHORT).show()
             askForLocation()
         }
