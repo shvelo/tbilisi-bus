@@ -1,11 +1,11 @@
 package com.tbilisi.bus.fragments
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.*
 import com.tbilisi.bus.R
 
-public class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)

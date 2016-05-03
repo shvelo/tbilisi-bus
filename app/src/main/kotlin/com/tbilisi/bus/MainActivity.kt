@@ -1,6 +1,6 @@
 package com.tbilisi.bus
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,13 +10,12 @@ import android.view.MenuItem
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
-import kotlinx.android.synthetic.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-public class MainActivity() : AppCompatActivity() {
+class MainActivity() : AppCompatActivity() {
     var activeFragmentId = R.id.drawer_map
     var drawerToggle: ActionBarDrawerToggle? = null
-    val mopubUnit = "2a8525e43e434f68bdfc76fb1eec1f9a"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +30,9 @@ public class MainActivity() : AppCompatActivity() {
         setActive(activeFragmentId)
 
         DatabaseManager(this).initialize()
-
-        mopub_ad.adUnitId = mopubUnit
-        mopub_ad.loadAd()
     }
 
     override fun onDestroy() {
-        mopub_ad.destroy()
         super.onDestroy()
     }
 
@@ -45,13 +40,13 @@ public class MainActivity() : AppCompatActivity() {
         when (fragmentId) {
             R.id.drawer_map -> {
                 setFragment(MapFragment())
-                supportActionBar.title = getString(R.string.title_map)
+                supportActionBar?.title = getString(R.string.title_map)
                 activeFragmentId = fragmentId
                 return true
             }
             R.id.drawer_history -> {
                 setFragment(HistoryFragment())
-                supportActionBar.title = getString(R.string.title_history)
+                supportActionBar?.title = getString(R.string.title_history)
                 activeFragmentId = fragmentId
                 return true
             }
@@ -61,7 +56,7 @@ public class MainActivity() : AppCompatActivity() {
             }
             R.id.drawer_info -> {
                 setFragment(InfoFragment())
-                supportActionBar.title = getString(R.string.title_info)
+                supportActionBar?.title = getString(R.string.title_info)
                 activeFragmentId = fragmentId
                 return true
             }
@@ -74,14 +69,14 @@ public class MainActivity() : AppCompatActivity() {
     }
 
     fun setFragment(fragment: Fragment) {
-        fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
     }
 
     fun setupNavigationDrawer() {
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
-        drawerLayout.setDrawerListener(drawerToggle)
-        supportActionBar.setDisplayHomeAsUpEnabled(true)
-        supportActionBar.setHomeButtonEnabled(true)
+        drawerLayout.addDrawerListener(drawerToggle!!)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
         drawer.setNavigationItemSelectedListener {
             drawerLayout.closeDrawers()

@@ -5,11 +5,11 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
 @RealmClass
-public open class BusStop(): RealmObject() {
+open class BusStop(): RealmObject() {
     @PrimaryKey
-    public open var id = 0
-    public open var name = ""
-    public open var name_en = ""
-    public open var lat = 0.0
-    public open var lon = 0.0
+    open var id = 0
+    open var name = ""
+    open var name_en = ""
+    open var lat = 0.0
+    open var lon = 0.0
 }

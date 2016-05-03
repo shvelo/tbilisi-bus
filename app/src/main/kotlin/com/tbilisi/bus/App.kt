@@ -3,8 +3,7 @@ package com.tbilisi.bus
 import android.app.Application
 import android.os.StrictMode
 
-public class App : Application() {
-
+class App : Application() {
     override fun onCreate() {
         // Enable strict mode in debug builds
         if (BuildConfig.DEBUG) {

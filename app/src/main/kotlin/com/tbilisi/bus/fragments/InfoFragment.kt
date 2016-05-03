@@ -1,6 +1,6 @@
 package com.tbilisi.bus.fragments
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import com.tbilisi.bus.R
 
-public class InfoFragment : Fragment() {
+class InfoFragment : Fragment() {
     var webView: WebView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

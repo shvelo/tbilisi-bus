@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.tbilisi.bus.util.BusInfoAdapter
-import kotlinx.android.synthetic.activity_schedule.*
+import kotlinx.android.synthetic.main.activity_schedule.*
 
 class ScheduleActivity : AppCompatActivity() {
     var id: Int = 0
@@ -14,7 +14,7 @@ class ScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
         setSupportActionBar(toolbar)
-        supportActionBar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         list.layoutManager = LinearLayoutManager(this)
 
