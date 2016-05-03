@@ -1,14 +1,4 @@
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-    }
-}
-
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
-    distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+    gradleVersion = '2.13'
+    distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
 }

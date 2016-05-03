@@ -1,27 +1,28 @@
 buildscript {
-    ext.support_version = '23.1.1'
-    ext.kotlin_version = '1.0.0-beta-2423'
+    ext.support_version = '23.3.0'
+    ext.kotlin_version = '1.0.1'
     repositories {
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
 }
+
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 repositories {
     jcenter()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
-
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -44,6 +45,9 @@ dependencies {
 }
 
 android {
+    buildToolsVersion "23.0.3"
+    compileSdkVersion 23
+
     defaultConfig {
         versionCode 50
         versionName "5.0.0"
@@ -51,14 +55,11 @@ android {
         targetSdkVersion 23
     }
 
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
     buildTypes {
         release {
             debuggable false
             minifyEnabled true
-            proguardFile file("proguard.cfg")
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard.cfg"
         }
     }
 
