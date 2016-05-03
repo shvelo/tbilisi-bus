@@ -59,8 +59,4 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
             addMarker(stop)
         }
     }
-
-    fun getStopForMarker(marker: Marker) {
-
-    }
 }

@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
+import com.tbilisi.bus.util.StopHelper
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
 
 class ScheduleActivity : AppCompatActivity() {
-    var id: Int = 0
+    var stop: BusStop? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +29,22 @@ class ScheduleActivity : AppCompatActivity() {
     }
 
     fun handleIntent(intent: Intent) {
-        id = intent.getIntExtra("id", 0)
-        title = id.toString()
+        val stopId = intent.getIntExtra("id", -1)
+        if(stopId == -1)
+            return
+
+        stop = Realm.getInstance(this).where(BusStop::class.java).equalTo("id", stopId).findFirst()
+
+        if(stop == null)
+            return
+
+        title = StopHelper.getLocalizedName(stop!!)
 
         updateInfo()
     }
 
     fun updateInfo() {
-        ScheduleRetriever.retrieve(id, this, {
+        ScheduleRetriever.retrieve(stop!!.id, this, {
             runOnUiThread {
                 list.adapter = BusInfoAdapter(it)
             }

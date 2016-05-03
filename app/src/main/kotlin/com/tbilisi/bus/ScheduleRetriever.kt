@@ -1,6 +1,7 @@
 package com.tbilisi.bus
 
 import android.content.Context
+import android.util.Log
 import com.squareup.okhttp.*
 import com.tbilisi.bus.data.BusInfo
 import org.jsoup.Jsoup
@@ -8,6 +9,7 @@ import java.io.IOException
 import java.util.*
 
 object ScheduleRetriever {
+    val LOG_TAG = "ScheduleRetriever"
     val client: OkHttpClient = OkHttpClient()
 
     /**
@@ -15,6 +17,8 @@ object ScheduleRetriever {
      * @param id stop ID
      */
     fun retrieve(id: Int, context: Context, callback: (ArrayList<BusInfo>) -> Unit) {
+        Log.d(LOG_TAG, "Retrieving schedule for $id")
+
         val request = Request.Builder()
                 .url(getUrlForStop(id, context))
                 .build()
