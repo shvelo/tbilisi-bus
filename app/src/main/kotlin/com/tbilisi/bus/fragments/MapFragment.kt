@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.google.android.gms.common.api.GoogleApiClient
@@ -18,7 +19,16 @@ import com.tbilisi.bus.SearchActivity
 import pl.tajchert.nammu.Nammu
 import pl.tajchert.nammu.PermissionCallback
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
+    override fun onConnected(p0: Bundle?) {
+        gotoMyLocation()
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+    }
+
+    val LOG_TAG = "MapFragment"
+
     var map: GoogleMap? = null
     var googleApiClient: GoogleApiClient? = null
 
@@ -34,6 +44,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         googleApiClient = GoogleApiClient.Builder(activity)
                 .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
                 .build()
     }
 
@@ -61,8 +72,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     fun gotoMyLocation() {
         val location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
+        Log.d(LOG_TAG, "$location")
         if(location != null)
-            map?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 18f))
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
