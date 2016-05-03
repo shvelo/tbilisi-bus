@@ -16,26 +16,30 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
+import com.tbilisi.bus.maps.MapUpdateListener
 import pl.tajchert.nammu.Nammu
 import pl.tajchert.nammu.PermissionCallback
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
-    override fun onConnected(p0: Bundle?) {
+    val LOG_TAG = "MapFragment"
+
+    var map: GoogleMap? = null
+    var googleApiClient: GoogleApiClient? = null
+
+    override fun onConnected(bundle: Bundle?) {
         gotoMyLocation()
     }
 
     override fun onConnectionSuspended(p0: Int) {
     }
 
-    val LOG_TAG = "MapFragment"
-
-    var map: GoogleMap? = null
-    var googleApiClient: GoogleApiClient? = null
-
     override fun onMapReady(readyMap: GoogleMap?) {
         map = readyMap
-        Toast.makeText(activity, "Map initialized", Toast.LENGTH_SHORT).show()
-        askForLocation()
+        if(map != null) {
+            map?.setOnCameraChangeListener(MapUpdateListener(map!!, context))
+            Toast.makeText(activity, "Map initialized", Toast.LENGTH_SHORT).show()
+            askForLocation()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
         val location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
         Log.d(LOG_TAG, "$location")
         if(location != null)
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 18f))
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 18F))
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
