@@ -16,6 +16,13 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:title="@string/schedule"/>
 
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/progressDisplay"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"

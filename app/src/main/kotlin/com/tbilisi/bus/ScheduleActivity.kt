@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.util.StopHelper
@@ -39,15 +40,26 @@ class ScheduleActivity : AppCompatActivity() {
             return
 
         title = StopHelper.getLocalizedName(stop!!)
+        toolbar.subtitle =  stop!!.id.toString()
 
         updateInfo()
     }
 
     fun updateInfo() {
+        showProgress()
         ScheduleRetriever.retrieve(stop!!.id, this, {
             runOnUiThread {
+                hideProgress()
                 list.adapter = BusInfoAdapter(it)
             }
         })
+    }
+
+    fun showProgress() {
+        progressDisplay.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        progressDisplay.visibility = View.GONE
     }
 }
