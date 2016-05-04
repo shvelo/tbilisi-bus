@@ -10,6 +10,7 @@ import android.view.View
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
+import com.tbilisi.bus.util.FavoriteHelper
 import com.tbilisi.bus.util.HistoryHelper
 import com.tbilisi.bus.util.StopHelper
 import io.realm.Realm
@@ -21,6 +22,10 @@ class ScheduleActivity : AppCompatActivity() {
     var stop: BusStop? = null
     // bus info list
     val busList = ArrayList<BusInfo>()
+    var menu: Menu? = null
+
+    val FAVORITE_REMOVED = 1
+    val FAVORITE_ADDED = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,12 @@ class ScheduleActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.schedule, menu);
+
+        if(stop != null && FavoriteHelper.isFavorited(stop!!)) {
+            menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
+        }
 
         return true
     }
@@ -49,6 +59,14 @@ class ScheduleActivity : AppCompatActivity() {
         when (item?.itemId) {
             R.id.menu_refresh -> {
                 refresh()
+                return true
+            }
+            R.id.menu_favorite -> {
+                val result = toggleFavorite()
+                if(result == FAVORITE_REMOVED)
+                    item?.icon = resources.getDrawable(R.drawable.ic_favorite_border_white_36dp)
+                if(result == FAVORITE_ADDED)
+                    item?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -76,6 +94,10 @@ class ScheduleActivity : AppCompatActivity() {
         toolbar.subtitle = stop!!.id.toString()
 
         HistoryHelper.addToHistory(stop!!)
+
+        if(FavoriteHelper.isFavorited(stop!!)) {
+            menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
+        }
 
         refresh()
     }
@@ -114,6 +136,19 @@ class ScheduleActivity : AppCompatActivity() {
         }
 
         list.adapter.notifyDataSetChanged()
+    }
+
+    fun toggleFavorite(): Int? {
+        if(stop == null)
+            return null
+
+        if(FavoriteHelper.isFavorited(stop!!)) {
+            FavoriteHelper.removeFromFavorites(stop!!)
+            return FAVORITE_REMOVED
+        } else {
+            FavoriteHelper.addToFavorites(stop!!)
+            return FAVORITE_ADDED
+        }
     }
 
     /**

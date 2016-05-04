@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_refresh_white_36dp"
         android:title="@string/refresh"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_favorite"
+        android:icon="@drawable/ic_favorite_border_white_36dp"
+        android:title="@string/favorite"
+        app:showAsAction="always"/>
 </menu>

@@ -16,4 +16,5 @@
     <string name="refresh">განახლება</string>
     <string name="no_data">ინფორმაცია არ არის</string>
     <string name="error">დაფიქსირდა შეცდომა</string>
+    <string name="favorite">ფავორიტი</string>
 </resources>

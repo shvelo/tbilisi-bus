@@ -21,8 +21,9 @@ object HistoryHelper {
         val inHistory = realm.where(HistoryItem::class.java).equalTo("stop.id", stop.id).count()
         if(inHistory == 0L) {
             realm.executeTransaction {
-                val historyItem = realm.createObject(HistoryItem::class.java)
+                val historyItem = HistoryItem()
                 historyItem.stop = stop
+                realm.copyToRealm(historyItem)
             }
         }
         realm.close()
@@ -31,7 +32,7 @@ object HistoryHelper {
     fun clearHistory() {
         val realm = Realm.getDefaultInstance()
         realm.executeTransaction {
-            it.clear(HistoryItem::class.java)
+            realm.clear(HistoryItem::class.java)
         }
         realm.close()
     }

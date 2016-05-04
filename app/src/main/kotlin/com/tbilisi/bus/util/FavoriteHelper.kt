@@ -25,6 +25,14 @@ object FavoriteHelper {
         realm.close()
     }
 
+    fun removeFromFavorites(stop: BusStop) {
+        val realm = Realm.getDefaultInstance()
+        realm.executeTransaction {
+            realm.where(Favorite::class.java).equalTo("stop.id", stop.id).findFirst()?.removeFromRealm()
+        }
+        realm.close()
+    }
+
     fun isFavorited(stop: BusStop): Boolean {
         val realm = Realm.getDefaultInstance()
         val inFavorites = realm.where(Favorite::class.java).equalTo("stop.id", stop.id).count()
@@ -35,7 +43,7 @@ object FavoriteHelper {
     fun clearFavorites() {
         val realm = Realm.getDefaultInstance()
         realm.executeTransaction {
-            it.clear(Favorite::class.java)
+            realm.clear(Favorite::class.java)
         }
         realm.close()
     }

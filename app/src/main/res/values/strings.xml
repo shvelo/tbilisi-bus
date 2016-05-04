@@ -16,4 +16,5 @@
     <string name="refresh">Refresh</string>
     <string name="no_data">No data</string>
     <string name="error">Error retrieving data</string>
+    <string name="favorite">Favorite</string>
 </resources>
