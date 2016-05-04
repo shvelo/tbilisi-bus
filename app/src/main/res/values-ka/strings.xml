@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="clear_history">ისტორიის გაწმენდა</string>
+    <string name="history_cleared">ისტორია გაწმენდილია</string>
     <string name="title_map">რუკა</string>
     <string name="title_history">ისტორია</string>
     <string name="locate">მომძებნე</string>

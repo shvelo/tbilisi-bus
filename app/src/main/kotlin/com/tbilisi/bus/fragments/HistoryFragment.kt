@@ -3,6 +3,7 @@ package com.tbilisi.bus.fragments
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import com.tbilisi.bus.R
 import com.tbilisi.bus.util.HistoryHelper
 
@@ -27,11 +28,16 @@ class HistoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.menu_clear -> {
-                HistoryHelper.clearHistory()
+                clearHistory()
                 return true
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun clearHistory() {
+        HistoryHelper.clearHistory()
+        Toast.makeText(context, R.string.history_cleared, Toast.LENGTH_SHORT).show()
     }
 }
