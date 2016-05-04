@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.util.StopHelper
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
+import java.util.*
 
 class ScheduleActivity : AppCompatActivity() {
     var stop: BusStop? = null
+    val stopList = ArrayList<BusInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,7 @@ class ScheduleActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         list.layoutManager = LinearLayoutManager(this)
+        list.adapter = BusInfoAdapter(stopList)
 
         handleIntent(intent)
     }
@@ -48,9 +52,12 @@ class ScheduleActivity : AppCompatActivity() {
     fun updateInfo() {
         showProgress()
         ScheduleRetriever.retrieve(stop!!.id, this, {
+            stopList.clear()
+            stopList.addAll(it)
+
             runOnUiThread {
+                list.adapter.notifyDataSetChanged()
                 hideProgress()
-                list.adapter = BusInfoAdapter(it)
             }
         })
     }
