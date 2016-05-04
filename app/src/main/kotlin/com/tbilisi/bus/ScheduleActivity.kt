@@ -74,8 +74,17 @@ class ScheduleActivity : AppCompatActivity() {
             stopList.addAll(it)
 
             runOnUiThread {
-                list.adapter.notifyDataSetChanged()
                 hideProgress()
+
+                if(stopList.isEmpty()) {
+                    list.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                } else {
+                    list.visibility = View.VISIBLE
+                    noData.visibility = View.GONE
+                }
+
+                list.adapter.notifyDataSetChanged()
             }
         })
     }

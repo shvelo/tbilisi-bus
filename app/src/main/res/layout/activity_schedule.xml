@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tbilisi.bus.ScheduleActivity">
+    tools:context="com.tbilisi.bus.ScheduleActivity"
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +15,8 @@
         android:background="@color/primary"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:title="@string/schedule"/>
+        android:title="@string/schedule"
+        />
 
     <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -22,6 +24,16 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:id="@+id/progressDisplay"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/no_data"
+        android:id="@+id/noData"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"

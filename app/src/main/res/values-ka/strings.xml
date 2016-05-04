@@ -13,4 +13,5 @@
     <string name="schedule">ტაბლო</string>
     <string name="loading">იტვირთება</string>
     <string name="refresh">განახლება</string>
+    <string name="no_data">ინფორმაცია არ არის</string>
 </resources>
