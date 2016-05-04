@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.*
 import com.tbilisi.bus.R
+import com.tbilisi.bus.util.HistoryHelper
 
 class HistoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class HistoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.menu_clear -> {
+                HistoryHelper.clearHistory()
                 return true
             }
         }

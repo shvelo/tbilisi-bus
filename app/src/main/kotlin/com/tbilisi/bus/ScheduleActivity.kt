@@ -10,6 +10,7 @@ import android.view.View
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
+import com.tbilisi.bus.util.HistoryHelper
 import com.tbilisi.bus.util.StopHelper
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
@@ -66,13 +67,15 @@ class ScheduleActivity : AppCompatActivity() {
         if (stopId == -1)
             return
 
-        stop = Realm.getInstance(this).where(BusStop::class.java).equalTo("id", stopId).findFirst()
+        stop = Realm.getDefaultInstance().where(BusStop::class.java).equalTo("id", stopId).findFirst()
 
         if (stop == null)
             return
 
         title = StopHelper.getLocalizedName(stop!!)
         toolbar.subtitle = stop!!.id.toString()
+
+        HistoryHelper.addToHistory(stop!!)
 
         refresh()
     }

@@ -4,9 +4,13 @@ import android.content.Context
 import android.util.Log
 import com.tbilisi.bus.data.BusStop
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class DatabaseManager(val context: Context) {
     fun initialize() {
+        // set default Realm configuration to use Realm.getDefaultInstance
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder(context).build())
+
         if(!isInitialized()) {
             Log.i("DatabaseManager", "Populating database")
             populate()
@@ -14,7 +18,7 @@ class DatabaseManager(val context: Context) {
     }
 
     fun populate() {
-        val realm = Realm.getInstance(context)
+        val realm = Realm.getDefaultInstance()
         val jsonStream = context.assets.open("db.json")
 
         realm.beginTransaction()
@@ -31,6 +35,6 @@ class DatabaseManager(val context: Context) {
     }
 
     fun isInitialized(): Boolean {
-        return Realm.getInstance(context).where(BusStop::class.java).count() > 0
+        return Realm.getDefaultInstance().where(BusStop::class.java).count() > 0
     }
 }

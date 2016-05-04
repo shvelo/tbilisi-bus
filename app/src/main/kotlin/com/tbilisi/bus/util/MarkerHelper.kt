@@ -44,7 +44,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
     }
 
     fun populateBounds() {
-        val realm = Realm.getInstance(context)
+        val realm = Realm.getDefaultInstance()
         val boundingBox = map.projection.visibleRegion.latLngBounds
 
         val query = realm.where(BusStop::class.java)
