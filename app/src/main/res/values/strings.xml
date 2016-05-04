@@ -12,4 +12,5 @@
     <string name="service_url">http://transiten.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>
     <string name="schedule">Schedule</string>
     <string name="loading">Loading</string>
+    <string name="refresh">Refresh</string>
 </resources>

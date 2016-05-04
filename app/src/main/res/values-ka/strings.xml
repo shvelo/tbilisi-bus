@@ -12,4 +12,5 @@
     <string name="service_url">http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>
     <string name="schedule">ტაბლო</string>
     <string name="loading">იტვირთება</string>
+    <string name="refresh">განახლება</string>
 </resources>

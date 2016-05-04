@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
@@ -29,22 +31,38 @@ class ScheduleActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.schedule, menu);
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_refresh -> {
+                updateInfo()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onNewIntent(intent: Intent) {
         handleIntent(intent)
     }
 
     fun handleIntent(intent: Intent) {
         val stopId = intent.getIntExtra("id", -1)
-        if(stopId == -1)
+        if (stopId == -1)
             return
 
         stop = Realm.getInstance(this).where(BusStop::class.java).equalTo("id", stopId).findFirst()
 
-        if(stop == null)
+        if (stop == null)
             return
 
         title = StopHelper.getLocalizedName(stop!!)
-        toolbar.subtitle =  stop!!.id.toString()
+        toolbar.subtitle = stop!!.id.toString()
 
         updateInfo()
     }

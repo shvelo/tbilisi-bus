@@ -40,7 +40,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
             map?.setOnCameraChangeListener(MapUpdateListener(map!!, context))
             map?.setOnInfoWindowClickListener(MapClickListener(context))
 
-            Toast.makeText(activity, "Map initialized", Toast.LENGTH_SHORT).show()
             askForLocation()
         }
     }
