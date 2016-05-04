@@ -16,18 +16,25 @@ import kotlinx.android.synthetic.main.activity_schedule.*
 import java.util.*
 
 class ScheduleActivity : AppCompatActivity() {
+    // info about current bus stop
     var stop: BusStop? = null
-    val stopList = ArrayList<BusInfo>()
+    // bus info list
+    val busList = ArrayList<BusInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
+
+        // use Toolbar as ActionBar
         setSupportActionBar(toolbar)
+        // show up button in actionbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // initialize RecyclerView
         list.layoutManager = LinearLayoutManager(this)
-        list.adapter = BusInfoAdapter(stopList)
+        list.adapter = BusInfoAdapter(busList)
 
+        // handle intent to get schedule
         handleIntent(intent)
     }
 
@@ -40,7 +47,7 @@ class ScheduleActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_refresh -> {
-                updateInfo()
+                refresh()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -51,6 +58,9 @@ class ScheduleActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
+    /**
+     * Handle new intent
+     */
     fun handleIntent(intent: Intent) {
         val stopId = intent.getIntExtra("id", -1)
         if (stopId == -1)
@@ -64,58 +74,85 @@ class ScheduleActivity : AppCompatActivity() {
         title = StopHelper.getLocalizedName(stop!!)
         toolbar.subtitle = stop!!.id.toString()
 
-        updateInfo()
+        refresh()
     }
 
-    fun updateInfo() {
+    /**
+     * Refresh schedule
+     */
+    fun refresh() {
+        hideError()
         showProgress()
+
         ScheduleRetriever.retrieve(stop!!.id, this, {
-            stopList.clear()
-            stopList.addAll(it)
-
             runOnUiThread {
-                hideError()
                 hideProgress()
-
-                if(stopList.isEmpty()) {
-                    showNoData()
-                } else {
-                    hideNoData()
-                }
-
-                list.adapter.notifyDataSetChanged()
+                updateList(it)
             }
         }, {
-            if(stopList.isEmpty()) {
+            runOnUiThread {
+                hideProgress()
                 showError()
             }
         })
     }
 
+    /**
+     * Update displayed list with new data
+     */
+    fun updateList(newList: ArrayList<BusInfo>) {
+        busList.clear()
+        busList.addAll(newList)
+
+        if(busList.isEmpty()) {
+            showNoData()
+        } else {
+            hideNoData()
+        }
+
+        list.adapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Show error view
+     */
     fun showError() {
-        list.visibility = View.GONE
         errorView.visibility = View.VISIBLE
     }
 
+    /**
+     * Hide error view
+     */
     fun hideError() {
-        list.visibility = View.VISIBLE
         errorView.visibility = View.GONE
     }
 
+    /**
+     * Show "no data" view
+     */
     fun showNoData() {
         list.visibility = View.GONE
         noData.visibility = View.VISIBLE
     }
 
+    /**
+     * Hide "no data" view
+     */
     fun hideNoData() {
         list.visibility = View.VISIBLE
         noData.visibility = View.GONE
     }
 
+    /**
+     * Show progressbar
+     */
     fun showProgress() {
         progressDisplay.visibility = View.VISIBLE
     }
 
+    /**
+     * Hide progressbar
+     */
     fun hideProgress() {
         progressDisplay.visibility = View.GONE
     }
