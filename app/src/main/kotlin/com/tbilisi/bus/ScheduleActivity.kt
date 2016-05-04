@@ -74,19 +74,42 @@ class ScheduleActivity : AppCompatActivity() {
             stopList.addAll(it)
 
             runOnUiThread {
+                hideError()
                 hideProgress()
 
                 if(stopList.isEmpty()) {
-                    list.visibility = View.GONE
-                    noData.visibility = View.VISIBLE
+                    showNoData()
                 } else {
-                    list.visibility = View.VISIBLE
-                    noData.visibility = View.GONE
+                    hideNoData()
                 }
 
                 list.adapter.notifyDataSetChanged()
             }
+        }, {
+            if(stopList.isEmpty()) {
+                showError()
+            }
         })
+    }
+
+    fun showError() {
+        list.visibility = View.GONE
+        errorView.visibility = View.VISIBLE
+    }
+
+    fun hideError() {
+        list.visibility = View.VISIBLE
+        errorView.visibility = View.GONE
+    }
+
+    fun showNoData() {
+        list.visibility = View.GONE
+        noData.visibility = View.VISIBLE
+    }
+
+    fun hideNoData() {
+        list.visibility = View.VISIBLE
+        noData.visibility = View.GONE
     }
 
     fun showProgress() {

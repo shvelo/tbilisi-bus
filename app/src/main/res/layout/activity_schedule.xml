@@ -19,21 +19,41 @@
         />
 
     <ProgressBar
+        android:id="@+id/progressDisplay"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:id="@+id/progressDisplay"/>
+        android:indeterminate="true"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/no_data"
         android:id="@+id/noData"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:text="@string/no_data"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/errorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_error_red_300_48dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_error_red_300_48dp"
+            android:gravity="center"
+            android:text="@string/error"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"

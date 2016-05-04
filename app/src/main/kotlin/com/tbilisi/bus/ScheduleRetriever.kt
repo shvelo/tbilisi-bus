@@ -16,7 +16,7 @@ object ScheduleRetriever {
      * Retrieve schedule for the stop
      * @param id stop ID
      */
-    fun retrieve(id: Int, context: Context, callback: (ArrayList<BusInfo>) -> Unit) {
+    fun retrieve(id: Int, context: Context, callback: (ArrayList<BusInfo>) -> Unit, errorCallback: (IOException?) -> Unit) {
         Log.d(LOG_TAG, "Retrieving schedule for $id")
 
         val request = Request.Builder()
@@ -24,6 +24,7 @@ object ScheduleRetriever {
                 .build()
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(request: Request?, e: IOException?) {
+                errorCallback(e)
             }
 
             override fun onResponse(response: Response?) {
