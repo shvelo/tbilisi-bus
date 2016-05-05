@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tbilisi.bus.ScheduleActivity"
-    >
+    tools:context="com.tbilisi.bus.ScheduleActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -26,35 +25,35 @@
         android:indeterminate="true"
         android:visibility="gone"/>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/noData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/no_data"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="gone"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/errorView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/button_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_error_red_300_48dp"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/ic_error_red_300_48dp"
-            android:gravity="center"
-            android:text="@string/error"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="@string/refresh"/>
+
     </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"

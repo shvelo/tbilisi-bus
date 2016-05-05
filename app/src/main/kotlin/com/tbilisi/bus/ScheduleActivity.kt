@@ -2,8 +2,10 @@ package com.tbilisi.bus
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,14 +21,15 @@ import kotlinx.android.synthetic.main.activity_schedule.*
 import java.util.*
 
 class ScheduleActivity : AppCompatActivity() {
+    val LOG_TAG = "ScheduleActivity"
+    val FAVORITE_REMOVED = 1
+    val FAVORITE_ADDED = 2
+
     // info about current bus stop
     var stop: BusStop? = null
     // bus info list
     val busList = ArrayList<BusInfo>()
     var menu: Menu? = null
-
-    val FAVORITE_REMOVED = 1
-    val FAVORITE_ADDED = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,10 @@ class ScheduleActivity : AppCompatActivity() {
         // initialize RecyclerView
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = BusInfoAdapter(busList)
+
+        button_refresh.setOnClickListener {
+            refresh()
+        }
 
         // handle intent to get schedule
         handleIntent(intent)
@@ -107,7 +114,6 @@ class ScheduleActivity : AppCompatActivity() {
      * Refresh schedule
      */
     fun refresh() {
-        hideError()
         showProgress()
 
         ScheduleRetriever.retrieve(stop!!.id, this, {
@@ -119,6 +125,8 @@ class ScheduleActivity : AppCompatActivity() {
             runOnUiThread {
                 hideProgress()
                 showError()
+                Log.e(LOG_TAG, "Error retrieving schedule for ${stop?.id}")
+                it?.printStackTrace()
             }
         })
     }
@@ -156,14 +164,10 @@ class ScheduleActivity : AppCompatActivity() {
      * Show error view
      */
     fun showError() {
-        errorView.visibility = View.VISIBLE
-    }
-
-    /**
-     * Hide error view
-     */
-    fun hideError() {
-        errorView.visibility = View.GONE
+        val snackbar = Snackbar.make(findViewById(android.R.id.content)!!, R.string.error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("OK", {
+            snackbar.dismiss()
+        }).show()
     }
 
     /**
