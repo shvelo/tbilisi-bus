@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import com.tbilisi.bus.R
-import com.tbilisi.bus.util.HistoryHelper
+import com.tbilisi.bus.data.HistoryStore
 
 class HistoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class HistoryFragment : Fragment() {
     }
 
     fun clearHistory() {
-        HistoryHelper.clearHistory()
+        HistoryStore.clearHistory()
         Toast.makeText(context, R.string.history_cleared, Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,11 +1,9 @@
-package com.tbilisi.bus.util
+package com.tbilisi.bus.data
 
-import com.tbilisi.bus.data.BusStop
-import com.tbilisi.bus.data.Favorite
 import io.realm.Realm
 import java.util.*
 
-object FavoriteHelper {
+object FavoriteStore {
     fun getFavorites(): ArrayList<Favorite> {
         val realm = Realm.getDefaultInstance()
         val favoriteList = ArrayList<Favorite>()

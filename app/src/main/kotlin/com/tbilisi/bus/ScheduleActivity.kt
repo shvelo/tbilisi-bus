@@ -10,8 +10,8 @@ import android.view.View
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
-import com.tbilisi.bus.util.FavoriteHelper
-import com.tbilisi.bus.util.HistoryHelper
+import com.tbilisi.bus.data.FavoriteStore
+import com.tbilisi.bus.data.HistoryStore
 import com.tbilisi.bus.util.StopHelper
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
@@ -48,7 +48,7 @@ class ScheduleActivity : AppCompatActivity() {
         this.menu = menu
         menuInflater.inflate(R.menu.schedule, menu);
 
-        if(stop != null && FavoriteHelper.isFavorited(stop!!)) {
+        if(stop != null && FavoriteStore.isFavorited(stop!!)) {
             menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
         }
 
@@ -93,9 +93,9 @@ class ScheduleActivity : AppCompatActivity() {
         title = StopHelper.getLocalizedName(stop!!)
         toolbar.subtitle = stop!!.id.toString()
 
-        HistoryHelper.addToHistory(stop!!)
+        HistoryStore.addToHistory(stop!!)
 
-        if(FavoriteHelper.isFavorited(stop!!)) {
+        if(FavoriteStore.isFavorited(stop!!)) {
             menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
         }
 
@@ -142,11 +142,11 @@ class ScheduleActivity : AppCompatActivity() {
         if(stop == null)
             return null
 
-        if(FavoriteHelper.isFavorited(stop!!)) {
-            FavoriteHelper.removeFromFavorites(stop!!)
+        if(FavoriteStore.isFavorited(stop!!)) {
+            FavoriteStore.removeFromFavorites(stop!!)
             return FAVORITE_REMOVED
         } else {
-            FavoriteHelper.addToFavorites(stop!!)
+            FavoriteStore.addToFavorites(stop!!)
             return FAVORITE_ADDED
         }
     }
