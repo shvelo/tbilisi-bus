@@ -7,7 +7,7 @@
     <string name="locate">Locate me</string>
     <string name="change_language">ქართული</string>
     <string name="title_info">Info</string>
-    <string name="info_uri">file:///android_asset/info.html</string>
+    <string name="info_uri">file:///android_asset/info/index.html</string>
     <string name="search">Search</string>
     <string name="search_hint">Name or ID</string>
     <string name="service_url">http://transiten.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>

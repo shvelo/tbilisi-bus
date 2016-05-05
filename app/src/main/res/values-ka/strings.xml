@@ -7,7 +7,7 @@
     <string name="locate">მომძებნე</string>
     <string name="change_language">English</string>
     <string name="title_info">ინფორმაცია</string>
-    <string name="info_uri">file:///android_asset/info-ka.html</string>
+    <string name="info_uri">file:///android_asset/info/index-ka.html</string>
     <string name="search">ძებნა</string>
     <string name="search_hint">სახელი ან ID</string>
     <string name="service_url">http://transit.ttc.com.ge/pts-portal-services/servlet/stopArrivalTimesServlet</string>
