@@ -46,9 +46,9 @@ class SearchActivity : AppCompatActivity() {
             searchButton = menu.findItem(R.id.menu_search)
             val searchView = searchButton?.actionView as SearchView
             searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-            if(query.isNullOrEmpty())
-                MenuItemCompat.expandActionView(searchButton)
+            searchView.setIconifiedByDefault(false)
+            searchView.setQuery(query, true)
+            MenuItemCompat.expandActionView(searchButton)
         }
 
         return super.onCreateOptionsMenu(menu)
