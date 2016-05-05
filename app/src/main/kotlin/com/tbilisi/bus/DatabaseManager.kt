@@ -7,12 +7,14 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 
 class DatabaseManager(val context: Context) {
+    val LOG_TAG = "DatabaseManager"
+
     fun initialize() {
         // set default Realm configuration to use Realm.getDefaultInstance
         Realm.setDefaultConfiguration(RealmConfiguration.Builder(context).build())
 
         if(!isInitialized()) {
-            Log.i("DatabaseManager", "Populating database")
+            Log.i(LOG_TAG, "Populating database")
             populate()
         }
     }
@@ -30,7 +32,7 @@ class DatabaseManager(val context: Context) {
         } finally {
             realm.commitTransaction()
             jsonStream.close()
-            Log.i("DatabaseManager", "Database populated")
+            Log.i(LOG_TAG, "Database populated")
         }
     }
 

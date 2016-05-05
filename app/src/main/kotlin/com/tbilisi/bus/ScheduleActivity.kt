@@ -12,6 +12,7 @@ import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.data.FavoriteStore
 import com.tbilisi.bus.data.HistoryStore
+import com.tbilisi.bus.util.ScheduleRetriever
 import com.tbilisi.bus.util.StopHelper
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*

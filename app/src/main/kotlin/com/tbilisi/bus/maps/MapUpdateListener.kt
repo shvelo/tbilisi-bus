@@ -12,7 +12,6 @@ class MapUpdateListener(map: GoogleMap, val context: Context): GoogleMap.OnCamer
     val markerHelper = MarkerHelper(map, context)
 
     override fun onCameraChange(cameraPosition: CameraPosition?) {
-        Log.d(LOG_TAG, "OnCameraChange $cameraPosition")
         if(cameraPosition != null && cameraPosition.zoom >= MIN_ZOOM) {
             markerHelper.populateBounds()
         }

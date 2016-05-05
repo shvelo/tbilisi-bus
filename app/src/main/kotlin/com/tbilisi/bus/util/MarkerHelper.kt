@@ -1,7 +1,6 @@
 package com.tbilisi.bus.util
 
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -21,7 +20,6 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
         }
     }
 
-    val LOG_TAG = "MarkerHelper"
     val loadedMarkers: ArrayList<Int> = ArrayList()
 
     fun addMarker(stop: BusStop) {
@@ -51,11 +49,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
                 .between("lat", boundingBox.southwest.latitude, boundingBox.northeast.latitude)
                 .between("lon", boundingBox.southwest.longitude, boundingBox.northeast.longitude)
 
-        Log.d(LOG_TAG, "lat ${boundingBox.southwest.latitude}, ${boundingBox.northeast.latitude}\n" +
-                "lng ${boundingBox.southwest.longitude}, ${boundingBox.northeast.longitude}")
-
         for(stop in query.findAll()) {
-            Log.d(LOG_TAG, "Adding stop $stop")
             addMarker(stop)
         }
     }

@@ -1,8 +1,9 @@
-package com.tbilisi.bus
+package com.tbilisi.bus.util
 
 import android.content.Context
 import android.util.Log
 import com.squareup.okhttp.*
+import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusInfo
 import org.jsoup.Jsoup
 import java.io.IOException
