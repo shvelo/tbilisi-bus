@@ -10,10 +10,9 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        map:uiZoomControls="true"
         map:cameraTargetLat="41.716667"
         map:cameraTargetLng="44.783333"
         map:cameraZoom="13"
-        tools:context=".MapFragment"/>
+        map:uiZoomControls="true"/>
 
 </RelativeLayout>
