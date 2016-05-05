@@ -64,15 +64,25 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
     }
 
     fun askForLocation() {
+        gotoSavedLocation()
         Nammu.askForPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION, object:PermissionCallback {
             override fun permissionRefused() {
             }
 
             override fun permissionGranted() {
                 map?.isMyLocationEnabled = true
-                gotoMyLocation()
+                if(!gotoSavedLocation())
+                    gotoMyLocation()
             }
         })
+    }
+
+    fun gotoSavedLocation(): Boolean {
+        if(MapUpdateListener.lastPosition != null) {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(MapUpdateListener.lastPosition, 18F))
+            return true
+        }
+        return false
     }
 
     fun gotoMyLocation() {
