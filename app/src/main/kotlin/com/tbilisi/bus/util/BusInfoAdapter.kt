@@ -1,5 +1,6 @@
 package com.tbilisi.bus.util
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusInfo
-import java.util.*
 
-class BusInfoAdapter(val dataset: List<BusInfo>): RecyclerView.Adapter<BusInfoAdapter.ViewHolder>() {
+class BusInfoAdapter(val dataset: List<BusInfo>, val context: Context): RecyclerView.Adapter<BusInfoAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.bus_info, parent, false)
         return ViewHolder(v)
@@ -19,7 +19,7 @@ class BusInfoAdapter(val dataset: List<BusInfo>): RecyclerView.Adapter<BusInfoAd
         val item = dataset[position]
         holder?.text_bus?.text = item.bus.toString()
         holder?.text_direction?.text = item.direction
-        holder?.text_time?.text = item.time.toString()
+        holder?.text_time?.text = LocalizationHelper.getLocalizedTime(item.time, context)
     }
 
     override fun getItemCount(): Int {

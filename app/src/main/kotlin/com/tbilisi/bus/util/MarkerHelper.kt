@@ -36,7 +36,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
         val markerOptions = MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_icon))
                 .position(LatLng(stop.lat, stop.lon))
-                .title(StopHelper.getLocalizedName(stop))
+                .title(LocalizationHelper.getLocalizedStopName(stop))
                 .snippet(stop.id.toString())
         return markerOptions
     }

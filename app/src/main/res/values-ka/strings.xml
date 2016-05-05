@@ -20,4 +20,5 @@
     <string name="title_favorites">ფავორიტები</string>
     <string name="clear_favorites">ფავორიტების გაწმენდა</string>
     <string name="favorites_cleared">ფავორიტები გაწმენდილია</string>
+    <string name="time_format">%dწთ</string>
 </resources>

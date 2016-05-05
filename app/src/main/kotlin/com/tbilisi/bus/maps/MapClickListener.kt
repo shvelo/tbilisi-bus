@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.Marker
 import com.tbilisi.bus.ScheduleActivity
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.MarkerHelper
-import com.tbilisi.bus.util.StopHelper
+import com.tbilisi.bus.util.LocalizationHelper
 
 class MapClickListener(val context: Context): GoogleMap.OnInfoWindowClickListener {
     override fun onInfoWindowClick(marker: Marker?) {

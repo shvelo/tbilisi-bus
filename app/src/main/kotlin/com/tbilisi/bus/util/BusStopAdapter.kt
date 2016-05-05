@@ -19,7 +19,7 @@ class BusStopAdapter(val dataset: List<BusStop>): RecyclerView.Adapter<BusStopAd
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val item = dataset[position]
         holder?.text_id?.text = item.id
-        holder?.text_name?.text = StopHelper.getLocalizedName(item)
+        holder?.text_name?.text = LocalizationHelper.getLocalizedStopName(item)
         holder?.itemView?.setOnClickListener {
             onClickListener?.onClick(it, item)
         }

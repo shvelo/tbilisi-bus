@@ -15,7 +15,7 @@ import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.data.FavoriteStore
 import com.tbilisi.bus.data.HistoryStore
 import com.tbilisi.bus.util.ScheduleRetriever
-import com.tbilisi.bus.util.StopHelper
+import com.tbilisi.bus.util.LocalizationHelper
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
 import java.util.*
@@ -42,7 +42,7 @@ class ScheduleActivity : AppCompatActivity() {
 
         // initialize RecyclerView
         list.layoutManager = LinearLayoutManager(this)
-        list.adapter = BusInfoAdapter(busList)
+        list.adapter = BusInfoAdapter(busList, this)
 
         button_refresh.setOnClickListener {
             refresh()
@@ -93,7 +93,7 @@ class ScheduleActivity : AppCompatActivity() {
 
         stop = Realm.getDefaultInstance().where(BusStop::class.java).equalTo("id", stopId).findFirst() ?: return
 
-        title = StopHelper.getLocalizedName(stop!!)
+        title = LocalizationHelper.getLocalizedStopName(stop!!)
         toolbar.subtitle = stop!!.id.toString()
 
         HistoryStore.addToHistory(stop!!)

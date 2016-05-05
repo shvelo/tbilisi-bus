@@ -20,4 +20,5 @@
     <string name="title_favorites">Favorites</string>
     <string name="clear_favorites">Clear favorites</string>
     <string name="favorites_cleared">Favorites cleared</string>
+    <string name="time_format">%dm</string>
 </resources>
