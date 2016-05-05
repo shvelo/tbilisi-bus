@@ -11,7 +11,9 @@ class DatabaseManager(val context: Context) {
 
     fun initialize() {
         // set default Realm configuration to use Realm.getDefaultInstance
-        Realm.setDefaultConfiguration(RealmConfiguration.Builder(context).build())
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder(context)
+                .deleteRealmIfMigrationNeeded() // for dev
+                .build())
 
         if(!isInitialized()) {
             Log.i(LOG_TAG, "Populating database")

@@ -9,7 +9,7 @@ import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusInfo
 import java.util.*
 
-class BusInfoAdapter(val dataset: ArrayList<BusInfo>): RecyclerView.Adapter<BusInfoAdapter.ViewHolder>() {
+class BusInfoAdapter(val dataset: List<BusInfo>): RecyclerView.Adapter<BusInfoAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.bus_info, parent, false)
         return ViewHolder(v)

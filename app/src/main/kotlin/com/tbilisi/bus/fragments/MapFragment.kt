@@ -127,5 +127,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
         val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(
                 ComponentName(activity.applicationContext, SearchActivity::class.java)))
+        searchView.isSubmitButtonEnabled = true
     }
 }

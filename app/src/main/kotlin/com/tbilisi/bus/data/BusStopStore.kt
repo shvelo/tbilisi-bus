@@ -1,6 +1,7 @@
 package com.tbilisi.bus.data
 
 import com.google.android.gms.maps.model.LatLngBounds
+import io.realm.Case
 import io.realm.Realm
 
 object BusStopStore {
@@ -20,9 +21,9 @@ object BusStopStore {
     fun findByQuery(query: String): List<BusStop> {
         val realm = Realm.getDefaultInstance()
         val realmQuery = realm.where(BusStop::class.java)
-                .contains("name", query)
+                .contains("name", query, Case.INSENSITIVE)
                 .or()
-                .contains("name_en", query)
+                .contains("name_en", query, Case.INSENSITIVE)
                 .or()
                 .contains("id", query)
         val foundStops = realmQuery.findAll()
