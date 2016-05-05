@@ -31,7 +31,7 @@ for (var i in stops_map) {
     lon: parseFloat(stop.Lon),
     name: name,
     name_en: stop.Name_en,
-    id: parseInt(stop.StopId)
+    id: stop.StopId
   });
 }
 

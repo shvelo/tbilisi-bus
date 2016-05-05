@@ -20,7 +20,7 @@ object ScheduleRetriever {
      * Retrieve schedule for the stop
      * @param id stop ID
      */
-    fun retrieve(id: Int, context: Context, callback: (ArrayList<BusInfo>) -> Unit, errorCallback: (IOException?) -> Unit) {
+    fun retrieve(id: String, context: Context, callback: (ArrayList<BusInfo>) -> Unit, errorCallback: (IOException?) -> Unit) {
         Log.d(LOG_TAG, "Retrieving schedule for $id")
 
         // build bus schedule request
@@ -67,7 +67,7 @@ object ScheduleRetriever {
      * Get schedule service URL for stop
      * @param id stop ID
      */
-    fun getUrlForStop(id: Int, context: Context): HttpUrl {
+    fun getUrlForStop(id: String, context: Context): HttpUrl {
         // build stop schedule url
         return HttpUrl.parse(context.getString(R.string.service_url)).newBuilder()
                 .addQueryParameter("stopId", id.toString())

@@ -20,7 +20,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
         }
     }
 
-    val loadedMarkers: ArrayList<Int> = ArrayList()
+    val loadedMarkers: ArrayList<String> = ArrayList()
 
     fun addMarker(stop: BusStop) {
         if(loadedMarkers.contains(stop.id))

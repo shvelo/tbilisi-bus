@@ -7,7 +7,7 @@ import io.realm.annotations.RealmClass
 @RealmClass
 open class BusStop(): RealmObject() {
     @PrimaryKey
-    open var id = 0
+    open var id = "000"
     open var name = ""
     open var name_en = ""
     open var lat = 0.0

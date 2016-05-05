@@ -16,4 +16,17 @@ object BusStopStore {
         realm.close()
         return foundStops
     }
+
+    fun findByQuery(query: String): List<BusStop> {
+        val realm = Realm.getDefaultInstance()
+        val realmQuery = realm.where(BusStop::class.java)
+                .contains("name", query)
+                .or()
+                .contains("name_en", query)
+                .or()
+                .contains("id", query)
+        val foundStops = realmQuery.findAll()
+        realm.close()
+        return foundStops
+    }
 }

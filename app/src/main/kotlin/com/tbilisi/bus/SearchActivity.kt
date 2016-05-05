@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.tbilisi.bus.data.BusStopStore
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
+    val LOG_TAG = "SearchActivity"
     var searchButton: MenuItem? = null
     var query: String? = null
 
@@ -57,5 +60,8 @@ class SearchActivity : AppCompatActivity() {
     fun search(queryString: String) {
         query = queryString
         title = queryString
+
+        val results = BusStopStore.findByQuery(query!!)
+        Log.d(LOG_TAG, "$results")
     }
 }
