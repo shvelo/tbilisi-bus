@@ -1,7 +1,6 @@
 package com.tbilisi.bus.data
 
 import io.realm.Realm
-import java.util.*
 
 object HistoryStore {
     fun getHistory(): List<HistoryItem> {
