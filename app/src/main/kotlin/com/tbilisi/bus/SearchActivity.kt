@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.data.BusStopStore
 import com.tbilisi.bus.util.BusStopAdapter
@@ -31,10 +32,23 @@ class SearchActivity : AppCompatActivity() {
         title = getString(R.string.search)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        list.adapter = BusStopAdapter(stopList)
+        val adapter = BusStopAdapter(stopList)
+        list.adapter = adapter
         list.layoutManager = LinearLayoutManager(this)
 
+        adapter.onClickListener = object: BusStopAdapter.OnClickListener {
+            override fun onClick(view: View, stop: BusStop) {
+                showSchedule(stop)
+            }
+        }
+
         handleIntent(intent)
+    }
+
+    fun showSchedule(stop: BusStop) {
+        val intent = Intent(this, ScheduleActivity::class.java)
+        intent.putExtra("id", stop.id)
+        startActivity(intent)
     }
 
     override fun onNewIntent(intent: Intent) {

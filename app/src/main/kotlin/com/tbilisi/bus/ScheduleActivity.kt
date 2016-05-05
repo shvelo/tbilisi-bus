@@ -89,14 +89,9 @@ class ScheduleActivity : AppCompatActivity() {
      * Handle new intent
      */
     fun handleIntent(intent: Intent) {
-        val stopId = intent.getIntExtra("id", -1)
-        if (stopId == -1)
-            return
+        val stopId = intent.getStringExtra("id") ?: return
 
-        stop = Realm.getDefaultInstance().where(BusStop::class.java).equalTo("id", stopId).findFirst()
-
-        if (stop == null)
-            return
+        stop = Realm.getDefaultInstance().where(BusStop::class.java).equalTo("id", stopId).findFirst() ?: return
 
         title = StopHelper.getLocalizedName(stop!!)
         toolbar.subtitle = stop!!.id.toString()
