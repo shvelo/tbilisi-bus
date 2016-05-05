@@ -8,7 +8,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusStop
-import io.realm.Realm
+import com.tbilisi.bus.data.BusStopStore
 import java.util.*
 
 class MarkerHelper(val map: GoogleMap, val context: Context) {
@@ -16,7 +16,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
         val stopsForMarkers = HashMap<Marker, BusStop>()
 
         fun getStopForMarker(marker: Marker): BusStop? {
-            return stopsForMarkers.get(marker)
+            return stopsForMarkers[marker]
         }
     }
 
@@ -42,14 +42,11 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
     }
 
     fun populateBounds() {
-        val realm = Realm.getDefaultInstance()
         val boundingBox = map.projection.visibleRegion.latLngBounds
 
-        val query = realm.where(BusStop::class.java)
-                .between("lat", boundingBox.southwest.latitude, boundingBox.northeast.latitude)
-                .between("lon", boundingBox.southwest.longitude, boundingBox.northeast.longitude)
+        val stops = BusStopStore.findInBounds(boundingBox)
 
-        for(stop in query.findAll()) {
+        for(stop in stops) {
             addMarker(stop)
         }
     }

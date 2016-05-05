@@ -4,13 +4,10 @@ import io.realm.Realm
 import java.util.*
 
 object HistoryStore {
-    fun getHistory(): ArrayList<HistoryItem> {
+    fun getHistory(): List<HistoryItem> {
         val realm = Realm.getDefaultInstance()
-
-        val historyList = ArrayList<HistoryItem>()
-        realm.allObjects(HistoryItem::class.java).toCollection(historyList)
+        val historyList = realm.allObjects(HistoryItem::class.java)
         realm.close()
-
         return historyList
     }
 

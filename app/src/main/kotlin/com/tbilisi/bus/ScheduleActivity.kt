@@ -49,7 +49,7 @@ class ScheduleActivity : AppCompatActivity() {
         this.menu = menu
         menuInflater.inflate(R.menu.schedule, menu);
 
-        if(stop != null && FavoriteStore.isFavorited(stop!!)) {
+        if(stop != null && FavoriteStore.isFavorite(stop!!)) {
             menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
         }
 
@@ -96,7 +96,7 @@ class ScheduleActivity : AppCompatActivity() {
 
         HistoryStore.addToHistory(stop!!)
 
-        if(FavoriteStore.isFavorited(stop!!)) {
+        if(FavoriteStore.isFavorite(stop!!)) {
             menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
         }
 
@@ -143,7 +143,7 @@ class ScheduleActivity : AppCompatActivity() {
         if(stop == null)
             return null
 
-        if(FavoriteStore.isFavorited(stop!!)) {
+        if(FavoriteStore.isFavorite(stop!!)) {
             FavoriteStore.removeFromFavorites(stop!!)
             return FAVORITE_REMOVED
         } else {

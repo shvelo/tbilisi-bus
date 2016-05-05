@@ -1,20 +1,18 @@
 package com.tbilisi.bus.data
 
 import io.realm.Realm
-import java.util.*
 
 object FavoriteStore {
-    fun getFavorites(): ArrayList<Favorite> {
+    fun getFavorites(): List<Favorite> {
         val realm = Realm.getDefaultInstance()
-        val favoriteList = ArrayList<Favorite>()
-        realm.allObjects(Favorite::class.java).toCollection(favoriteList)
+        val favoriteList = realm.allObjects(Favorite::class.java)
         realm.close()
         return favoriteList
     }
 
     fun addToFavorites(stop: BusStop) {
         val realm = Realm.getDefaultInstance()
-        if(!isFavorited(stop)) {
+        if(!isFavorite(stop)) {
             realm.executeTransaction {
                 val historyItem = realm.createObject(Favorite::class.java)
                 historyItem.stop = stop
@@ -31,7 +29,7 @@ object FavoriteStore {
         realm.close()
     }
 
-    fun isFavorited(stop: BusStop): Boolean {
+    fun isFavorite(stop: BusStop): Boolean {
         val realm = Realm.getDefaultInstance()
         val inFavorites = realm.where(Favorite::class.java).equalTo("stop.id", stop.id).count()
         realm.close()
