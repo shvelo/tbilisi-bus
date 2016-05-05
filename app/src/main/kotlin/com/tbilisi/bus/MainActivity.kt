@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.tbilisi.bus.fragments.FavoritesFragment
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
 import com.tbilisi.bus.fragments.MapFragment
@@ -41,6 +42,12 @@ class MainActivity() : AppCompatActivity() {
             R.id.drawer_map -> {
                 setFragment(MapFragment())
                 supportActionBar?.title = getString(R.string.title_map)
+                activeFragmentId = fragmentId
+                return true
+            }
+            R.id.drawer_favorites -> {
+                setFragment(FavoritesFragment())
+                supportActionBar?.title = getString(R.string.title_favorites)
                 activeFragmentId = fragmentId
                 return true
             }

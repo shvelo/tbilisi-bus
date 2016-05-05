@@ -17,4 +17,7 @@
     <string name="no_data">No data</string>
     <string name="error">Error retrieving data</string>
     <string name="favorite">Favorite</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="clear_favorites">Clear favorites</string>
+    <string name="favorites_cleared">Favorites cleared</string>
 </resources>

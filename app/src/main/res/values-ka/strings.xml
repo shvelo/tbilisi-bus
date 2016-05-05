@@ -17,4 +17,7 @@
     <string name="no_data">ინფორმაცია არ არის</string>
     <string name="error">დაფიქსირდა შეცდომა</string>
     <string name="favorite">ფავორიტი</string>
+    <string name="title_favorites">ფავორიტები</string>
+    <string name="clear_favorites">ფავორიტების გაწმენდა</string>
+    <string name="favorites_cleared">ფავორიტები გაწმენდილია</string>
 </resources>
