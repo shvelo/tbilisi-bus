@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -28,7 +27,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
     var googleApiClient: GoogleApiClient? = null
 
     override fun onConnected(bundle: Bundle?) {
-        gotoMyLocation()
+        askForLocation()
     }
 
     override fun onConnectionSuspended(p0: Int) {
@@ -108,9 +107,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_locate -> {
-                return true
-            }
         }
 
         return super.onOptionsItemSelected(item)
