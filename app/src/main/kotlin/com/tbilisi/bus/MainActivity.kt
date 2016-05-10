@@ -26,11 +26,22 @@ class MainActivity() : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setupNavigationDrawer()
 
-        activeFragmentId = savedInstanceState?.getInt("fragment") ?: activeFragmentId
+        activeFragmentId = savedInstanceState?.getInt("fragment") ?: getSavedFragmentId() ?: activeFragmentId
 
         setActive(activeFragmentId)
 
         DatabaseManager(this).initialize()
+    }
+
+    fun getSavedFragmentId(): Int? {
+        val lastFragmentId = getSharedPreferences("MainActivity", 0).getInt("lastFragment", -1)
+        if(lastFragmentId == -1)
+            return null
+        return lastFragmentId
+    }
+
+    fun saveFragmentId(id: Int) {
+        getSharedPreferences("MainActivity", 0).edit().putInt("lastFragment", id).apply()
     }
 
     override fun onDestroy() {
@@ -38,6 +49,7 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setActive(fragmentId: Int): Boolean {
+        saveFragmentId(fragmentId)
         when (fragmentId) {
             R.id.drawer_map -> {
                 setFragment(MapFragment())
