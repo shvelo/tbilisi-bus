@@ -20,6 +20,9 @@ class App : Application() {
                     .penaltyDeath()
                     .build())
         }
+
+        DatabaseManager(this).initialize()
+
         super.onCreate()
     }
 }

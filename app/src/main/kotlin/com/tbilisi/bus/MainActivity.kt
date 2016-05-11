@@ -29,19 +29,17 @@ class MainActivity() : AppCompatActivity() {
         activeFragmentId = savedInstanceState?.getInt("fragment") ?: getSavedFragmentId() ?: activeFragmentId
 
         setActive(activeFragmentId)
-
-        DatabaseManager(this).initialize()
     }
 
     fun getSavedFragmentId(): Int? {
-        val lastFragmentId = getSharedPreferences("MainActivity", 0).getInt("lastFragment", -1)
+        val lastFragmentId = getSharedPreferences("default", 0).getInt("lastFragment", -1)
         if(lastFragmentId == -1)
             return null
         return lastFragmentId
     }
 
     fun saveFragmentId(id: Int) {
-        getSharedPreferences("MainActivity", 0).edit().putInt("lastFragment", id).apply()
+        getSharedPreferences("default", 0).edit().putInt("lastFragment", id).apply()
     }
 
     override fun onDestroy() {
