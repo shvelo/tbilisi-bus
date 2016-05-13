@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -63,7 +64,7 @@ class ScheduleActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.schedule, menu);
 
         if(stop != null && FavoriteStore.isFavorite(stop!!)) {
-            menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
+            menu?.findItem(R.id.menu_favorite)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
         }
 
         return true
@@ -78,9 +79,9 @@ class ScheduleActivity : AppCompatActivity() {
             R.id.menu_favorite -> {
                 val result = toggleFavorite()
                 if(result == FAVORITE_REMOVED)
-                    item?.icon = resources.getDrawable(R.drawable.ic_favorite_border_white_36dp)
+                    item?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_36dp)
                 if(result == FAVORITE_ADDED)
-                    item?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
+                    item?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -105,7 +106,7 @@ class ScheduleActivity : AppCompatActivity() {
         HistoryStore.addToHistory(stop!!)
 
         if(FavoriteStore.isFavorite(stop!!)) {
-            menu?.findItem(R.id.menu_favorite)?.icon = resources.getDrawable(R.drawable.ic_favorite_white_36dp)
+            menu?.findItem(R.id.menu_favorite)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
         }
 
         refresh()
