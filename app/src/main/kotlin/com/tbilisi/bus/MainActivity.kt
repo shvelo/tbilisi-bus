@@ -48,6 +48,7 @@ class MainActivity() : AppCompatActivity() {
 
     fun setActive(fragmentId: Int): Boolean {
         saveFragmentId(fragmentId)
+        drawer.setCheckedItem(fragmentId)
         when (fragmentId) {
             R.id.drawer_map -> {
                 setFragment(MapFragment())
@@ -86,7 +87,9 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content_layout, fragment)
+                .commit()
     }
 
     fun setupNavigationDrawer() {
