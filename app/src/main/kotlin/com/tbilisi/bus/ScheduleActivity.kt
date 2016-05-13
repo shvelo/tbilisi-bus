@@ -2,6 +2,7 @@ package com.tbilisi.bus
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -24,12 +25,17 @@ class ScheduleActivity : AppCompatActivity() {
     val LOG_TAG = "ScheduleActivity"
     val FAVORITE_REMOVED = 1
     val FAVORITE_ADDED = 2
+    // auto-refresh every 30 seconds
+    val REFRESH_DELAY = 30 * 1000L
 
     // info about current bus stop
     var stop: BusStop? = null
     // bus info list
     val busList = ArrayList<BusInfo>()
     var menu: Menu? = null
+
+    val handler = Handler()
+    val refreshRunnable = { refresh() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +121,7 @@ class ScheduleActivity : AppCompatActivity() {
             runOnUiThread {
                 hideProgress()
                 updateList(it)
+                handler.postDelayed(refreshRunnable, REFRESH_DELAY)
             }
         }, {
             runOnUiThread {
@@ -122,8 +129,14 @@ class ScheduleActivity : AppCompatActivity() {
                 showError()
                 Log.e(LOG_TAG, "Error retrieving schedule for ${stop?.id}")
                 it?.printStackTrace()
+                handler.postDelayed(refreshRunnable, REFRESH_DELAY)
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(refreshRunnable)
     }
 
     /**
