@@ -1,7 +1,7 @@
 buildscript {
-    ext.support_version = '23.3.0'
+    ext.support_version = '24.0.0-beta1'
     ext.kotlin_version = '1.0.2'
-    ext.play_services_version = '8.4.0'
+    ext.play_services_version = '9.0.0'
     repositories {
         jcenter()
         mavenCentral()
@@ -11,6 +11,7 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -18,6 +19,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 repositories {
     jcenter()
@@ -30,12 +32,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile "com.google.android.gms:play-services-maps:$play_services_version"
     compile "com.google.android.gms:play-services-location:$play_services_version"
+    compile "com.google.firebase:firebase-core:$play_services_version"
+    compile "com.google.firebase:firebase-crash:$play_services_version"
+    compile "com.google.firebase:firebase-messaging:$play_services_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
     compile "com.android.support:design:$support_version"
-    compile 'org.jsoup:jsoup:1.9.1'
+    compile 'org.jsoup:jsoup:1.9.2'
     compile 'com.squareup.okhttp:okhttp:2.7.5'
     compile 'io.realm:realm-android:0.87.5'
     compile 'com.github.tajchert:nammu:1.1.1'
