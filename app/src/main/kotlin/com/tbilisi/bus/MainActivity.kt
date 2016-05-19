@@ -47,22 +47,24 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setActive(fragmentId: Int): Boolean {
-        saveFragmentId(fragmentId)
         drawer.setCheckedItem(fragmentId)
         when (fragmentId) {
             R.id.drawer_map -> {
+                saveFragmentId(fragmentId)
                 setFragment(MapFragment())
                 supportActionBar?.title = getString(R.string.title_map)
                 activeFragmentId = fragmentId
                 return true
             }
             R.id.drawer_favorites -> {
+                saveFragmentId(fragmentId)
                 setFragment(FavoritesFragment())
                 supportActionBar?.title = getString(R.string.title_favorites)
                 activeFragmentId = fragmentId
                 return true
             }
             R.id.drawer_history -> {
+                saveFragmentId(fragmentId)
                 setFragment(HistoryFragment())
                 supportActionBar?.title = getString(R.string.title_history)
                 activeFragmentId = fragmentId
@@ -73,6 +75,7 @@ class MainActivity() : AppCompatActivity() {
                 return true
             }
             R.id.drawer_info -> {
+                saveFragmentId(fragmentId)
                 setFragment(InfoFragment())
                 supportActionBar?.title = getString(R.string.title_info)
                 activeFragmentId = fragmentId
