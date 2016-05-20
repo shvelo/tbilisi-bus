@@ -23,14 +23,6 @@
           }
         },
         {
-          "client_id": "303558236541-l0bsnjpdqsqanlt3rppkrtqittqhrpsf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tbilisi.bus",
-            "certificate_hash": "AE8AE667EBA716E507F3E692D96C56FFB989EE9F"
-          }
-        },
-        {
           "client_id": "303558236541-82o0p6scnm5sk6ipkvs0bdk7fre3788m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -67,14 +59,6 @@
           "android_info": {
             "package_name": "com.tbilisi.bus.debug",
             "certificate_hash": "AE8AE667EBA716E507F3E692D96C56FFB989EE9F"
-          }
-        },
-        {
-          "client_id": "303558236541-oub61jooh7hbdedibu6vbk3mi4n780ui.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tbilisi.bus.debug",
-            "certificate_hash": "E948077E89916927D0505C092210CC6B190E6605"
           }
         },
         {

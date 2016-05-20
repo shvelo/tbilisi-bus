@@ -1,5 +1,5 @@
 buildscript {
-    ext.support_version = '24.0.0-beta1'
+    ext.support_version = '23.2.1'
     ext.kotlin_version = '1.0.2'
     ext.play_services_version = '9.0.0'
     repositories {
@@ -57,13 +57,14 @@ android {
         versionName "5.0.0"
         minSdkVersion 15
         targetSdkVersion 23
+        applicationId "com.tbilisi.bus"
     }
 
     buildTypes {
         release {
             debuggable false
             minifyEnabled false
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard.cfg"
         }
         debug {
