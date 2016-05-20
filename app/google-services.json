@@ -62,6 +62,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "303558236541-0fgnr1ar2a41c630eofkljof8sh1nqc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tbilisi.bus.debug",
+            "certificate_hash": "AE8AE667EBA716E507F3E692D96C56FFB989EE9F"
+          }
+        },
+        {
           "client_id": "303558236541-oub61jooh7hbdedibu6vbk3mi4n780ui.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -45,6 +45,7 @@ dependencies {
     compile 'io.realm:realm-android:0.87.5'
     compile 'com.github.tajchert:nammu:1.1.1'
     kapt 'io.realm:realm-android:0.87.5'
+    compile 'com.google.android.gms:play-services-ads:9.0.0'
 }
 
 android {
@@ -67,6 +68,13 @@ android {
         }
         debug {
             applicationIdSuffix '.debug'
+            signingConfig = signingConfigs.debug
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile = file('debug.keystore')
         }
     }
 
