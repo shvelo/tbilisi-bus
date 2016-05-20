@@ -4,4 +4,5 @@
     <string name="app_icon" translatable="false">App icon</string>
     <string name="drawer_close" translatable="false">Open drawer</string>
     <string name="drawer_open" translatable="false">Close drawer</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8888142715543959/9422515428</string>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.google.android.gms.ads.AdRequest
 import com.tbilisi.bus.fragments.FavoritesFragment
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
@@ -29,6 +30,11 @@ class MainActivity() : AppCompatActivity() {
         activeFragmentId = savedInstanceState?.getInt("fragment") ?: getSavedFragmentId() ?: activeFragmentId
 
         setActive(activeFragmentId)
+    }
+
+    fun setupAds() {
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     fun getSavedFragmentId(): Int? {
