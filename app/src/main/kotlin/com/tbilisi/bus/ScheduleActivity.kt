@@ -122,6 +122,7 @@ class ScheduleActivity : AppCompatActivity() {
             runOnUiThread {
                 hideProgress()
                 updateList(it)
+                handler.removeCallbacks(refreshRunnable)
                 handler.postDelayed(refreshRunnable, REFRESH_DELAY)
             }
         }, {
@@ -130,6 +131,7 @@ class ScheduleActivity : AppCompatActivity() {
                 showError()
                 Log.e(LOG_TAG, "Error retrieving schedule for ${stop?.id}")
                 it?.printStackTrace()
+                handler.removeCallbacks(refreshRunnable)
                 handler.postDelayed(refreshRunnable, REFRESH_DELAY)
             }
         })
