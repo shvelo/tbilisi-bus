@@ -35,6 +35,7 @@ dependencies {
     compile "com.google.firebase:firebase-core:$play_services_version"
     compile "com.google.firebase:firebase-crash:$play_services_version"
     compile "com.google.firebase:firebase-messaging:$play_services_version"
+    compile "com.google.firebase:firebase-ads:$play_services_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
@@ -45,7 +46,6 @@ dependencies {
     compile 'io.realm:realm-android:0.87.5'
     compile 'com.github.tajchert:nammu:1.1.1'
     kapt 'io.realm:realm-android:0.87.5'
-    compile 'com.google.android.gms:play-services-ads:9.0.0'
 }
 
 android {
