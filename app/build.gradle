@@ -1,10 +1,11 @@
 buildscript {
-    ext.support_version = '23.2.1'
+    ext.support_version = '23.4.0'
     ext.kotlin_version = '1.0.2'
     ext.play_services_version = '9.0.0'
     repositories {
         jcenter()
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
@@ -24,6 +25,7 @@ apply plugin: 'com.google.gms.google-services'
 repositories {
     jcenter()
     mavenCentral()
+    mavenLocal()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://jitpack.io" }
 }
