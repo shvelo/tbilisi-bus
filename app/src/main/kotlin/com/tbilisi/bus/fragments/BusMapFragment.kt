@@ -20,7 +20,7 @@ import com.tbilisi.bus.maps.MapUpdateListener
 import pl.tajchert.nammu.Nammu
 import pl.tajchert.nammu.PermissionCallback
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
+class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
     val LOG_TAG = "MapFragment"
 
     var map: GoogleMap? = null

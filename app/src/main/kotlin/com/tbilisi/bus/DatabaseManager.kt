@@ -30,6 +30,7 @@ class DatabaseManager(val context: Context) {
             realm.createAllFromJson(BusStop::class.java, jsonStream)
         } catch(exception: Exception) {
             exception.printStackTrace()
+            jsonStream.close()
             realm.cancelTransaction()
         } finally {
             realm.commitTransaction()

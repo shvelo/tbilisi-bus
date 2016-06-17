@@ -11,7 +11,7 @@ import com.google.android.gms.ads.AdRequest
 import com.tbilisi.bus.fragments.FavoritesFragment
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
-import com.tbilisi.bus.fragments.MapFragment
+import com.tbilisi.bus.fragments.BusMapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -26,6 +26,7 @@ class MainActivity() : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         setupNavigationDrawer()
+        setupAds()
 
         activeFragmentId = savedInstanceState?.getInt("fragment") ?: getSavedFragmentId() ?: activeFragmentId
 
@@ -57,7 +58,7 @@ class MainActivity() : AppCompatActivity() {
         when (fragmentId) {
             R.id.drawer_map -> {
                 saveFragmentId(fragmentId)
-                setFragment(MapFragment())
+                setFragment(BusMapFragment())
                 supportActionBar?.title = getString(R.string.title_map)
                 activeFragmentId = fragmentId
                 return true
@@ -97,8 +98,8 @@ class MainActivity() : AppCompatActivity() {
 
     fun setFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.content_layout, fragment)
-                .commit()
+            .replace(R.id.content_layout, fragment)
+            .commit()
     }
 
     fun setupNavigationDrawer() {
