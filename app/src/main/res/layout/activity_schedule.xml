@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.tbilisi.bus.ScheduleActivity">
 
@@ -61,5 +62,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:listitem="@layout/bus_info"/>
+
+    <com.google.android.gms.ads.NativeExpressAdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="@string/native_ad_unit_id"
+        ads:adSize="360x100"/>
 
 </LinearLayout>

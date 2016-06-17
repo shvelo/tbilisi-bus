@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources translatable="false">
     <string name="app_name" translatable="false">Tbilisi Bus</string>
     <string name="app_icon" translatable="false">App icon</string>
     <string name="drawer_close" translatable="false">Open drawer</string>
     <string name="drawer_open" translatable="false">Close drawer</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8888142715543959/9422515428</string>
+    <string name="native_ad_unit_id" translatable="false">ca-app-pub-8888142715543959/1973617425</string>
+    <string name="ads_test_device" translatable="false">17DDCEA6F5B5CEC424AA988C12B46276</string>
 </resources>

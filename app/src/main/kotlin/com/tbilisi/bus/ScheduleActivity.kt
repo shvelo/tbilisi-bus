@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.gms.ads.AdRequest
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
 import com.tbilisi.bus.util.BusInfoAdapter
@@ -57,6 +58,15 @@ class ScheduleActivity : AppCompatActivity() {
 
         // handle intent to get schedule
         handleIntent(intent)
+
+        setupAds()
+    }
+
+    fun setupAds() {
+        val adRequest = AdRequest.Builder()
+                .addTestDevice(resources.getString(R.string.ads_test_device))
+                .build()
+        adView.loadAd(adRequest)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

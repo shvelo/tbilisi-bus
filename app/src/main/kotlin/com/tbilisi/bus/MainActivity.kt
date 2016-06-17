@@ -34,7 +34,9 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setupAds() {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder()
+                .addTestDevice(resources.getString(R.string.ads_test_device))
+                .build()
         adView.loadAd(adRequest)
     }
 

@@ -1,7 +1,8 @@
 buildscript {
     ext.support_version = '23.4.0'
-    ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.0.2-1'
     ext.play_services_version = '9.0.0'
+    ext.firebase_version = '9.0.2'
     repositories {
         jcenter()
         mavenCentral()
@@ -34,10 +35,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile "com.google.android.gms:play-services-maps:$play_services_version"
     compile "com.google.android.gms:play-services-location:$play_services_version"
-    compile "com.google.firebase:firebase-core:$play_services_version"
-    compile "com.google.firebase:firebase-crash:$play_services_version"
-    compile "com.google.firebase:firebase-messaging:$play_services_version"
-    compile "com.google.firebase:firebase-ads:$play_services_version"
+    compile "com.google.android.gms:play-services-ads:$play_services_version"
+    compile "com.google.firebase:firebase-core:$firebase_version"
+    compile "com.google.firebase:firebase-crash:$firebase_version"
+    compile "com.google.firebase:firebase-messaging:$firebase_version"
+    compile "com.google.firebase:firebase-ads:$firebase_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
