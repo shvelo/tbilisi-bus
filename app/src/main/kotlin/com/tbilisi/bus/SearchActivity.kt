@@ -38,16 +38,16 @@ class SearchActivity : AppCompatActivity() {
 
         adapter.onClickListener = object: BusStopAdapter.OnClickListener {
             override fun onClick(view: View, stop: BusStop) {
-                showSchedule(stop)
+                showSchedule(stop.id)
             }
         }
 
         handleIntent(intent)
     }
 
-    fun showSchedule(stop: BusStop) {
+    fun showSchedule(stopId: String) {
         val intent = Intent(this, ScheduleActivity::class.java)
-        intent.putExtra("id", stop.id)
+        intent.putExtra("id", stopId)
         startActivity(intent)
     }
 
@@ -56,9 +56,16 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.action)) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            search(query)
+        when(intent.action) {
+            Intent.ACTION_SEARCH -> {
+                val query = intent.getStringExtra(SearchManager.QUERY)
+                search(query)
+            }
+            Intent.ACTION_VIEW -> {
+                val id = intent.extras[SearchManager.EXTRA_DATA_KEY] as String
+                showSchedule(id)
+                finish()
+            }
         }
     }
 
