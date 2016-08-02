@@ -13,7 +13,7 @@ class MapUpdateListener(map: GoogleMap, val context: Context): GoogleMap.OnCamer
     }
 
     val LOG_TAG = "MapUpdateListener"
-    val MIN_ZOOM = 17F
+    val MIN_ZOOM = 16F
     val markerHelper = MarkerHelper(map, context)
 
     override fun onCameraChange(cameraPosition: CameraPosition?) {

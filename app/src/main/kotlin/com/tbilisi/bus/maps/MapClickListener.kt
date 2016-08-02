@@ -16,10 +16,10 @@ class MapClickListener(val context: Context): GoogleMap.OnInfoWindowClickListene
         if(marker == null)
             return
 
-        val stop = MarkerHelper.getStopForMarker(marker) ?: return
+        val stopId = marker.tag as String
 
         val intent = Intent(context, ScheduleActivity::class.java)
-        intent.putExtra("id", stop.id)
+        intent.putExtra("id", stopId)
         context.startActivity(intent)
     }
 }

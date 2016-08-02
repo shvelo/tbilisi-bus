@@ -12,14 +12,6 @@ import com.tbilisi.bus.data.BusStopStore
 import java.util.*
 
 class MarkerHelper(val map: GoogleMap, val context: Context) {
-    companion object {
-        val stopsForMarkers = HashMap<Marker, BusStop>()
-
-        fun getStopForMarker(marker: Marker): BusStop? {
-            return stopsForMarkers[marker]
-        }
-    }
-
     val loadedMarkers: ArrayList<String> = ArrayList()
 
     fun addMarker(stop: BusStop) {
@@ -28,7 +20,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
 
         val markerOptions = createMarkerOptions(stop)
         val marker = map.addMarker(markerOptions)
-        stopsForMarkers.put(marker, stop)
+        marker.tag = stop.id
         loadedMarkers.add(stop.id)
     }
 
