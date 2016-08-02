@@ -1,6 +1,7 @@
 package com.tbilisi.bus.util
 
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -12,6 +13,7 @@ import com.tbilisi.bus.data.BusStopStore
 import java.util.*
 
 class MarkerHelper(val map: GoogleMap, val context: Context) {
+    val LOG_TAG = "MarkerHelper"
     val loadedMarkers: ArrayList<String> = ArrayList()
 
     fun addMarker(stop: BusStop) {

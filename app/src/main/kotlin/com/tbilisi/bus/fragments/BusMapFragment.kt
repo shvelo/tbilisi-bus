@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.tbilisi.bus.R
 import com.tbilisi.bus.SearchActivity
 import com.tbilisi.bus.maps.MapClickListener
@@ -26,6 +27,9 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
     var map: GoogleMap? = null
     var googleApiClient: GoogleApiClient? = null
 
+    val TBILISI = LatLngBounds(LatLng(41.460397169473524, 44.49836120009422), LatLng(42.00661755761343, 45.06872121244669))
+    val MIN_ZOOM = 10F
+
     override fun onConnected(bundle: Bundle?) {
         askForLocation()
     }
@@ -36,8 +40,10 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
     override fun onMapReady(readyMap: GoogleMap?) {
         map = readyMap
         if(map != null) {
-            map?.setOnCameraChangeListener(MapUpdateListener(map!!, context))
+            map?.setOnCameraIdleListener(MapUpdateListener(map!!, context))
             map?.setOnInfoWindowClickListener(MapClickListener(context))
+            map?.setLatLngBoundsForCameraTarget(TBILISI)
+            map?.setMinZoomPreference(MIN_ZOOM)
 
             askForLocation()
         }
