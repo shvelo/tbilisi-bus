@@ -1,8 +1,8 @@
 buildscript {
-    ext.support_version = '23.4.0'
-    ext.kotlin_version = '1.0.2-1'
-    ext.play_services_version = '9.0.0'
-    ext.firebase_version = '9.0.2'
+    ext.support_version = '24.1.1'
+    ext.kotlin_version = '1.0.3'
+    ext.play_services_version = '9.4.0'
+    ext.firebase_version = '9.4.0'
     repositories {
         jcenter()
         mavenCentral()
@@ -10,18 +10,15 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
-apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
 
 repositories {
     jcenter()
@@ -53,14 +50,14 @@ dependencies {
 }
 
 android {
-    buildToolsVersion "23.0.3"
-    compileSdkVersion 23
+    buildToolsVersion "24.0.1"
+    compileSdkVersion 24
 
     defaultConfig {
-        versionCode 61
-        versionName "6.0.1"
+        versionCode 610
+        versionName "6.1.0"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         applicationId "com.tbilisi.bus"
     }
 
@@ -97,3 +94,5 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

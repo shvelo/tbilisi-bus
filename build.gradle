@@ -5,11 +5,13 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
     }
 }
 
+apply plugin: 'com.github.ben-manes.versions'
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    gradleVersion = '2.14'
     distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
