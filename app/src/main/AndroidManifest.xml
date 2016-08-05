@@ -59,8 +59,8 @@
                 android:value="com.tbilisi.bus.MainActivity"/>
         </activity>
 
-        <provider android:name="com.tbilisi.bus.util.StopSuggestionProvider"
-                  android:authorities="com.tbilisi.bus.util.StopSuggestionProvider"/>
+        <provider android:name=".util.StopSuggestionProvider"
+                  android:authorities=".util.StopSuggestionProvider"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
