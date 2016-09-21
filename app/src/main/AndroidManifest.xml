@@ -32,7 +32,7 @@
             android:name=".SearchActivity"
             android:label="@string/search"
             android:launchMode="singleTop"
-            android:configChanges="orientation|screenSize|uiMode"
+            android:configChanges="screenSize|uiMode"
             android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
@@ -60,7 +60,7 @@
         </activity>
 
         <provider android:name=".util.StopSuggestionProvider"
-                  android:authorities=".util.StopSuggestionProvider"/>
+                  android:authorities="${applicationId}.util.StopSuggestionProvider"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

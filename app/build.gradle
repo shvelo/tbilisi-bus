@@ -1,15 +1,16 @@
 buildscript {
-    ext.support_version = '24.1.1'
+    ext.support_version = '24.2.1'
     ext.kotlin_version = '1.0.3'
     ext.play_services_version = '9.4.0'
     ext.firebase_version = '9.4.0'
+    ext.conductor_version = '2.0.1'
     repositories {
         jcenter()
         mavenCentral()
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.google.gms:google-services:3.0.0'
@@ -30,6 +31,8 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    compile "com.bluelinelabs:conductor:$conductor_version"
+//    compile "com.bluelinelabs:conductor-support:$conductor_version"
     compile "com.google.android.gms:play-services-maps:$play_services_version"
     compile "com.google.android.gms:play-services-location:$play_services_version"
     compile "com.google.android.gms:play-services-ads:$play_services_version"
@@ -50,13 +53,13 @@ dependencies {
 }
 
 android {
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
     compileSdkVersion 24
 
     defaultConfig {
-        versionCode 610
-        versionName "6.1.0"
-        minSdkVersion 15
+        versionCode 700
+        versionName "7.0.0"
+        minSdkVersion 16
         targetSdkVersion 24
         applicationId "com.tbilisi.bus"
     }
@@ -81,7 +84,6 @@ android {
     }
 
     dexOptions {
-        incremental true
         dexInProcess true
         javaMaxHeapSize "2g"
     }
