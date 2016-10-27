@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
     }
 }
@@ -12,6 +12,6 @@ buildscript {
 apply plugin: 'com.github.ben-manes.versions'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    gradleVersion = '3.1'
     distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
