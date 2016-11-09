@@ -1,6 +1,6 @@
 buildscript {
     ext.support_version = '25.0.0'
-    ext.kotlin_version = '1.0.4'
+    ext.kotlin_version = '1.0.5'
     ext.play_services_version = '9.8.0'
     ext.conductor_version = '2.0.3'
     repositories {
