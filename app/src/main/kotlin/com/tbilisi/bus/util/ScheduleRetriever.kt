@@ -44,7 +44,7 @@ object ScheduleRetriever {
                     val elements = document.select(".arrivalTimesScrol tr")
 
                     // create BusInfo list with parsed data
-                    var buses = ArrayList<BusInfo>()
+                    val buses = ArrayList<BusInfo>()
                     elements.forEach {
                         val busNum = it.child(0).text().toInt()
                         val direction = it.child(1).text()
@@ -70,7 +70,7 @@ object ScheduleRetriever {
     fun getUrlForStop(id: String, context: Context): HttpUrl {
         // build stop schedule url
         return HttpUrl.parse(context.getString(R.string.service_url)).newBuilder()
-                .addQueryParameter("stopId", id.toString())
+                .addQueryParameter("stopId", id)
                 .build()
     }
 }

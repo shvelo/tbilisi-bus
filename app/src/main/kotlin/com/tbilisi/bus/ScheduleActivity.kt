@@ -14,11 +14,11 @@ import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
-import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.data.FavoriteStore
 import com.tbilisi.bus.data.HistoryStore
-import com.tbilisi.bus.util.ScheduleRetriever
+import com.tbilisi.bus.util.BusInfoAdapter
 import com.tbilisi.bus.util.LocalizationHelper
+import com.tbilisi.bus.util.ScheduleRetriever
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_schedule.*
 import java.util.*
@@ -71,7 +71,7 @@ class ScheduleActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
-        menuInflater.inflate(R.menu.schedule, menu);
+        menuInflater.inflate(R.menu.schedule, menu)
 
         if(stop != null && FavoriteStore.isFavorite(stop!!)) {
             menu?.findItem(R.id.menu_favorite)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
@@ -111,7 +111,7 @@ class ScheduleActivity : AppCompatActivity() {
         stop = Realm.getDefaultInstance().where(BusStop::class.java).equalTo("id", stopId).findFirst() ?: return
 
         title = LocalizationHelper.getLocalizedStopName(stop!!)
-        toolbar.subtitle = stop!!.id.toString()
+        toolbar.subtitle = stop!!.id
 
         HistoryStore.addToHistory(stop!!)
 

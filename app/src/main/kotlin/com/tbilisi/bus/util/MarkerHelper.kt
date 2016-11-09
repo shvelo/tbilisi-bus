@@ -1,11 +1,9 @@
 package com.tbilisi.bus.util
 
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tbilisi.bus.R
 import com.tbilisi.bus.data.BusStop
@@ -31,7 +29,7 @@ class MarkerHelper(val map: GoogleMap, val context: Context) {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_icon))
                 .position(LatLng(stop.lat, stop.lon))
                 .title(LocalizationHelper.getLocalizedStopName(stop))
-                .snippet(stop.id.toString())
+                .snippet(stop.id)
         return markerOptions
     }
 
