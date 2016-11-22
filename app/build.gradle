@@ -1,15 +1,14 @@
 buildscript {
-    ext.support_version = '25.0.0'
-    ext.kotlin_version = '1.0.5'
-    ext.play_services_version = '9.8.0'
-    ext.conductor_version = '2.0.3'
+    ext.support_version = '25.0.1'
+    ext.kotlin_version = '1.0.5-2'
+    ext.play_services_version = '10.0.0'
+    ext.conductor_version = '2.0.4'
     repositories {
         jcenter()
         mavenCentral()
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.google.gms:google-services:3.0.0'
@@ -56,8 +55,8 @@ android {
     compileSdkVersion 25
 
     defaultConfig {
-        versionCode 700
-        versionName "7.0.0"
+        versionCode 710
+        versionName "7.1.0"
         minSdkVersion 16
         targetSdkVersion 25
         applicationId "com.tbilisi.bus"
