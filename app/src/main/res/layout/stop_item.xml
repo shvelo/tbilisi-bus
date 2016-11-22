@@ -22,17 +22,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="left|center_vertical"
+            android:ems="3"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="2000"
-            android:layout_weight="1"/>
+            tools:text="2000"/>
 
         <TextView
             android:id="@+id/text_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="20"
+            android:layout_weight="1"
             android:gravity="start|left|center_vertical"
             android:padding="10dp"
             tools:text="მ/ს დელისი"/>

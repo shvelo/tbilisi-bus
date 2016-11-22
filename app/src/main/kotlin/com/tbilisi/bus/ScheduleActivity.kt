@@ -56,6 +56,10 @@ class ScheduleActivity : AppCompatActivity() {
             refresh()
         }
 
+        refresh_layout.setOnRefreshListener {
+            refresh()
+        }
+
         // handle intent to get schedule
         handleIntent(intent)
 
@@ -211,13 +215,13 @@ class ScheduleActivity : AppCompatActivity() {
      * Show progressbar
      */
     fun showProgress() {
-        progressDisplay.visibility = View.VISIBLE
+        refresh_layout.isRefreshing = true
     }
 
     /**
      * Hide progressbar
      */
     fun hideProgress() {
-        progressDisplay.visibility = View.GONE
+        refresh_layout.isRefreshing = false
     }
 }
