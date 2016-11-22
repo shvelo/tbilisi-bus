@@ -36,6 +36,10 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setupAds() {
+        if(BuildConfig.FLAVOR == "adfree") {
+            adView.visibility = View.GONE
+            return
+        }
         adView.adListener = object : AdListener() {
             override fun onAdFailedToLoad(p0: Int) {
                 adView.visibility = View.GONE

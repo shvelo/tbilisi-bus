@@ -83,6 +83,68 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303558236541:android:131e52909207f44f",
+        "android_client_info": {
+          "package_name": "com.tbilisi.bus.adfree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303558236541-82o0p6scnm5sk6ipkvs0bdk7fre3788m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX10lNnF92VpWpCATbjuSSgNKBqhHmTDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303558236541:android:2b47c41c5e59034e",
+        "android_client_info": {
+          "package_name": "com.tbilisi.bus.adfree.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303558236541-82o0p6scnm5sk6ipkvs0bdk7fre3788m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX10lNnF92VpWpCATbjuSSgNKBqhHmTDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"

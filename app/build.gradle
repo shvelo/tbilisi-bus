@@ -56,8 +56,8 @@ android {
     compileSdkVersion 25
 
     defaultConfig {
-        versionCode 710
-        versionName "7.1.0"
+        versionCode 720
+        versionName "7.2.0"
         minSdkVersion 16
         targetSdkVersion 25
         applicationId "com.tbilisi.bus"
@@ -73,6 +73,15 @@ android {
         debug {
             applicationIdSuffix '.debug'
             signingConfig = signingConfigs.debug
+        }
+    }
+
+    productFlavors {
+        regular {
+
+        }
+        adfree {
+            applicationIdSuffix '.adfree'
         }
     }
 
