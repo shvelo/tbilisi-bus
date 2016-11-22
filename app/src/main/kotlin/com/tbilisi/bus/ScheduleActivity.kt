@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.tbilisi.bus.data.BusInfo
 import com.tbilisi.bus.data.BusStop
@@ -67,6 +68,17 @@ class ScheduleActivity : AppCompatActivity() {
     }
 
     fun setupAds() {
+        adView.adListener = object : AdListener() {
+            override fun onAdFailedToLoad(p0: Int) {
+                adView.visibility = View.GONE
+                super.onAdFailedToLoad(p0)
+            }
+
+            override fun onAdLoaded() {
+                adView.visibility = View.VISIBLE
+                super.onAdLoaded()
+            }
+        }
         val adRequest = AdRequest.Builder()
                 .addTestDevice(resources.getString(R.string.ads_test_device))
                 .build()

@@ -1,17 +1,19 @@
 package com.tbilisi.bus
 
-import android.support.v4.app.Fragment
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.tbilisi.bus.fragments.BusMapFragment
 import com.tbilisi.bus.fragments.FavoritesFragment
 import com.tbilisi.bus.fragments.HistoryFragment
 import com.tbilisi.bus.fragments.InfoFragment
-import com.tbilisi.bus.fragments.BusMapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -34,6 +36,17 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun setupAds() {
+        adView.adListener = object : AdListener() {
+            override fun onAdFailedToLoad(p0: Int) {
+                adView.visibility = View.GONE
+                super.onAdFailedToLoad(p0)
+            }
+
+            override fun onAdLoaded() {
+                adView.visibility = View.VISIBLE
+                super.onAdLoaded()
+            }
+        }
         val adRequest = AdRequest.Builder()
                 .addTestDevice(resources.getString(R.string.ads_test_device))
                 .build()
