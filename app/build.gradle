@@ -1,15 +1,15 @@
 buildscript {
     ext.support_version = '25.0.1'
-    ext.kotlin_version = '1.0.5-2'
-    ext.play_services_version = '10.0.0'
-    ext.conductor_version = '2.0.4'
+    ext.kotlin_version = '1.0.5-3'
+    ext.play_services_version = '10.0.1'
+    ext.conductor_version = '2.0.5'
     repositories {
         jcenter()
         mavenCentral()
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-alpha2'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.google.gms:google-services:3.0.0'
