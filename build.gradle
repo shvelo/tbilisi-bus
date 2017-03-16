@@ -11,6 +11,6 @@ buildscript {
 apply plugin: 'com.github.ben-manes.versions'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '3.4.1'
     distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
