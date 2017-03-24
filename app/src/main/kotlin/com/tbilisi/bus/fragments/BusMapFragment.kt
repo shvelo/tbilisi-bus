@@ -106,7 +106,7 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
                               savedInstanceState: Bundle?): View? {
         val createdView = inflater.inflate(R.layout.fragment_map, container, false)
 
-        var mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         return createdView

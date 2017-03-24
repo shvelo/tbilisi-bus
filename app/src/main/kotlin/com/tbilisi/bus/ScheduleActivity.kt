@@ -109,9 +109,9 @@ class ScheduleActivity : AppCompatActivity() {
             R.id.menu_favorite -> {
                 val result = toggleFavorite()
                 if(result == FAVORITE_REMOVED)
-                    item?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_36dp)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_36dp)
                 if(result == FAVORITE_ADDED)
-                    item?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

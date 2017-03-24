@@ -17,7 +17,7 @@ import com.tbilisi.bus.fragments.InfoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity() : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     var activeFragmentId = R.id.drawer_map
     var drawerToggle: ActionBarDrawerToggle? = null
 
@@ -147,7 +147,7 @@ class MainActivity() : AppCompatActivity() {
     }
 
     fun switchLocale() {
-        if (Locale.getDefault().equals(Locale("ka"))) {
+        if (Locale.getDefault() == Locale("ka")) {
             setLocale("en")
         } else {
             setLocale("ka")
