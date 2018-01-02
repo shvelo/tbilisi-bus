@@ -2,15 +2,17 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
     }
 }
 
-apply plugin: 'com.github.ben-manes.versions'
+plugins {
+  id 'com.github.ben-manes.versions' version '0.17.0'
+}
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0-milestone-1'
+    gradleVersion = '4.4.1'
     distributionUrl "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }

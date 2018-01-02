@@ -40,8 +40,8 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
     override fun onMapReady(readyMap: GoogleMap?) {
         map = readyMap
         if(map != null) {
-            map?.setOnCameraIdleListener(MapUpdateListener(map!!, context))
-            map?.setOnInfoWindowClickListener(MapClickListener(context))
+            map?.setOnCameraIdleListener(MapUpdateListener(map!!, context!!))
+            map?.setOnInfoWindowClickListener(MapClickListener(context!!))
             map?.setLatLngBoundsForCameraTarget(TBILISI)
             map?.setMinZoomPreference(MIN_ZOOM)
 
@@ -53,7 +53,7 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        googleApiClient = GoogleApiClient.Builder(activity)
+        googleApiClient = GoogleApiClient.Builder(context!!)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .build()
@@ -129,10 +129,10 @@ class BusMapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connectio
     }
 
     fun setupSearch(menu: Menu) {
-        val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(
-                ComponentName(activity.applicationContext, SearchActivity::class.java)))
+                ComponentName(activity?.applicationContext, SearchActivity::class.java)))
         searchView.isSubmitButtonEnabled = true
     }
 }
